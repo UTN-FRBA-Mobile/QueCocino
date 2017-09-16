@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">QueCocino</string>
+    <string name="uploadButton.string">Subir imagen</string>
 </resources>
