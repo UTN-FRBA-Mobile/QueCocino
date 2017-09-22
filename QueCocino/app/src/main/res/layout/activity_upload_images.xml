@@ -4,19 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mobile.utn.quecocino.UploadImages.Activities.UploadImages">
+    tools:context="com.mobile.utn.quecocino.UploadImages.Activities.RecipeGallery">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recipesImages_rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical" />
 
     <Button
         android:text="@string/uploadButton.string"
         android:id="@+id/uploadButton"
+        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-
-    <ImageView
-        android:id="@+id/image0"
-        android:layout_below="@id/uploadButton"
-        android:layout_width="match_parent"
-        android:layout_height="400dp" />
 
 
 </RelativeLayout>
