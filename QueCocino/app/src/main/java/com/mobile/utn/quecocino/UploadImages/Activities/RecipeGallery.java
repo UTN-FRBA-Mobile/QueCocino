@@ -27,7 +27,6 @@ import com.mobile.utn.quecocino.UploadImages.Adapters.RecyclerAdapter;
 import com.mobile.utn.quecocino.UploadImages.Objects.Recipe;
 
 import java.io.Serializable;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,10 +38,10 @@ import static com.mobile.utn.quecocino.UploadImages.Objects.FirebaseReferences.R
 
 public class RecipeGallery extends AppCompatActivity {
 
-    @BindView(R.id.uploadButton)
+    @BindView(R.id.gallery_uploadButton)
     public Button uploadButton;
 
-    @BindView(R.id.recipesImages_rv)
+    @BindView(R.id.gallery_rvImages)
     public RecyclerView rv;
 
     private List<Recipe> recipes;

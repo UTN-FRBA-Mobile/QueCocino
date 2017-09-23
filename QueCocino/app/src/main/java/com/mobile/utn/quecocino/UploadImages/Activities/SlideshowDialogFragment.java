@@ -37,9 +37,9 @@ public class SlideshowDialogFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_image_slider, container, false);
-        viewPager = (ViewPager) v.findViewById(R.id.viewpager);
-        lblCount = (TextView) v.findViewById(R.id.lbl_count);
-        lblAutor = (TextView) v.findViewById(R.id.autor);
+        viewPager = (ViewPager) v.findViewById(R.id.gallery_viewpager);
+        lblCount = (TextView) v.findViewById(R.id.gallery_lblCount);
+        lblAutor = (TextView) v.findViewById(R.id.gallery_lblAutor);
 
         recipes = (ArrayList<Recipe>) getArguments().getSerializable("recipes");
         selectedPosition = getArguments().getInt("position");
@@ -103,7 +103,7 @@ public class SlideshowDialogFragment extends DialogFragment {
             layoutInflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View view = layoutInflater.inflate(R.layout.image_fullscreen_preview, container, false);
 
-            ImageView imageViewPreview = (ImageView) view.findViewById(R.id.image_preview);
+            ImageView imageViewPreview = (ImageView) view.findViewById(R.id.gallery_fullImage);
 
             Recipe recipe = recipes.get(position);
 

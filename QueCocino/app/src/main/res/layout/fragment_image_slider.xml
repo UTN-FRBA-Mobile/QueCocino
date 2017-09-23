@@ -4,13 +4,13 @@
     android:layout_height="match_parent">
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/viewpager"
+        android:id="@+id/gallery.viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/black" />
 
     <TextView
-        android:id="@+id/lbl_count"
+        android:id="@+id/gallery.lblCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -30,7 +30,7 @@
         android:padding="20dp">
 
         <TextView
-            android:id="@+id/autor"
+            android:id="@+id/gallery.lblAutor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"

@@ -52,7 +52,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            imageView = (ImageView) itemView.findViewById(R.id.imgItemGridImage);
+            imageView = (ImageView) itemView.findViewById(R.id.gallery_itemGridImage);
         }
     }
 }
