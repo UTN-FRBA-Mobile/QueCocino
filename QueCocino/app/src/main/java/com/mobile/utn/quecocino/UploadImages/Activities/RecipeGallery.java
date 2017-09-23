@@ -27,6 +27,7 @@ import com.mobile.utn.quecocino.UploadImages.Adapters.RecyclerAdapter;
 import com.mobile.utn.quecocino.UploadImages.Objects.Recipe;
 
 import java.io.Serializable;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,6 +50,7 @@ public class RecipeGallery extends AppCompatActivity {
     private StorageReference mStorage;
     private ProgressDialog progressDialog;
     private static final int GALLERY_INTENT = 1;
+    private FirebaseDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +83,7 @@ public class RecipeGallery extends AppCompatActivity {
             }
         }));
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        database = FirebaseDatabase.getInstance();
         database.getReference(RECIPE_REFERENCE).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -126,9 +128,16 @@ public class RecipeGallery extends AppCompatActivity {
 
             Uri uri = data.getData();
             StorageReference filePath = mStorage.child("recipes").child(uri.getLastPathSegment());
+
             filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                    @SuppressWarnings("VisibleForTests")Uri uri = taskSnapshot.getMetadata().getDownloadUrl();
+
+                    Recipe recipe = new Recipe("Nueva Receta", "Un Autor", 12, uri.toString());
+                    database.getReference(RECIPE_REFERENCE).push().setValue(recipe);
+
                     progressDialog.dismiss();
                     Toast.makeText(RecipeGallery.this, R.string.uploadSuccess, Toast.LENGTH_SHORT).show();
                 }
