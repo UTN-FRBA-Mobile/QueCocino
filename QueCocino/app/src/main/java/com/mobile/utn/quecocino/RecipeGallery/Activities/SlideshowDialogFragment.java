@@ -1,4 +1,4 @@
-package com.mobile.utn.quecocino.UploadImages.Activities;
+package com.mobile.utn.quecocino.RecipeGallery.Activities;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mobile.utn.quecocino.R;
-import com.mobile.utn.quecocino.UploadImages.Objects.Recipe;
+import com.mobile.utn.quecocino.RecipeGallery.Objects.Recipe;
 
 import java.util.ArrayList;
 

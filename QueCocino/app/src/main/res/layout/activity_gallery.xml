@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mobile.utn.quecocino.UploadImages.Activities.RecipeGallery">
+    tools:context="com.mobile.utn.quecocino.RecipeGallery.Activities.RecipeGallery">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/gallery.rvImages"
@@ -13,7 +13,7 @@
         android:scrollbars="vertical" />
 
     <Button
-        android:text="@string/uploadButton.string"
+        android:text="@string/gallery.uploadButton"
         android:id="@+id/gallery.uploadButton"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"

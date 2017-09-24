@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">QueCocino</string>
-    <string name="uploadButton.string">Subir imagen</string>
-    <string name="uploadSuccess">Tu foto se ha publicado!</string>
-    <string name="progressUploadImage_message">Tu foto se está cargando</string>
-    <string name="progressUploadImage_title">Subiendo...</string>
+
+    <!-- Recipe Gallery -->
+    <string name="gallery.uploadButton">Subir imagen</string>
+    <string name="toast.uploadSuccess">Tu foto se ha publicado!</string>
+    <string name="progress.uploadImage">Subiendo...</string>
+
+    <!-- Other -->
 </resources>

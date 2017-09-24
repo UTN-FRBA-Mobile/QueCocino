@@ -1,4 +1,4 @@
-package com.mobile.utn.quecocino.UploadImages.Activities;
+package com.mobile.utn.quecocino.RecipeGallery.Activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -22,9 +22,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.mobile.utn.quecocino.R;
-import com.mobile.utn.quecocino.UploadImages.Adapters.GalleryAdapter;
-import com.mobile.utn.quecocino.UploadImages.Adapters.RecyclerAdapter;
-import com.mobile.utn.quecocino.UploadImages.Objects.Recipe;
+import com.mobile.utn.quecocino.RecipeGallery.Adapters.GalleryAdapter;
+import com.mobile.utn.quecocino.RecipeGallery.Adapters.RecyclerAdapter;
+import com.mobile.utn.quecocino.RecipeGallery.Objects.Recipe;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.BindView;
 
-import static com.mobile.utn.quecocino.UploadImages.Objects.FirebaseReferences.RECIPE_REFERENCE;
+import static com.mobile.utn.quecocino.RecipeGallery.Objects.FirebaseReferences.RECIPE_REFERENCE;
 
 
 public class RecipeGallery extends AppCompatActivity {
@@ -121,7 +121,8 @@ public class RecipeGallery extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == GALLERY_INTENT && resultCode == RESULT_OK){
-            progressDialog.setTitle(R.string.progressUploadImage_title);
+            String strProgress = getResources().getString(R.string.progress_uploadImage);
+            progressDialog.setMessage(strProgress);
             progressDialog.setCancelable(false);
             progressDialog.show();
 
@@ -138,7 +139,7 @@ public class RecipeGallery extends AppCompatActivity {
                     database.getReference(RECIPE_REFERENCE).push().setValue(recipe);
 
                     progressDialog.dismiss();
-                    Toast.makeText(RecipeGallery.this, R.string.uploadSuccess, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RecipeGallery.this, R.string.toast_uploadSuccess, Toast.LENGTH_SHORT).show();
                 }
             });
 
