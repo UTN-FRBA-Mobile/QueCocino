@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +35,7 @@ public class SlideshowDialogFragment extends DialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_image_slider, container, false);
+        View v = inflater.inflate(R.layout.gallery_fragment_slider, container, false);
         viewPager = (ViewPager) v.findViewById(R.id.gallery_viewpager);
         lblCount = (TextView) v.findViewById(R.id.gallery_lblCount);
         lblAutor = (TextView) v.findViewById(R.id.gallery_lblAutor);
@@ -101,7 +100,7 @@ public class SlideshowDialogFragment extends DialogFragment {
         public Object instantiateItem(ViewGroup container, int position){
 
             layoutInflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View view = layoutInflater.inflate(R.layout.image_fullscreen_preview, container, false);
+            View view = layoutInflater.inflate(R.layout.gallery_fullscreen_preview, container, false);
 
             ImageView imageViewPreview = (ImageView) view.findViewById(R.id.gallery_fullImage);
 

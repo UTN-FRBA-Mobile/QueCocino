@@ -2,9 +2,7 @@ package com.mobile.utn.quecocino.UploadImages.Adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -31,7 +29,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_image, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.gallery_itemgrid, parent, false);
         return new MyViewHolder(v);
     }
 

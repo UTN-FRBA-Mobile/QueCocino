@@ -54,7 +54,7 @@ public class RecipeGallery extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_upload_images);
+        setContentView(R.layout.activity_gallery);
         ButterKnife.bind(this);
 
         recipes = new ArrayList<>();
