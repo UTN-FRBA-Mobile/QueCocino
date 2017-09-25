@@ -1,0 +1,141 @@
+package com.mobile.utn.quecocino.MainActivity;
+
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+
+import com.mobile.utn.quecocino.R;
+import com.mobile.utn.quecocino.fragments.FragmentFavoritos;
+import com.mobile.utn.quecocino.fragments.FragmentOpciones;
+import com.mobile.utn.quecocino.fragments.FragmentTemporizador;
+import com.mobile.utn.quecocino.menu.ItemSlideMenu;
+import com.mobile.utn.quecocino.menu.SlidingMenuAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class MainActivity extends ActionBarActivity {
+
+    private List<ItemSlideMenu> listSliding;
+    private SlidingMenuAdapter adapter;
+    private ListView listViewSliding;
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle actionBarDrawerToggle;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceSate){
+        super.onCreate(savedInstanceSate);
+        setContentView(R.layout.sliding_menu);
+
+        listViewSliding = (ListView) findViewById(R.id.sl);
+        drawerLayout = (DrawerLayout) findViewById(R.id.sliding_menu);
+        listSliding = new ArrayList<>();
+
+        listSliding.add(new ItemSlideMenu(R.drawable.settings,"Opciones"));
+        listSliding.add(new ItemSlideMenu(R.drawable.timer1600, "Temporizador"));
+        listSliding.add(new ItemSlideMenu(R.drawable.unnamed, "Favoritos"));
+
+        adapter = new SlidingMenuAdapter(this, listSliding);
+        listViewSliding.setAdapter(adapter);
+
+        setTitle(listSliding.get(0).getTitulo());
+
+        listViewSliding.setItemChecked(0, true);
+
+        drawerLayout.closeDrawer(listViewSliding);
+
+        replaceFragment(0);
+
+        listViewSliding.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id){
+                setTitle(listSliding.get(position).getTitulo());
+                listViewSliding.setItemChecked(position, true);
+                replaceFragment(position);
+                drawerLayout.closeDrawer(listViewSliding);
+            }
+        });
+
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_opened, R.string.drawer_closed){
+
+            @Override
+            public void onDrawerOpened(View drawerView){
+                super.onDrawerOpened(drawerView);
+                invalidateOptionsMenu();
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView){
+                super.onDrawerClosed(drawerView);
+                invalidateOptionsMenu();
+            }
+
+
+
+        };
+
+        drawerLayout.setDrawerListener(actionBarDrawerToggle);
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+
+        if(actionBarDrawerToggle.onOptionsItemSelected(item)){
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onPostCreate(Bundle savedInstanceStated){
+        super.onPostCreate(savedInstanceStated);
+        actionBarDrawerToggle.syncState();
+    }
+
+    private void replaceFragment(int pos){
+        Fragment fragment = null;
+        switch (pos){
+            case 0:
+                fragment = new FragmentOpciones();
+                break;
+            case 1:
+                fragment = new FragmentTemporizador();
+                break;
+            case 2:
+                fragment = new FragmentFavoritos();
+                break;
+            default:
+                fragment = new FragmentFavoritos();
+                break;
+        }
+
+        if(fragment != null){
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.main_content, fragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        }
+    }
+
+
+}

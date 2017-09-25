@@ -4,4 +4,6 @@
     <string name="uploadSuccess">Tu foto se ha publicado!</string>
     <string name="progressUploadImage_message">Tu foto se está cargando</string>
     <string name="progressUploadImage_title">Subiendo...</string>
+    <string name="drawer_opened">Abierto</string>
+    <string name="drawer_closed">Cerrado</string>
 </resources>
