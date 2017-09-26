@@ -1,10 +1,14 @@
 <resources>
     <string name="app_name">QueCocino</string>
 
+    <string name="drawer_opened">Abierto</string>
+    <string name="drawer_closed">Cerrado</string>
+
     <!-- Recipe Gallery -->
     <string name="gallery.uploadButton">Subir imagen</string>
     <string name="toast.uploadSuccess">Tu foto se ha publicado!</string>
     <string name="progress.uploadImage">Subiendo...</string>
 
     <!-- Other -->
+
 </resources>
