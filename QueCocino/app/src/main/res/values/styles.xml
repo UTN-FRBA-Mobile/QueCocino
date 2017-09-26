@@ -32,5 +32,4 @@
         <item  tools:targetApi="16" name="android:fontFamily">sans-serif</item>
     </style>
 
-
 </resources>

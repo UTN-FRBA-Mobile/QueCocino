@@ -15,9 +15,10 @@
     <Button
         android:text="@string/gallery.uploadButton"
         android:id="@+id/gallery.uploadButton"
+        android:alpha="0.8"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-
 
 </RelativeLayout>
