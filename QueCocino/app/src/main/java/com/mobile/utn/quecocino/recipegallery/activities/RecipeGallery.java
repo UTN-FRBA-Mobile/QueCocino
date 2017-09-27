@@ -118,7 +118,7 @@ public class RecipeGallery extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                final CharSequence[] options = {"Tomar foto", "Elegir de galería"};
+                final CharSequence[] options = {getString(R.string.alertDialog_camera), getString(R.string.alertDialog_galeria)};
                 final AlertDialog.Builder builder =  new AlertDialog.Builder(RecipeGallery.this);
                 builder.setItems(options, new DialogInterface.OnClickListener(){
 

@@ -8,6 +8,8 @@
     <string name="gallery.uploadButton">Subir imagen</string>
     <string name="toast.uploadSuccess">Tu foto se ha publicado!</string>
     <string name="progress.uploadImage">Subiendo...</string>
+    <string name="alertDialog.camera">Tomar foto</string>
+    <string name="alertDialog.galeria">Elegir de galería</string>
 
     <!-- Other -->
 
