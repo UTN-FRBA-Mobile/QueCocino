@@ -1,4 +1,4 @@
-package com.mobile.utn.quecocino.RecipeGallery.Objects;
+package com.mobile.utn.quecocino.recipegallery.objects;
 
 import java.io.Serializable;
 

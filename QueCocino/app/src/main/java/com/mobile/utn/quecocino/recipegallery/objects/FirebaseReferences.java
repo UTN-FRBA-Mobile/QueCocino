@@ -1,4 +1,4 @@
-package com.mobile.utn.quecocino.RecipeGallery.Objects;
+package com.mobile.utn.quecocino.recipegallery.objects;
 
 /**
  * Created by Fran on 7/9/2017.

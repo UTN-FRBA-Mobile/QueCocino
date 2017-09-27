@@ -1,4 +1,4 @@
-package com.mobile.utn.quecocino.RecipeGallery.Adapters;
+package com.mobile.utn.quecocino.recipegallery.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.mobile.utn.quecocino.R;
-import com.mobile.utn.quecocino.RecipeGallery.Objects.Recipe;
+import com.mobile.utn.quecocino.recipegallery.objects.Recipe;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

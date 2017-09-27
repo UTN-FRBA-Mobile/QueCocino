@@ -1,4 +1,4 @@
-package com.mobile.utn.quecocino.RecipeGallery.Activities;
+package com.mobile.utn.quecocino.recipegallery.activities;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -26,9 +26,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.mobile.utn.quecocino.R;
-import com.mobile.utn.quecocino.RecipeGallery.Adapters.GalleryAdapter;
-import com.mobile.utn.quecocino.RecipeGallery.Adapters.RecyclerAdapter;
-import com.mobile.utn.quecocino.RecipeGallery.Objects.Recipe;
+import com.mobile.utn.quecocino.recipegallery.adapters.GalleryAdapter;
+import com.mobile.utn.quecocino.recipegallery.adapters.RecyclerAdapter;
+import com.mobile.utn.quecocino.recipegallery.objects.Recipe;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -41,7 +41,7 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.BindView;
 
-import static com.mobile.utn.quecocino.RecipeGallery.Objects.FirebaseReferences.RECIPE_REFERENCE;
+import static com.mobile.utn.quecocino.recipegallery.objects.FirebaseReferences.RECIPE_REFERENCE;
 
 
 public class RecipeGallery extends AppCompatActivity {
