@@ -10,6 +10,10 @@
     <string name="progress.uploadImage">Subiendo...</string>
     <string name="alertDialog.camera">Tomar foto</string>
     <string name="alertDialog.galeria">Elegir de galería</string>
+    <string name="title_activity_detailrecipe">detailrecipe</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- Other -->
 
