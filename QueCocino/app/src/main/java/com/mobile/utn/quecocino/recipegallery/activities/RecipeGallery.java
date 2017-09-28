@@ -26,9 +26,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.mobile.utn.quecocino.R;
+import com.mobile.utn.quecocino.model.RecipeImage;
 import com.mobile.utn.quecocino.recipegallery.adapters.GalleryAdapter;
 import com.mobile.utn.quecocino.recipegallery.adapters.RecyclerAdapter;
-import com.mobile.utn.quecocino.recipegallery.objects.Recipe;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -41,7 +41,7 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.BindView;
 
-import static com.mobile.utn.quecocino.recipegallery.objects.FirebaseReferences.RECIPE_REFERENCE;
+import static com.mobile.utn.quecocino.recipegallery.objects.FirebaseReferences.IMAGE_RECIPE_REFERENCE;
 
 
 public class RecipeGallery extends AppCompatActivity {
@@ -52,7 +52,8 @@ public class RecipeGallery extends AppCompatActivity {
     @BindView(R.id.gallery_rvImages)
     public RecyclerView rv;
 
-    private List<Recipe> recipes;
+    private String idReceta;
+    private List<RecipeImage> images;
     private RecyclerAdapter adapter;
     private StorageReference mStorage;
     private ProgressDialog progressDialog;
@@ -66,8 +67,9 @@ public class RecipeGallery extends AppCompatActivity {
         setContentView(R.layout.activity_gallery);
         ButterKnife.bind(this);
 
-        recipes = new ArrayList<>();
-        adapter = new RecyclerAdapter(getApplicationContext(), recipes);
+        idReceta = "r1";
+        images = new ArrayList<>();
+        adapter = new RecyclerAdapter(getApplicationContext(), images);
 
         rv.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
         rv.setAdapter(adapter);
@@ -76,7 +78,7 @@ public class RecipeGallery extends AppCompatActivity {
             @Override
             public void onClick(View view, int position) {
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("recipes", (Serializable) recipes);
+                bundle.putSerializable("images", (Serializable) images);
                 bundle.putInt("position", position);
 
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -92,15 +94,15 @@ public class RecipeGallery extends AppCompatActivity {
         }));
 
         database = FirebaseDatabase.getInstance();
-        database.getReference(RECIPE_REFERENCE).addValueEventListener(new ValueEventListener() {
+        database.getReference(IMAGE_RECIPE_REFERENCE).child(idReceta).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                recipes.removeAll(recipes);
+                images.removeAll(images);
                 for(DataSnapshot snapshot: dataSnapshot.getChildren()){
-                    Recipe recipe = new Recipe();
-                    recipe.setAutor(snapshot.getValue(Recipe.class).getAutor());
-                    recipe.setUrl(snapshot.getValue(Recipe.class).getUrl());
-                    recipes.add(recipe);
+                    RecipeImage image = new RecipeImage();
+                    image.setAuthor(snapshot.getValue(RecipeImage.class).getAuthor());
+                    image.setUrl(snapshot.getValue(RecipeImage.class).getUrl());
+                    images.add(image);
                 }
                 adapter.notifyDataSetChanged();
             }
@@ -182,7 +184,7 @@ public class RecipeGallery extends AppCompatActivity {
         bitmap.compress(Bitmap.CompressFormat.JPEG,100,stream);
 
         String nameFile = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-        StorageReference filePath = mStorage.child("recipes").child(nameFile);
+        StorageReference filePath = mStorage.child(idReceta + "_images").child(nameFile);
         filePath.putBytes(stream.toByteArray()).addOnSuccessListener(getOnSuccessListener());
     }
 
@@ -194,8 +196,8 @@ public class RecipeGallery extends AppCompatActivity {
 
                 @SuppressWarnings("VisibleForTests")Uri uri = taskSnapshot.getMetadata().getDownloadUrl();
 
-                Recipe recipe = new Recipe("Nueva Receta", "Un Autor", 12, uri.toString());
-                database.getReference(RECIPE_REFERENCE).push().setValue(recipe);
+                RecipeImage image = new RecipeImage("Franco Pesce", uri.toString());
+                database.getReference(IMAGE_RECIPE_REFERENCE).child(idReceta).push().setValue(image);
 
                 progressDialog.dismiss();
                 Toast.makeText(RecipeGallery.this, R.string.toast_uploadSuccess, Toast.LENGTH_SHORT).show();

@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mobile.utn.quecocino.R;
-import com.mobile.utn.quecocino.recipegallery.objects.Recipe;
+import com.mobile.utn.quecocino.model.RecipeImage;
 
 import java.util.ArrayList;
 
@@ -23,7 +23,7 @@ import java.util.ArrayList;
  */
 
 public class SlideshowDialogFragment extends DialogFragment {
-    private ArrayList<Recipe> recipes;
+    private ArrayList<RecipeImage> images;
     private ViewPager viewPager;
     private MyViewPageAdapter myViewPageAdapter;
     private TextView lblCount, lblAutor;
@@ -40,7 +40,7 @@ public class SlideshowDialogFragment extends DialogFragment {
         lblCount = (TextView) v.findViewById(R.id.gallery_lblCount);
         lblAutor = (TextView) v.findViewById(R.id.gallery_lblAutor);
 
-        recipes = (ArrayList<Recipe>) getArguments().getSerializable("recipes");
+        images = (ArrayList<RecipeImage>) getArguments().getSerializable("images");
         selectedPosition = getArguments().getInt("position");
 
         myViewPageAdapter = new MyViewPageAdapter();
@@ -76,10 +76,10 @@ public class SlideshowDialogFragment extends DialogFragment {
     };
 
     private void displayMetaInfo(int position){
-        lblCount.setText((position + 1) + " of " + recipes.size());
+        lblCount.setText((position + 1) + " of " + images.size());
 
-        Recipe recipe = recipes.get(position);
-        lblAutor.setText(recipe.getAutor());
+        RecipeImage image = images.get(position);
+        lblAutor.setText(image.getAuthor());
 
     }
 
@@ -104,9 +104,9 @@ public class SlideshowDialogFragment extends DialogFragment {
 
             ImageView imageViewPreview = (ImageView) view.findViewById(R.id.gallery_fullImage);
 
-            Recipe recipe = recipes.get(position);
+            RecipeImage image = images.get(position);
 
-            Glide.with(getActivity()).load(recipe.getUrl())
+            Glide.with(getActivity()).load(image.getUrl())
                     .thumbnail(0.5f)
                     .crossFade()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -119,7 +119,7 @@ public class SlideshowDialogFragment extends DialogFragment {
 
         @Override
         public int getCount() {
-            return recipes.size();
+            return images.size();
         }
 
         @Override

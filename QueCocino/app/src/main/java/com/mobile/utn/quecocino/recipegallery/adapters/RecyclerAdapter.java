@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.mobile.utn.quecocino.R;
-import com.mobile.utn.quecocino.recipegallery.objects.Recipe;
+import com.mobile.utn.quecocino.model.RecipeImage;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -19,12 +19,12 @@ import java.util.List;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder>{
 
-    private List<Recipe> recipes;
+    private List<RecipeImage> images;
     private Context context;
 
-    public RecyclerAdapter(Context context, List<Recipe> recipes) {
+    public RecyclerAdapter(Context context, List<RecipeImage> images) {
         this.context = context;
-        this.recipes = recipes;
+        this.images = images;
     }
 
     @Override
@@ -35,13 +35,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        String urlImagen = recipes.get(position).getUrl();
+        String urlImagen = images.get(position).getUrl();
         Picasso.with(context).load(urlImagen).resize(240, 240).into(holder.imageView);
     }
 
     @Override
     public int getItemCount() {
-        return recipes.size();
+        return images.size();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{

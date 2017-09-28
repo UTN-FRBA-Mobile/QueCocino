@@ -18,7 +18,7 @@
         >
 
         <TextView
-            android:id="@+id/detailRecipe.nameRecipe"
+            android:id="@+id/detailRecipe.titleRecipe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -33,8 +33,8 @@
             android:textColor="#000000"
             android:textSize="15dp"
             android:layout_marginBottom="-5dp"
-            android:layout_alignRight="@+id/detailRecipe.nameRecipe"
-            android:layout_alignBottom="@+id/detailRecipe.nameRecipe"
+            android:layout_alignRight="@+id/detailRecipe.titleRecipe"
+            android:layout_alignBottom="@+id/detailRecipe.titleRecipe"
             />
 
     </RelativeLayout>

@@ -11,7 +11,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.mobile.utn.quecocino.recipegallery.objects.Recipe;
+import com.mobile.utn.quecocino.model.RecipeImage;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ import com.mobile.utn.quecocino.R;
 
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.MyViewHolder> {
 
-    private List<Recipe> recipes;
+    private List<RecipeImage> images;
     private Context mContext;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -36,9 +36,9 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.MyViewHo
     }
 
 
-    public GalleryAdapter(Context context, List<Recipe> recipes) {
+    public GalleryAdapter(Context context, List<RecipeImage> images) {
         mContext = context;
-        this.recipes = recipes;
+        this.images = images;
     }
 
     @Override
@@ -51,9 +51,9 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        Recipe recipe = recipes.get(position);
+        RecipeImage image = images.get(position);
 
-        Glide.with(mContext).load(recipe.getUrl())
+        Glide.with(mContext).load(image.getUrl())
                 .thumbnail(0.5f)
                 .crossFade()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -62,7 +62,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.MyViewHo
 
     @Override
     public int getItemCount() {
-        return recipes.size();
+        return images.size();
     }
 
     public interface ClickListener {

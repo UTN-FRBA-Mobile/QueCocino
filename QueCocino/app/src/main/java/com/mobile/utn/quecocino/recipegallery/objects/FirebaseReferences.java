@@ -5,5 +5,5 @@ package com.mobile.utn.quecocino.recipegallery.objects;
  */
 
 public class FirebaseReferences {
-    final public static String RECIPE_REFERENCE = "receta";
+    final public static String IMAGE_RECIPE_REFERENCE = "recipeImages";
 }

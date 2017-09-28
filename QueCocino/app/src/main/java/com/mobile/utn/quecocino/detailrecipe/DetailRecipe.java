@@ -1,10 +1,10 @@
 package com.mobile.utn.quecocino.detailrecipe;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mobile.utn.quecocino.R;
-import com.mobile.utn.quecocino.recipegallery.objects.Recipe;
+import com.mobile.utn.quecocino.recipegallery.activities.RecipeGallery;
+import com.mobile.utn.quecocino.model.Recipe;
 import com.squareup.picasso.Picasso;
 
 public class DetailRecipe extends Fragment {
@@ -23,7 +24,7 @@ public class DetailRecipe extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     public ImageView mainImageView;
-    public TextView recipeNameTextView;
+    public TextView recipeTitleTextView;
     public TextView recipeAuthorTextView;
 
     public DetailRecipe() {}
@@ -51,12 +52,21 @@ public class DetailRecipe extends Fragment {
         View view = inflater.inflate(R.layout.fragment_detail_recipe, container, false);
 
         mainImageView = (ImageView) view.findViewById(R.id.detailRecipe_mainImage);
-        recipeNameTextView = (TextView) view.findViewById(R.id.detailRecipe_nameRecipe);
+        recipeTitleTextView = (TextView) view.findViewById(R.id.detailRecipe_titleRecipe);
         recipeAuthorTextView = (TextView) view.findViewById(R.id.detailRecipe_authorRecipe);
 
-        recipeNameTextView.setText(recipe.getNombre());
-        recipeAuthorTextView.setText(" por " + recipe.getAutor());
-        Picasso.with(getActivity().getApplicationContext()).load(recipe.getUrl()).resize(1100, 600).into(mainImageView);
+        getActivity().setTitle(recipe.getTitle());
+        recipeTitleTextView.setText(recipe.getTitle());
+        recipeAuthorTextView.setText(" por " + recipe.getAuthor());
+        Picasso.with(getActivity().getApplicationContext()).load(recipe.getMainImage()).resize(1100, 600).into(mainImageView);
+
+        mainImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), RecipeGallery.class);
+                getActivity().startActivity(intent);
+            }
+        });
 
         return view;
     }
