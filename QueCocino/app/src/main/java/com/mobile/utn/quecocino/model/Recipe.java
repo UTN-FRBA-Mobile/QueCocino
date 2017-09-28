@@ -7,6 +7,7 @@ import java.io.Serializable;
  */
 
 public class Recipe implements Serializable{
+    private String idRecipe;
     private String title;
     private String author;
     private int cookingTimeMinutes;
@@ -15,11 +16,20 @@ public class Recipe implements Serializable{
     public Recipe() {
     }
 
-    public Recipe(String title, String author, int cookingTimeMinutes, String mainImage) {
+    public Recipe(String idRecipe, String title, String author, int cookingTimeMinutes, String mainImage) {
+        this.idRecipe = idRecipe;
         this.title = title;
         this.author = author;
         this.cookingTimeMinutes = cookingTimeMinutes;
         this.mainImage = mainImage;
+    }
+
+    public String getIdRecipe() {
+        return idRecipe;
+    }
+
+    public void setIdRecipe(String idRecipe) {
+        this.idRecipe = idRecipe;
     }
 
     public String getTitle() {

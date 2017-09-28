@@ -64,6 +64,7 @@ public class DetailRecipe extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), RecipeGallery.class);
+                intent.putExtra("idReceta", "r1");
                 getActivity().startActivity(intent);
             }
         });
