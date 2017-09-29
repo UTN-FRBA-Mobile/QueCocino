@@ -26,6 +26,9 @@ public class DetailRecipe extends Fragment {
     public ImageView mainImageView;
     public TextView recipeTitleTextView;
     public TextView recipeAuthorTextView;
+    public TextView recipeCookingTimeTextView;
+    public ImageView recipeApplianceImg;
+    public TextView recipeApplianceTextView;
 
     public DetailRecipe() {}
 
@@ -54,17 +57,30 @@ public class DetailRecipe extends Fragment {
         mainImageView = (ImageView) view.findViewById(R.id.detailRecipe_mainImage);
         recipeTitleTextView = (TextView) view.findViewById(R.id.detailRecipe_titleRecipe);
         recipeAuthorTextView = (TextView) view.findViewById(R.id.detailRecipe_authorRecipe);
+        recipeCookingTimeTextView = (TextView) view.findViewById(R.id.detailRecipe_cookingTimeRecipe);
+        recipeApplianceImg = (ImageView) view.findViewById(R.id.detailRecipe_applianceImg);
+        recipeApplianceTextView = (TextView) view.findViewById(R.id.detailRecipe_applianceRecipe);
 
         getActivity().setTitle(recipe.getTitle());
         recipeTitleTextView.setText(recipe.getTitle());
         recipeAuthorTextView.setText(" por " + recipe.getAuthor());
         Picasso.with(getActivity().getApplicationContext()).load(recipe.getMainImage()).resize(1100, 600).into(mainImageView);
+        recipeCookingTimeTextView.setText(recipe.getCookingTimeMinutes() + "Min.");
+
+        String appliance = recipe.getApplianceCooking();
+        recipeApplianceTextView.setText(appliance);
+
+        if(appliance.equals("Oven"))
+            Picasso.with(getActivity().getApplicationContext()).load(R.drawable.detailrecipe_oven).into(recipeApplianceImg);
+        else
+            Picasso.with(getActivity().getApplicationContext()).load(R.drawable.detailrecipe_microwave).into(recipeApplianceImg);
 
         mainImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), RecipeGallery.class);
                 intent.putExtra("idReceta", "r1");
+                intent.putExtra("titleReceta",recipe.getTitle());
                 getActivity().startActivity(intent);
             }
         });

@@ -12,16 +12,18 @@ public class Recipe implements Serializable{
     private String author;
     private int cookingTimeMinutes;
     private String mainImage;
+    private String applianceCooking;
 
     public Recipe() {
     }
 
-    public Recipe(String idRecipe, String title, String author, int cookingTimeMinutes, String mainImage) {
+    public Recipe(String idRecipe, String title, String author, int cookingTimeMinutes, String mainImage, String applianceCooking) {
         this.idRecipe = idRecipe;
         this.title = title;
         this.author = author;
         this.cookingTimeMinutes = cookingTimeMinutes;
         this.mainImage = mainImage;
+        this.applianceCooking = applianceCooking;
     }
 
     public String getIdRecipe() {
@@ -62,5 +64,13 @@ public class Recipe implements Serializable{
 
     public void setMainImage(String mainImage) {
         this.mainImage = mainImage;
+    }
+
+    public String getApplianceCooking() {
+        return applianceCooking;
+    }
+
+    public void setApplianceCooking(String applianceCooking) {
+        this.applianceCooking = applianceCooking;
     }
 }

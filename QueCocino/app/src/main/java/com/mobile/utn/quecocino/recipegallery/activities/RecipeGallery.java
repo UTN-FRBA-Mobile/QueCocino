@@ -67,6 +67,8 @@ public class RecipeGallery extends AppCompatActivity {
         setContentView(R.layout.activity_gallery);
         ButterKnife.bind(this);
 
+        setTitle(getIntent().getStringExtra("titleReceta"));
+
         idReceta = getIntent().getStringExtra("idReceta");
         images = new ArrayList<>();
         adapter = new RecyclerAdapter(getApplicationContext(), images);
