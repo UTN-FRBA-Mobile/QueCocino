@@ -9,12 +9,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.mobile.utn.quecocino.R;
+import com.mobile.utn.quecocino.model.RecipeInstruction;
 import com.mobile.utn.quecocino.recipegallery.activities.RecipeGallery;
 import com.mobile.utn.quecocino.model.Recipe;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.mobile.utn.quecocino.model.FirebaseReferences.INSTRUCTION_RECIPE_REFERENCE;
 
 public class DetailRecipe extends Fragment {
 
@@ -22,6 +33,7 @@ public class DetailRecipe extends Fragment {
 
     private Recipe recipe;
     private OnFragmentInteractionListener mListener;
+    private InstructionAdapter instructionAdapter;
 
     public ImageView mainImageView;
     public TextView recipeTitleTextView;
@@ -29,6 +41,9 @@ public class DetailRecipe extends Fragment {
     public TextView recipeCookingTimeTextView;
     public ImageView recipeApplianceImg;
     public TextView recipeApplianceTextView;
+    public ListView recipeInstuctionListView;
+    private List<RecipeInstruction> recipeInstructions;
+    private FirebaseDatabase database;
 
     public DetailRecipe() {}
 
@@ -60,6 +75,10 @@ public class DetailRecipe extends Fragment {
         recipeCookingTimeTextView = (TextView) view.findViewById(R.id.detailRecipe_cookingTimeRecipe);
         recipeApplianceImg = (ImageView) view.findViewById(R.id.detailRecipe_applianceImg);
         recipeApplianceTextView = (TextView) view.findViewById(R.id.detailRecipe_applianceRecipe);
+        recipeInstuctionListView = (ListView) view.findViewById(R.id.detailRecipe_instructionsList);
+
+        recipeInstructions = new ArrayList<>();
+        instructionAdapter = new InstructionAdapter(getActivity(), recipeInstructions);
 
         getActivity().setTitle(recipe.getTitle());
         recipeTitleTextView.setText(recipe.getTitle());
@@ -79,11 +98,32 @@ public class DetailRecipe extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), RecipeGallery.class);
-                intent.putExtra("idReceta", "r1");
+                intent.putExtra("idReceta", recipe.getIdRecipe());
                 intent.putExtra("titleReceta",recipe.getTitle());
                 getActivity().startActivity(intent);
             }
         });
+
+        database = FirebaseDatabase.getInstance();
+        database.getReference(INSTRUCTION_RECIPE_REFERENCE).child(recipe.getIdRecipe()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                recipeInstructions.removeAll(recipeInstructions);
+                for(DataSnapshot snapshot: dataSnapshot.getChildren()){
+                    RecipeInstruction instruction = new RecipeInstruction();
+                    instruction.setDescription(snapshot.getValue(RecipeInstruction.class).getDescription());
+                    recipeInstructions.add(instruction);
+                }
+                instructionAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        recipeInstuctionListView.setAdapter(instructionAdapter);
 
         return view;
     }
