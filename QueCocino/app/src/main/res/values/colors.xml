@@ -2,7 +2,8 @@
 <resources>
     <color name="colorPrimary">#dadba1</color>
     <color name="colorPrimaryDark">#c0cb92</color>
-    <color name="colorAccent">#fbffea</color>
+    <color name="colorAccent">#cce65f</color>
     <drawable name="highlight_pressed">#dadba1</drawable>
     <drawable name="highlight_focused">#dadba1</drawable>
+    <drawable name="colorWhite">#ffffe9</drawable>
 </resources>
