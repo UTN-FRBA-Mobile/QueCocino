@@ -41,7 +41,7 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.BindView;
 
-import static com.mobile.utn.quecocino.recipegallery.objects.FirebaseReferences.IMAGE_RECIPE_REFERENCE;
+import static com.mobile.utn.quecocino.model.FirebaseReferences.IMAGE_RECIPE_REFERENCE;
 
 
 public class RecipeGallery extends AppCompatActivity {
@@ -122,7 +122,7 @@ public class RecipeGallery extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                final CharSequence[] options = {getString(R.string.alertDialog_camera), getString(R.string.alertDialog_galeria)};
+                final CharSequence[] options = {getString(R.string.alertDialog_camera), getString(R.string.alertDialog_gallery)};
                 final AlertDialog.Builder builder =  new AlertDialog.Builder(RecipeGallery.this);
                 builder.setItems(options, new DialogInterface.OnClickListener(){
 

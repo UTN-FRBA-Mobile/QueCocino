@@ -41,7 +41,7 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:id="@+id/detailRecipe.featuresRecipe1"
+        android:id="@+id/detailRecipe.featuresRecipe"
         android:paddingTop="250dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -78,6 +78,42 @@
             android:textSize="20dp"
             android:layout_margin="5dp"
             />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/detailRecipe.instructions"
+        android:paddingTop="300dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/detailRecipe.instructionsTitle"
+            android:text="@string/detailRecipe.instructionsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:textSize="30dp"
+            android:paddingLeft="18dp"
+            />
+
+
+        <ListView
+            android:id="@+id/detailRecipe.instructionsList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:cacheColorHint="@android:color/transparent"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="8dp"
+            android:scrollbarStyle="outsideOverlay"
+            android:paddingBottom="8dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="15dp">
+         
+        </ListView>
 
     </LinearLayout>
 
