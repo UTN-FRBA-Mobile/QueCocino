@@ -19,7 +19,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.mobile.utn.quecocino.recipegallery.objects.FirebaseReferences.RECIPE_REFERENCE;
+import static com.mobile.utn.quecocino.model.FirebaseReferences.RECIPE_REFERENCE;
 
 public class RecipesResults extends AppCompatActivity {
 
