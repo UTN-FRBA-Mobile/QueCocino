@@ -3,6 +3,8 @@ package com.mobile.utn.quecocino.MainActivity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -12,25 +14,36 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationServices;
 import com.mobile.utn.quecocino.R;
 import com.mobile.utn.quecocino.fragments.FragmentFavoritos;
 import com.mobile.utn.quecocino.fragments.FragmentOpciones;
 import com.mobile.utn.quecocino.fragments.FragmentTemporizador;
+import com.mobile.utn.quecocino.locationManager.GoogleLocationClient;
+import com.mobile.utn.quecocino.locationManager.LatLonTranslator;
 import com.mobile.utn.quecocino.menu.ItemSlideMenu;
 import com.mobile.utn.quecocino.menu.SlidingMenuAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements LocationListener {
 
     private List<ItemSlideMenu> listSliding;
     private SlidingMenuAdapter adapter;
     private ListView listViewSliding;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
+    private GoogleLocationClient mGoogleLocationClient;
+    private LatLonTranslator mLatLonTranslator;
+    private Geocoder geoCod;
+    private TextView currentLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceSate){
@@ -40,13 +53,30 @@ public class MainActivity extends ActionBarActivity {
         listViewSliding = (ListView) findViewById(R.id.sl);
         drawerLayout = (DrawerLayout) findViewById(R.id.sliding_menu);
         listSliding = new ArrayList<>();
+        currentLocation = (TextView) findViewById(R.id.textView);
 
         listSliding.add(new ItemSlideMenu(R.drawable.settings,"Opciones"));
         listSliding.add(new ItemSlideMenu(R.drawable.timer1600, "Temporizador"));
         listSliding.add(new ItemSlideMenu(R.drawable.unnamed, "Favoritos"));
 
+        mGoogleLocationClient = new GoogleLocationClient();
+        mGoogleLocationClient.setApiClient(new GoogleApiClient.Builder(this)
+                .addApi(LocationServices.API)
+                .addConnectionCallbacks(mGoogleLocationClient)
+                .addOnConnectionFailedListener(mGoogleLocationClient)
+                .build());
+        mGoogleLocationClient.setMainActivity(this);
+        mGoogleLocationClient.apiConnect();
+
+        mLatLonTranslator = new LatLonTranslator();
+        geoCod = new Geocoder(MainActivity.this, Locale.getDefault());
+        mLatLonTranslator.setGeocoder(geoCod);
+
+
         adapter = new SlidingMenuAdapter(this, listSliding);
         listViewSliding.setAdapter(adapter);
+
+        currentLocation.setText("Obteniendo ubicación actual..");
 
         setTitle(listSliding.get(0).getTitulo());
 
@@ -137,5 +167,9 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
+    public void onLocationChanged(Location location) {
+        currentLocation.setText("Ubicación actual: " + mLatLonTranslator.reverseGeocodeRegion(location.getLatitude(),location.getLongitude()));
+        mGoogleLocationClient.apiDisconnect();
+    }
 
 }
