@@ -15,6 +15,14 @@
     <!-- Detail Recipe -->
     <string name="detailRecipe.instructionsTitle">Instrucciones</string>
 
+    <!-- Recipe Results-->
+    <string name="recipe.results.author">Por\u0020</string>
+    <string name="recipe.results.title"></string>
+    <!--<string name="recipe.results.cookingTimeMinutes">Duracion:\u0020</string>
+    <string name="recipe.results.applianceCooking">Requiere:\u0020</string>-->
+    <string name="recipe.results.cookingTimeMinutes">\u0020</string>
+    <string name="recipe.results.applianceCooking">\u0020</string>
+
     <!-- Other -->
 
 </resources>
