@@ -29,8 +29,21 @@
         <item name="android:textSize">50sp</item>
         <item name="android:padding">10dp</item>
         <item name="android:gravity">center</item>
-        <item  tools:targetApi="16" name="android:fontFamily">sans-serif</item>
+        <item name="android:fontFamily" tools:targetApi="16">sans-serif</item>
     </style>
 
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="checkBoxStyle" parent="Base.Theme.AppCompat">
+        <item name="android:textColorSecondary">@color/colorAccent</item>
+        <item name="colorAccent">@drawable/colorWhite</item>
+    </style>
 
 </resources>

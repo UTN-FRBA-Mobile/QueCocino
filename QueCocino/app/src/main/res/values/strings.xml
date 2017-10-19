@@ -1,7 +1,28 @@
 <resources>
     <string name="app_name">QueCocino</string>
-    <string name="uploadButton.string">Subir imagen</string>
-    <string name="uploadSuccess">Tu foto se ha publicado!</string>
-    <string name="progressUploadImage_message">Tu foto se está cargando</string>
-    <string name="progressUploadImage_title">Subiendo...</string>
+
+    <string name="drawer_opened">Abierto</string>
+    <string name="drawer_closed">Cerrado</string>
+
+    <!-- Recipe Gallery -->
+    <string name="gallery.uploadButton">Subir imagen</string>
+    <string name="toast.uploadSuccess">Tu foto se ha publicado!</string>
+    <string name="progress.uploadImage">Subiendo...</string>
+    <string name="alertDialog.camera">Tomar foto</string>
+    <string name="alertDialog.gallery">Elegir de galería</string>
+    <string name="title_activity_detailrecipe">detailrecipe</string>
+
+    <!-- Detail Recipe -->
+    <string name="detailRecipe.instructionsTitle">Instrucciones</string>
+
+    <!-- Recipe Results-->
+    <string name="recipe.results.author">Por\u0020</string>
+    <string name="recipe.results.title"></string>
+    <!--<string name="recipe.results.cookingTimeMinutes">Duracion:\u0020</string>
+    <string name="recipe.results.applianceCooking">Requiere:\u0020</string>-->
+    <string name="recipe.results.cookingTimeMinutes">\u0020</string>
+    <string name="recipe.results.applianceCooking">\u0020</string>
+
+    <!-- Other -->
+
 </resources>
