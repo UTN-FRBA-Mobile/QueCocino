@@ -14,8 +14,8 @@ import com.mobile.utn.quecocino.R;
 
 import java.util.Random;
 
-public class TimerService extends Service {
-
+public class TimerService {
+/*
     public class TimerServiceBinder extends Binder {
         public TimerService getService() {
             return TimerService.this;
@@ -76,53 +76,11 @@ public class TimerService extends Service {
         mBuilder.setSmallIcon(R.mipmap.ic_launcher);
         mBuilder.setContentTitle("QueCocino");
         mBuilder.setContentText("Timer Running...");
-        PendingIntent intent = PendingIntent.getActivity(this, 0, new Intent(this, TimerActivity.class), 0);
+        PendingIntent intent = PendingIntent.getActivity(this, 0, new Intent(this, TimerEditFragment.class), 0);
         mBuilder.setContentIntent(intent);
         startForeground(notificationID, mBuilder.build());
     }
 
-    private CountDownTimer createCDT() {
-        return new CountDownTimer((hh*3600+mm*60+ss-1)*1000, 1000) {
 
-            @Override
-            public void onTick(long millisUntilFinished) {
-                if (ss > 0) {
-                    ss--;
-                } else if (mm > 0) {
-                    mm--;
-                    ss = 59;
-                } else if (hh > 0) {
-                    hh--;
-                    mm = 59;
-                    ss = 59;
-                }
-                sendTickSignal();
-            }
-
-            @Override
-            public void onFinish() {
-                hh = mm = ss = 0;
-                sendTickSignal();
-                sendOnFinishSignal();
-                stopTimer();
-            }
-        };
-    }
-
-    private void sendTickSignal(){
-        if(timerObserver!=null){
-            timerObserver.onTimerTick();
-        }
-    }
-
-    private void sendOnFinishSignal(){
-        if(timerObserver!=null){
-            timerObserver.onTimerFinish();
-        } else {
-            Intent i = new Intent(this,TimerActivity.class);
-            i.putExtra("timerFinished",true);
-            startActivity(i);
-        }
-    }
-
+*/
 }

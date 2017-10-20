@@ -22,11 +22,13 @@ import com.google.android.gms.location.LocationServices;
 import com.mobile.utn.quecocino.R;
 import com.mobile.utn.quecocino.fragments.FragmentFavoritos;
 import com.mobile.utn.quecocino.fragments.FragmentOpciones;
-import com.mobile.utn.quecocino.fragments.FragmentTemporizador;
 import com.mobile.utn.quecocino.locationManager.GoogleLocationClient;
 import com.mobile.utn.quecocino.locationManager.LatLonTranslator;
 import com.mobile.utn.quecocino.menu.ItemSlideMenu;
 import com.mobile.utn.quecocino.menu.SlidingMenuAdapter;
+import com.mobile.utn.quecocino.timer.AlarmUtils;
+import com.mobile.utn.quecocino.timer.TimerCountdownFragment;
+import com.mobile.utn.quecocino.timer.TimerEditFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +57,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         listSliding = new ArrayList<>();
         currentLocation = (TextView) findViewById(R.id.textView);
 
-        listSliding.add(new ItemSlideMenu(R.drawable.settings,"Opciones"));
+        listSliding.add(new ItemSlideMenu(android.R.drawable.ic_menu_help,"Opciones"));
         listSliding.add(new ItemSlideMenu(R.drawable.timer1600, "Temporizador"));
         listSliding.add(new ItemSlideMenu(R.drawable.unnamed, "Favoritos"));
 
@@ -110,8 +112,6 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
                 invalidateOptionsMenu();
             }
 
-
-
         };
 
         drawerLayout.setDrawerListener(actionBarDrawerToggle);
@@ -148,7 +148,11 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
                 fragment = new FragmentOpciones();
                 break;
             case 1:
-                fragment = new FragmentTemporizador();
+                if(AlarmUtils.hasAlarms(this)){
+                    fragment = new TimerCountdownFragment();
+                } else {
+                    fragment = new TimerEditFragment();
+                }
                 break;
             case 2:
                 fragment = new FragmentFavoritos();
