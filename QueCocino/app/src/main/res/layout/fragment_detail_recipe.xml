@@ -48,7 +48,7 @@
         android:layout_centerHorizontal="true">
 
         <ImageView
-            android:src="@drawable/detailrecipe_cookingtime"
+            android:src="@drawable/recipe_cookingtime"
             android:id="@+id/detailRecipe.cookingTimeImg"
             android:layout_width="30dp"
             android:layout_height="30dp"
