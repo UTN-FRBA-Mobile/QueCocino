@@ -90,9 +90,9 @@ public class DetailRecipe extends Fragment {
         recipeApplianceTextView.setText(appliance);
 
         if(appliance.equals("Oven"))
-            Picasso.with(getActivity().getApplicationContext()).load(R.drawable.detailrecipe_oven).into(recipeApplianceImg);
+            Picasso.with(getActivity().getApplicationContext()).load(R.drawable.recipe_oven).into(recipeApplianceImg);
         else
-            Picasso.with(getActivity().getApplicationContext()).load(R.drawable.detailrecipe_microwave).into(recipeApplianceImg);
+            Picasso.with(getActivity().getApplicationContext()).load(R.drawable.recipe_microwave).into(recipeApplianceImg);
 
         mainImageView.setOnClickListener(new View.OnClickListener() {
             @Override

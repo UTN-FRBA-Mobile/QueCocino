@@ -40,8 +40,8 @@ public class RecipesResultsAdapter extends RecyclerView.Adapter<RecipesResultsVi
 
         //Imagenes
         Picasso.with(context).load(recipes.get(position).getMainImage()).fit().centerCrop().into(holder.getMainImageView());
-        holder.getApplianceCookingImageView().setImageResource(R.drawable.cooker);
-        holder.getCookingTimeMinutesImageView().setImageResource(R.drawable.watch);
+        holder.getApplianceCookingImageView().setImageResource(R.drawable.recipe_oven);
+        holder.getCookingTimeMinutesImageView().setImageResource(R.drawable.recipe_cookingtime);
 
         //Textos
         Resources res = this.context.getResources();

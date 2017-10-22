@@ -23,6 +23,14 @@
     <string name="recipe.results.cookingTimeMinutes">\u0020</string>
     <string name="recipe.results.applianceCooking">\u0020</string>
 
-    <!-- Other -->
+    <!-- Navigation Menu -->
+    <string name="navigation.drawer.open">Open navigation drawer</string>
+    <string name="navigation.drawer.close">Close navigation drawer</string>
+    <string name="navigation.item.buscarRecetas">Buscar Recetas</string>
+    <string name="navigation.item.favoritos">Favoritos</string>
+    <string name="navigation.item.timers">Timers</string>
+    <string name="navigation.action.buscarRecetas">Buscar Recetas</string>
+    <string name="navigation.action.favoritos">Favoritos</string>
+    <string name="navigation.action.timers">Timers</string>
 
 </resources>
