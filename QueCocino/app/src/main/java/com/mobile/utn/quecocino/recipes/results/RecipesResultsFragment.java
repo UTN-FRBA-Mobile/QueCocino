@@ -1,10 +1,14 @@
 package com.mobile.utn.quecocino.recipes.results;
 
+
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -16,14 +20,13 @@ import com.mobile.utn.quecocino.model.Recipe;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 import static com.mobile.utn.quecocino.model.FirebaseReferences.RECIPE_REFERENCE;
 
-public class RecipesResults extends AppCompatActivity {
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class RecipesResultsFragment extends Fragment {
 
-    @BindView(R.id.recipesRecyclerView)
     public RecyclerView recyclerView;
 
     private RecipesResultsAdapter adapter;
@@ -31,16 +34,25 @@ public class RecipesResults extends AppCompatActivity {
 
     List<Recipe> recipes;
 
+    public RecipesResultsFragment() {
+        // Required empty public constructor
+    }
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipes_results);
-        ButterKnife.bind(this);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View rootView = inflater.inflate(R.layout.fragment_recipes_results, container, false);
+
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.recipesRecyclerView);
 
         recipes = new ArrayList<Recipe>();
-        adapter = new RecipesResultsAdapter(getApplicationContext(), recipes);
+        adapter = new RecipesResultsAdapter(getActivity().getApplicationContext(), recipes);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+
+        // 2. set layoutManger
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
 
@@ -49,8 +61,8 @@ public class RecipesResults extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 recipes.removeAll(recipes);
-                for(DataSnapshot snapshot: dataSnapshot.getChildren()){
-                    Recipe recipe= snapshot.getValue(Recipe.class);
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Recipe recipe = snapshot.getValue(Recipe.class);
                     recipes.add(recipe);
                 }
 
@@ -63,6 +75,7 @@ public class RecipesResults extends AppCompatActivity {
             }
         });
 
-    }
+        return rootView;
 
+    }
 }
