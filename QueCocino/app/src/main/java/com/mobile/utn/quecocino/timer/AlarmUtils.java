@@ -13,6 +13,7 @@ import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,81 +22,138 @@ public class AlarmUtils {
 
     public static String sTagAlarms = ":alarms";
 
-    public static void addAlarm(Context context, Intent intent, Long millis, String tag) {
+    public static void addAlarm(Context context, Intent intent, Long time, String tag) {
 
-        String alarmId = Long.toString(millis);
+        TimerAlarm alarm = new TimerAlarm();
+        alarm.setId((int) ((time / 1000L) % Integer.MAX_VALUE));
+        alarm.setTime(time);
+        alarm.setTag(tag);
+        alarm.setTimerRunning(true);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, alarm.getId(), intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, millis, pendingIntent);
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, time, pendingIntent);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, millis, pendingIntent);
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, time, pendingIntent);
         } else {
-            alarmManager.set(AlarmManager.RTC_WAKEUP, millis, pendingIntent);
+            alarmManager.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
         }
 
-        saveAlarmData(context, alarmId, tag);
+        saveAlarm(context, alarm);
     }
 
-    public static void cancelAlarm(Context context, Intent intent, String alarmId) {
+    public static void pauseAlarm(Context context, Intent intent, TimerAlarm alarm) {
+        Long time = alarm.getTime()-System.currentTimeMillis();
+
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, alarm.getId(), intent, PendingIntent.FLAG_CANCEL_CURRENT);
         alarmManager.cancel(pendingIntent);
         pendingIntent.cancel();
 
-        removeAlarmData(context, alarmId);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putLong(context.getPackageName() + ":time:" + alarm.getId(), time);
+        editor.putBoolean(context.getPackageName() + ":running:" + alarm.getId(), false);
+        editor.apply();
+
+        alarm.setTime(time);
+        alarm.setTimerRunning(false);
     }
 
-    public static void cancelAllAlarms(Context context, Intent intent) {
-        for (String idAlarm : getAlarmIds(context)) {
-            cancelAlarm(context, intent, idAlarm);
+    public static void resumeAlarm(Context context, Intent intent, TimerAlarm alarm) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        Long time = alarm.getTime();
+        time += System.currentTimeMillis();
+
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, alarm.getId(), intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, time, pendingIntent);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, time, pendingIntent);
+        } else {
+            alarmManager.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
         }
+
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putLong(context.getPackageName() + ":time:" + alarm.getId(), time);
+        editor.putBoolean(context.getPackageName() + ":running:" + alarm.getId(), true);
+        editor.apply();
+
+        alarm.setTime(time);
+        alarm.setTimerRunning(true);
     }
 
-    public static boolean hasAlarm(Context context, Intent intent) {
-        return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_NO_CREATE) != null;
+    public static void cancelAlarm(Context context, Intent intent, TimerAlarm alarm) {
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, alarm.getId(), intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        alarmManager.cancel(pendingIntent);
+        pendingIntent.cancel();
+
+        removeAlarm(context, alarm);
+    }
+
+    public static boolean hasAlarm(Context context, Intent intent, int alarmId) {
+        return PendingIntent.getBroadcast(context, alarmId, intent, PendingIntent.FLAG_NO_CREATE) != null;
     }
 
     public static boolean hasAlarms(Context context) {
-        return getAlarmIds(context).size() > 0;
-    }
-
-    public static LongSparseArray<String> getAlarmsData(Context context) {
-        LongSparseArray<String> alarmsData = new LongSparseArray<>();
         List<String> alarmIds = getAlarmIds(context);
-        for (String alarmId : alarmIds) {
-            alarmsData.append(Long.parseLong(alarmId),getAlarmTag(context,alarmId));
-        }
-        return alarmsData;
+        return alarmIds.size() > 0;
     }
 
-    private static void saveAlarmData(Context context, String alarmId, String tag) {
+    public static List<TimerAlarm> getAlarms(Context context) {
+        List<TimerAlarm> alarms = new ArrayList<>() ;
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+
+        List<String> alarmIds = getAlarmIds(context);
+        for (String alarmStrId : alarmIds) {
+            TimerAlarm alarm = new TimerAlarm();
+            alarm.setId(Integer.parseInt(alarmStrId));
+            alarm.setTime(prefs.getLong(context.getPackageName() + ":time:" + alarmStrId, 0));
+            alarm.setTag(prefs.getString(context.getPackageName() + ":tag:" + alarmStrId, ""));
+            alarm.setTimerRunning(prefs.getBoolean(context.getPackageName() + ":running:" + alarmStrId, true));
+            alarms.add(alarm);
+        }
+        return alarms;
+    }
+
+    private static void saveAlarm(Context context, TimerAlarm alarm) {
+        String alarmStrId = Integer.toString(alarm.getId());
+
         List<String> idsAlarms = getAlarmIds(context);
-        if (idsAlarms.contains(alarmId)) {
+        if (idsAlarms.contains(alarmStrId)) {
             return;
         }
-        idsAlarms.add(alarmId);
+        idsAlarms.add(alarmStrId);
         saveIdsInPreferences(context, idsAlarms);
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putString(context.getPackageName() + ":" + alarmId, tag);
+        editor.putLong(context.getPackageName() + ":time:" + alarmStrId, alarm.getTime());
+        editor.putString(context.getPackageName() + ":tag:" + alarmStrId, alarm.getTag());
+        editor.putBoolean(context.getPackageName() + ":running:" + alarmStrId, alarm.isTimerRunning());
         editor.apply();
     }
 
-    private static void removeAlarmData(Context context, String alarmId) {
+    private static void removeAlarm(Context context, TimerAlarm alarm) {
+        String alarmStrId = Integer.toString(alarm.getId());
+
         List<String> idsAlarms = getAlarmIds(context);
         for (int i = 0; i < idsAlarms.size(); i++) {
-            if (idsAlarms.get(i) == alarmId)
+            if (idsAlarms.get(i).equals(alarmStrId))
                 idsAlarms.remove(i);
         }
         saveIdsInPreferences(context, idsAlarms);
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.remove(context.getPackageName() + ":" + alarmId);
+        editor.remove(context.getPackageName() + ":time:" + alarmStrId);
+        editor.remove(context.getPackageName() + ":tag:" + alarmStrId);
+        editor.remove(context.getPackageName() + ":running:" + alarmStrId);
         editor.apply();
     }
 
@@ -114,11 +172,6 @@ public class AlarmUtils {
         }
 
         return ids;
-    }
-
-    private static String getAlarmTag(Context context, String alarmId) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        return prefs.getString(context.getPackageName() + ":" + alarmId, "");
     }
 
     private static void saveIdsInPreferences(Context context, List<String> lstIds) {

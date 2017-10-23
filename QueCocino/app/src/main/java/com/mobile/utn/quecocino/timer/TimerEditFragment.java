@@ -3,7 +3,6 @@ package com.mobile.utn.quecocino.timer;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -11,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -18,16 +18,15 @@ import android.widget.TextView;
 import com.mobile.utn.quecocino.R;
 
 import java.util.Arrays;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class TimerEditFragment extends Fragment{
+
+    @BindView(R.id.timerTagEdit)
+    public EditText tagEdit;
 
     @BindView(R.id.timerInput)
     public TextView timerInput;
@@ -109,7 +108,6 @@ public class TimerEditFragment extends Fragment{
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.main_content, new TimerCountdownFragment());
-                fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
         });
@@ -118,9 +116,9 @@ public class TimerEditFragment extends Fragment{
     }
 
     private void setAlarm(){
-        Long millis = System.currentTimeMillis()+getTimeInMillis();
-        Intent i = new Intent(this.getActivity(),TimerAlarm.class);
-        AlarmUtils.addAlarm(this.getActivity(), i, millis, "This is a tag");
+        Long millis = System.currentTimeMillis()+getTimeInMillis()+1000;
+        Intent i = new Intent(this.getActivity(), TimerAlarmReceiver.class);
+        AlarmUtils.addAlarm(this.getActivity(), i, millis, tagEdit.getText().toString());
     }
 
     private void updateTimerInput() {
@@ -132,7 +130,6 @@ public class TimerEditFragment extends Fragment{
         int mm = Integer.parseInt(hhmmss.substring(2,4));
         int ss = Integer.parseInt(hhmmss.substring(4,6));
         return (ss + mm * 60 + hh * 3600) * 1000;
-
     }
 
 }

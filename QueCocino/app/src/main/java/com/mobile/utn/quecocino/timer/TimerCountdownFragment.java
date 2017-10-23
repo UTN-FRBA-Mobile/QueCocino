@@ -1,29 +1,29 @@
 package com.mobile.utn.quecocino.timer;
 
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.os.CountDownTimer;
-import android.support.v4.util.LongSparseArray;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mobile.utn.quecocino.R;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class TimerCountdownFragment extends Fragment {
 
-    @BindView(R.id.timerTitle)
-    public TextView title;
-
-    @BindView(R.id.timerCountdown)
-    public TextView countdown;
+    @BindView(R.id.timerViewPager)
+    public ViewPager viewPager;
 
     @BindView(R.id.timerPause)
     public Button pauseBtn;
@@ -34,10 +34,11 @@ public class TimerCountdownFragment extends Fragment {
     @BindView(R.id.timerAdd)
     public Button addBtn;
 
-    private int hh;
-    private int mm;
-    private int ss;
-    private CountDownTimer cdt;
+    private Context thisContext;
+    private Intent alarmIntent;
+    private TimerViewPagerAdapter timerViewPagerAdapter;
+    private List<TimerAlarm> alarms;
+    private int currentPosition;
 
     public TimerCountdownFragment() {
         // Required empty public constructor
@@ -46,68 +47,107 @@ public class TimerCountdownFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        thisContext = this.getActivity();
+        alarmIntent = new Intent(thisContext,TimerAlarmReceiver.class);
+
         View view = inflater.inflate(R.layout.fragment_timer_countdown, container, false);
         ButterKnife.bind(this,view);
 
-        LongSparseArray<String> alarmsData = AlarmUtils.getAlarmsData(this.getActivity());
+        alarms = AlarmUtils.getAlarms(thisContext);
+        currentPosition = alarms.size()-1;
+        timerViewPagerAdapter = new TimerViewPagerAdapter(thisContext, alarms.size());
+        viewPager.setAdapter(timerViewPagerAdapter);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) { }
 
-        for(int i = 0; i < alarmsData.size(); i++) {
-            long key = alarmsData.keyAt(i);
-            long millis = key - System.currentTimeMillis();
-            String value = alarmsData.get(key);
+            @Override
+            public void onPageSelected(int position) {
+                currentPosition = position;
+                TimerAlarm alarm = alarms.get(currentPosition);
+                updateViewPager();
 
-            //FIX this
-            int time = (int) (millis / 1000);
-            hh = time / 3600;
-            time = time % 3600;
-            mm= time / 60;
-            time = time % 60;
-            ss = time;
-            title.setText(value);
-        }
+                if(alarm.isTimerRunning()){
+                    pauseBtn.setText(R.string.timer_pause);
+                } else {
+                    pauseBtn.setText(R.string.timer_resume);
+                }
+            }
 
-        cdt = createCDT();
-        cdt.start();
+            @Override
+            public void onPageScrollStateChanged(int state) { }
+        });
+        viewPager.post(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                viewPager.setCurrentItem(currentPosition);
+                updateViewPager();
+            }
+        });
+
+        pauseBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (alarms.get(currentPosition).isTimerRunning()) pauseTimer();
+                else resumeTimer();
+            }
+        });
+
+        stopBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                stopTimer();
+            }
+        });
+
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.main_content, new TimerEditFragment());
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
 
         return view;
     }
 
-    private CountDownTimer createCDT() {
-        return new CountDownTimer((hh*3600+mm*60+ss-1)*1000, 1000) {
+    private void updateViewPager(){
+        TimerAlarm alarm = alarms.get(currentPosition);
+        timerViewPagerAdapter.updatePage(alarm,currentPosition);
+    }
 
-            @Override
-            public void onTick(long millisUntilFinished) {
-                int time = (int) (millisUntilFinished / 1000);
-                hh = time / 3600;
-                time = time % 3600;
-                mm= time / 60;
-                time = time % 60;
-                ss = time;
-                updateCountdownText();
-            }
+    private void resumeTimer(){
+        TimerAlarm alarm = alarms.get(currentPosition);
+        AlarmUtils.resumeAlarm(thisContext,alarmIntent,alarm);
+        timerViewPagerAdapter.startTimer();
+        pauseBtn.setText(R.string.timer_pause);
+    }
 
-            @Override
-            public void onFinish() {
-                hh = mm = ss = 0;
-                updateCountdownText();
-                stopTimer();
-            }
-
-        };
+    public void pauseTimer() {
+        TimerAlarm alarm = alarms.get(currentPosition);
+        AlarmUtils.pauseAlarm(thisContext,alarmIntent,alarm);
+        timerViewPagerAdapter.cancelTimer();
+        pauseBtn.setText(R.string.timer_resume);
     }
 
     public void stopTimer() {
-        cdt.cancel();
-    }
-
-    private String pad(int num){
-        String str = Integer.toString(num);
-        if(str.length()==1) str = "0" + str;
-        return str;
-    }
-
-    private void updateCountdownText() {
-        countdown.setText(pad(hh)+":"+pad(mm)+":"+pad(ss));
+        AlarmUtils.cancelAlarm(thisContext,alarmIntent,alarms.get(currentPosition));
+        if(timerViewPagerAdapter.getCount()<=1) {
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.main_content, new TimerEditFragment());
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        } else {
+            alarms.remove(currentPosition);
+            currentPosition = timerViewPagerAdapter.removePage(viewPager,currentPosition);
+            
+        }
     }
 
 }

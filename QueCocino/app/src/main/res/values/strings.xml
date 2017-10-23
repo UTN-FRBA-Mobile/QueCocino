@@ -32,6 +32,7 @@
     <string name="timer.resume">Resume</string>
     <string name="timer.stop">Stop</string>
     <string name="timer.add">Add</string>
+    <string name="timer.tag">Tag</string>
     
     <!-- Other -->
 
