@@ -25,6 +25,7 @@ import com.mobile.utn.quecocino.fragments.FragmentTimer;
 import com.mobile.utn.quecocino.locationManager.GoogleLocationClient;
 import com.mobile.utn.quecocino.locationManager.LatLonTranslator;
 import com.mobile.utn.quecocino.model.Recipe;
+import com.mobile.utn.quecocino.recipes.results.RecipesResultsFragment;
 
 import java.util.Locale;
 
@@ -45,7 +46,7 @@ public class NavigationMenu extends AppCompatActivity
         setContentView(R.layout.activity_menu);
 
         //set the fragment initially
-        MainFragment fragment = new MainFragment();
+        RecipesResultsFragment fragment = new RecipesResultsFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.navigation_container, fragment);
         fragmentTransaction.commit();
@@ -89,7 +90,7 @@ public class NavigationMenu extends AppCompatActivity
         Fragment fragment = null;
 
         if (id == R.id.navigation_action_buscarRecetas) {
-            fragment = new MainFragment();
+            fragment = new RecipesResultsFragment();
         } else if (id == R.id.navigation_action_favoritos) {
             fragment = new FragmentFavorites();
         } else if (id == R.id.navigation_action_timers) {
@@ -115,7 +116,7 @@ public class NavigationMenu extends AppCompatActivity
         Fragment fragment = null;
 
         if (id == R.id.navigation_main) {
-            fragment = new MainFragment();
+            fragment = new RecipesResultsFragment();
         } else if (id == R.id.navigation_favorites) {
             fragment = new FragmentFavorites();
         } else if (id == R.id.navigation_timers) {

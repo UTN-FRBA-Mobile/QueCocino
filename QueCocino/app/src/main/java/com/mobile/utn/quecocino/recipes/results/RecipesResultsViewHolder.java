@@ -1,17 +1,23 @@
 package com.mobile.utn.quecocino.recipes.results;
 
+import android.content.Context;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mobile.utn.quecocino.R;
+import com.mobile.utn.quecocino.detailrecipe.DetailRecipe;
+import com.mobile.utn.quecocino.fragments.FragmentFavorites;
+import com.mobile.utn.quecocino.fragments.FragmentTimer;
 
 /**
  * Created by Rama on 30/09/2017.
  */
 
-public class RecipesResultsViewHolder extends RecyclerView.ViewHolder {
+public class RecipesResultsViewHolder extends RecyclerView.ViewHolder{
 
         private TextView titleTextView;
         private TextView authorTextView;
@@ -23,6 +29,7 @@ public class RecipesResultsViewHolder extends RecyclerView.ViewHolder {
 
         public RecipesResultsViewHolder(View itemView) {
             super(itemView);
+
             mainImageView = (ImageView) itemView.findViewById(R.id.recipeImage);
             applianceCookingImageView = (ImageView) itemView.findViewById(R.id.applianceCookingImage);
             cookingTimeMinutesImageView = (ImageView) itemView.findViewById(R.id.cookingTimeMinutesImage);

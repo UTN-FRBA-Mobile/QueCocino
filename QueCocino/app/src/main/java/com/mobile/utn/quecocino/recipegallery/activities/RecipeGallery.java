@@ -27,8 +27,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.mobile.utn.quecocino.R;
 import com.mobile.utn.quecocino.model.RecipeImage;
-import com.mobile.utn.quecocino.recipegallery.adapters.GalleryAdapter;
 import com.mobile.utn.quecocino.recipegallery.adapters.RecyclerAdapter;
+import com.mobile.utn.quecocino.utils.RecyclerTouchListener;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -76,7 +76,7 @@ public class RecipeGallery extends AppCompatActivity {
         rv.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
         rv.setAdapter(adapter);
         rv.setItemAnimator(new DefaultItemAnimator());
-        rv.addOnItemTouchListener(new GalleryAdapter.RecyclerTouchListener(getApplicationContext(), rv, new GalleryAdapter.ClickListener() {
+        rv.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rv, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
                 Bundle bundle = new Bundle();

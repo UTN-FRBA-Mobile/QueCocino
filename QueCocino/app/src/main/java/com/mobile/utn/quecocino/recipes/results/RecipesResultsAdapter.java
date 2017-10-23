@@ -2,12 +2,15 @@ package com.mobile.utn.quecocino.recipes.results;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.mobile.utn.quecocino.R;
+import com.mobile.utn.quecocino.detailrecipe.DetailRecipe;
 import com.mobile.utn.quecocino.model.Recipe;
 import com.squareup.picasso.Picasso;
 
@@ -37,18 +40,25 @@ public class RecipesResultsAdapter extends RecyclerView.Adapter<RecipesResultsVi
     public void onBindViewHolder(RecipesResultsViewHolder holder, int position) {
         //holder.getMainImageView().setImageResource(R.drawable.mail);
         //Picasso.with(context).load(recipes.get(position).getMainImage()).resize(200, 200).fit().centerCrop().into(holder.getMainImageView());
+        Recipe recipe = recipes.get(position);
 
         //Imagenes
-        Picasso.with(context).load(recipes.get(position).getMainImage()).fit().centerCrop().into(holder.getMainImageView());
-        holder.getApplianceCookingImageView().setImageResource(R.drawable.recipe_oven);
+        Picasso.with(context).load(recipe.getMainImage()).fit().centerCrop().into(holder.getMainImageView());
+        String appliance = recipe.getApplianceCooking();
+
+        if(appliance.equals("Oven"))
+            holder.getApplianceCookingImageView().setImageResource(R.drawable.recipe_oven);
+        else
+            holder.getApplianceCookingImageView().setImageResource(R.drawable.recipe_microwave);
+
         holder.getCookingTimeMinutesImageView().setImageResource(R.drawable.recipe_cookingtime);
 
         //Textos
         Resources res = this.context.getResources();
-        holder.getAuthorTextView().setText(res.getString(R.string.recipe_results_author) + recipes.get(position).getAuthor());
-        holder.getTitleTextView().setText(res.getString(R.string.recipe_results_title) + recipes.get(position).getTitle());
-        holder.getApplianceCookingTextView().setText(res.getString(R.string.recipe_results_applianceCooking) + recipes.get(position).getApplianceCooking());
-        holder.getCookingTimeMinutesTextView().setText(res.getString(R.string.recipe_results_cookingTimeMinutes) + recipes.get(position).getCookingTimeMinutes());
+        holder.getAuthorTextView().setText(res.getString(R.string.recipe_results_author) + recipe.getAuthor());
+        holder.getTitleTextView().setText(res.getString(R.string.recipe_results_title) + recipe.getTitle());
+        holder.getApplianceCookingTextView().setText(res.getString(R.string.recipe_results_applianceCooking) + recipe.getApplianceCooking());
+        holder.getCookingTimeMinutesTextView().setText(res.getString(R.string.recipe_results_cookingTimeMinutes) + recipe.getCookingTimeMinutes());
     }
 
 
@@ -56,4 +66,5 @@ public class RecipesResultsAdapter extends RecyclerView.Adapter<RecipesResultsVi
     public int getItemCount() {
         return recipes.size();
     }
+
 }
