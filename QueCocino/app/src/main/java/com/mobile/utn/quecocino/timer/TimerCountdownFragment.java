@@ -108,7 +108,6 @@ public class TimerCountdownFragment extends Fragment {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.main_content, new TimerEditFragment());
-                fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
         });

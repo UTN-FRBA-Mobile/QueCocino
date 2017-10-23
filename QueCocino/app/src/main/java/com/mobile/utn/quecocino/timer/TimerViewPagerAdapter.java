@@ -51,14 +51,16 @@ public class TimerViewPagerAdapter extends PagerAdapter {
 
     public int removePage(ViewGroup container, int position){
         ViewPager viewPager = (ViewPager) container;
-        viewPager.setAdapter(null);
+        //viewPager.setAdapter(null);
+        viewPager.removeView(pages.get(position));
         pages.remove(position);
         count--;
-        viewPager.setAdapter(this);
+        //viewPager.setAdapter(this);
         if (position == this.getCount()){
             position--;
         }
         viewPager.setCurrentItem(position);
+        notifyDataSetChanged();
         return position;
     }
 
@@ -139,5 +141,15 @@ public class TimerViewPagerAdapter extends PagerAdapter {
 
     private void updateCountdownText() {
         countdown.setText(pad(hh)+":"+pad(mm)+":"+pad(ss));
+    }
+
+    @Override
+    public int getItemPosition(Object object) {
+        View view = (View) object;
+        if(pages.contains(view)){
+            return pages.indexOf(view);
+        } else {
+            return PagerAdapter.POSITION_NONE;
+        }
     }
 }
