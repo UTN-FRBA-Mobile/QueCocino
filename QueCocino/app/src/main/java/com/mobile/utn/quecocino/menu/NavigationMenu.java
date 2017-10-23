@@ -21,6 +21,7 @@ import com.google.android.gms.location.LocationServices;
 import com.mobile.utn.quecocino.R;
 import com.mobile.utn.quecocino.detailrecipe.DetailRecipe;
 import com.mobile.utn.quecocino.fragments.FragmentFavorites;
+import com.mobile.utn.quecocino.fragments.FragmentPopulars;
 import com.mobile.utn.quecocino.fragments.FragmentTimer;
 import com.mobile.utn.quecocino.locationManager.GoogleLocationClient;
 import com.mobile.utn.quecocino.locationManager.LatLonTranslator;
@@ -121,8 +122,8 @@ public class NavigationMenu extends AppCompatActivity
             fragment = new FragmentFavorites();
         } else if (id == R.id.navigation_timers) {
             fragment = new FragmentTimer();
-        }else if(id == R.id.navigation_detailRecipe){
-            fragment = DetailRecipe.newInstance(new Recipe("r1", "Ensalada Caesar", "Franco Pesce", 45, "http://www.buenapetitopr.com/images/recetas/ensaladas/ensalada_caesar_300x200.png", "Oven"));
+        }else if(id == R.id.navigation_populars){
+            fragment = new FragmentPopulars();
         }
 
         if(fragment != null){

@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/detailRecipe.mainImage"
-        android:background="#32413b4d"
+        android:background="#b816211c"
         >
 
         <TextView
@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:textColor="#000000"
+            android:textColor="#f2ffe6"
             android:textSize="40dp"
             />
 
@@ -31,7 +31,7 @@
             android:id="@+id/detailRecipe.authorRecipe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#000000"
+            android:textColor="#f2ffe6"
             android:textSize="15dp"
             android:layout_marginBottom="-5dp"
             android:layout_alignRight="@+id/detailRecipe.titleRecipe"

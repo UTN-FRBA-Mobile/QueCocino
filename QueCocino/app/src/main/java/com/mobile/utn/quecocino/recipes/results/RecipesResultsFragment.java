@@ -47,6 +47,7 @@ public class RecipesResultsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_recipes_results, container, false);
+        getActivity().setTitle("QueCocino");
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recipesRecyclerView);
 

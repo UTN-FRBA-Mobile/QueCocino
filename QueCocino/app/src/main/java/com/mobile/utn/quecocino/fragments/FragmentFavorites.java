@@ -19,6 +19,7 @@ public class FragmentFavorites extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View rootView = inflater.inflate(R.layout.fragment_favorites, container, false);
+        getActivity().setTitle("Favoritos");
         return rootView;
     }
 

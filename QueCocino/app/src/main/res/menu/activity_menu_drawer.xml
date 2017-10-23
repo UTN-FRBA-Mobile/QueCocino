@@ -11,9 +11,9 @@
             android:icon="@drawable/menu_ic_favorites"
             android:title="@string/navigation.item.favoritos" />
         <item
-            android:id="@+id/navigation.detailRecipe"
-            android:icon="@drawable/menu_ic_main"
-            android:title="Detalle de Receta" />
+            android:id="@+id/navigation.populars"
+            android:icon="@drawable/menu_ic_popular"
+            android:title="Populares" />
     </group>
 
     <item android:title="Timers">
