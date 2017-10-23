@@ -23,6 +23,18 @@
     <string name="recipe.results.cookingTimeMinutes">\u0020</string>
     <string name="recipe.results.applianceCooking">\u0020</string>
 
+    <!-- Recipe Search -->
+    <string name="recipe_search_ingredients_title">Ingredientes</string>
+    <string name="recipe_search_ingredients_add_ingredient_to_search_button">Agregar Ingrediente</string>
+    <string name="recipe_search_ingredients_search_recipe_button">Buscar Receta</string>
+    <string name="recipe_search_ingredients_hint">Ingrese un ingrediente...</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_prueba_fragment_recipe_search">PruebaFragmentRecipeSearch</string>
+    <string name="title_activity_prueba_fragment_buscar_receta">PruebaFragmentBuscarReceta</string>
+
     <!-- Other -->
+
 
 </resources>
