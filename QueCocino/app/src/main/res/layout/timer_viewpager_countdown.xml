@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_centerInParent="true"
-        android:text="00:00:00"
+        android:text=""
         android:textSize="50sp" />
 
 
@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_above="@id/timerCountdown"
-        android:text="Timer's Title"
+        android:text=""
         android:textSize="30sp" />
 
 </RelativeLayout>

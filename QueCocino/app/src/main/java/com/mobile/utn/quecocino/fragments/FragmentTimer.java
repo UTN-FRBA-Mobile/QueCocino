@@ -1,7 +1,6 @@
 package com.mobile.utn.quecocino.fragments;
 
-
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,15 +9,15 @@ import android.view.ViewGroup;
 import com.mobile.utn.quecocino.R;
 
 
-public class FragmentFavoritos extends Fragment {
+public class FragmentTimer extends Fragment {
 
-    public FragmentFavoritos(){
+    public FragmentTimer(){
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        View rootView = inflater.inflate(R.layout.fragment_favoritos, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_timer, container, false);
         return rootView;
     }
 

@@ -1,12 +1,12 @@
 package com.mobile.utn.quecocino.timer;
 
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,10 +53,6 @@ public class TimerCountdownFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_timer_countdown, container, false);
         ButterKnife.bind(this,view);
 
-        alarms = AlarmUtils.getAlarms(thisContext);
-        currentPosition = alarms.size()-1;
-        timerViewPagerAdapter = new TimerViewPagerAdapter(thisContext, alarms.size());
-        viewPager.setAdapter(timerViewPagerAdapter);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) { }
@@ -76,15 +72,6 @@ public class TimerCountdownFragment extends Fragment {
 
             @Override
             public void onPageScrollStateChanged(int state) { }
-        });
-        viewPager.post(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                viewPager.setCurrentItem(currentPosition);
-                updateViewPager();
-            }
         });
 
         pauseBtn.setOnClickListener(new View.OnClickListener() {
@@ -113,6 +100,24 @@ public class TimerCountdownFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        alarms = AlarmUtils.getAlarms(thisContext);
+        currentPosition = alarms.size()-1;
+        timerViewPagerAdapter = new TimerViewPagerAdapter(thisContext, alarms.size());
+        viewPager.setAdapter(timerViewPagerAdapter);
+        viewPager.post(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                viewPager.setCurrentItem(currentPosition);
+                updateViewPager();
+            }
+        });
     }
 
     private void updateViewPager(){
