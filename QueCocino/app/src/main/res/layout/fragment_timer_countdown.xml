@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mobile.utn.quecocino.timer.TimerEditFragment"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:id="@+id/timerCountdownStopAdd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/timerStop"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+            android:padding="15dp"
+            android:text="@string/timer.stop"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="25sp" />
+
+        <Button
+            android:id="@+id/timerAdd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+            android:padding="15dp"
+            android:text="@string/timer.add"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="25sp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/timerPause"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:padding="15dp"
+        android:layout_above="@id/timerCountdownStopAdd"
+        android:text="@string/timer.pause"
+        android:textColor="@color/colorAccent"
+        android:textSize="25sp" />
+
+    <com.mobile.utn.quecocino.timer.VerticalViewPager
+        android:id="@+id/timerViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/timerPause" />
+
+</RelativeLayout>

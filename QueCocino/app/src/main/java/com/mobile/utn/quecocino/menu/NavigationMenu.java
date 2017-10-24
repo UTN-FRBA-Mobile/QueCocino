@@ -27,6 +27,9 @@ import com.mobile.utn.quecocino.locationManager.GoogleLocationClient;
 import com.mobile.utn.quecocino.locationManager.LatLonTranslator;
 import com.mobile.utn.quecocino.model.Recipe;
 import com.mobile.utn.quecocino.recipes.results.RecipesResultsFragment;
+import com.mobile.utn.quecocino.timer.AlarmUtils;
+import com.mobile.utn.quecocino.timer.TimerCountdownFragment;
+import com.mobile.utn.quecocino.timer.TimerEditFragment;
 
 import java.util.Locale;
 
@@ -121,7 +124,11 @@ public class NavigationMenu extends AppCompatActivity
         } else if (id == R.id.navigation_favorites) {
             fragment = new FragmentFavorites();
         } else if (id == R.id.navigation_timers) {
-            fragment = new FragmentTimer();
+            if(AlarmUtils.hasAlarms(this)){
+                fragment = new TimerCountdownFragment();
+            } else {
+                fragment = new TimerEditFragment();
+            }
         }else if(id == R.id.navigation_populars){
             fragment = new FragmentPopulars();
         }
