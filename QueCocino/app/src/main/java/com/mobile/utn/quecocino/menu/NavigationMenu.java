@@ -128,6 +128,7 @@ public class NavigationMenu extends AppCompatActivity
 
         if(fragment != null){
             fragmentTransaction.replace(R.id.navigation_container, fragment);
+            fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         }
 
