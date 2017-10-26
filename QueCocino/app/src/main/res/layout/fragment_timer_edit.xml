@@ -1,43 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.mobile.utn.quecocino.timer.TimerActivity"
+    tools:context="com.mobile.utn.quecocino.timer.TimerEditFragment"
     android:padding="10dp"
     android:gravity="center"
     android:id="@+id/timerLayout">
 
     <TableRow
         android:weightSum="1"
-        android:gravity="center">
+        android:gravity="center" >
+
+        <EditText
+            android:id="@+id/timerTagEdit"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:hint="@string/timer.tag"
+            android:textSize="20sp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/colorAccent"/>
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:weightSum="1">
 
         <TextView
-            android:id="@+id/timerCount"
+            android:id="@+id/timerInput"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.8"
             android:gravity="center"
             android:text="00h 00m 00s"
-            android:textSize="50sp" />
+            android:textSize="45sp" />
 
         <LinearLayout
+            android:id="@+id/timerDeleteLayout"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.2"
-            android:gravity="start|bottom"
-            android:id="@+id/timerDeleteLayout">
+            android:gravity="start|bottom">
 
             <ImageView
                 android:id="@+id/timerDeleteBtn"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:background="@drawable/circle_ripple_shape"
+                android:clickable="true"
                 android:padding="10dp"
-                android:src="@android:drawable/ic_input_delete"
-                android:clickable="true"/>
+                android:src="@android:drawable/ic_input_delete" />
         </LinearLayout>
 
     </TableRow>
@@ -46,7 +63,7 @@
         style="@style/Divider" />
 
     <TableRow android:weightSum="3"
-        android:paddingTop="20dp">
+        android:paddingTop="0dp">
 
         <LinearLayout style="@style/NumberContainer">
             <Button
@@ -143,24 +160,11 @@
             android:layout_width="0dp"
             android:layout_weight="0.5"
             android:layout_height="wrap_content"
-            android:text="Start"
+            android:text="@string/timer.start"
             android:textSize="25sp"
             android:padding="15dp"
             android:background="?attr/selectableItemBackground"
-            android:textColor="@color/colorPrimary"/>
-
-        <Button
-            android:id="@+id/timerReset"
-            android:layout_width="0dp"
-            android:layout_weight="0.5"
-            android:layout_height="wrap_content"
-            android:text="Reset"
-            android:textSize="25sp"
-            android:padding="15dp"
-            android:background="?attr/selectableItemBackground"
-            android:textColor="@color/colorPrimary"
-            android:visibility="gone"/>
-
+            android:textColor="@color/colorAccent"/>
 
     </TableRow>
 

@@ -67,6 +67,7 @@ public class RecipesResultsFragment extends Fragment {
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 DetailRecipe newFragment = DetailRecipe.newInstance(recipe);
                 ft.replace(R.id.navigation_container, newFragment);
+                ft.addToBackStack(null);
                 ft.commit();
             }
 
