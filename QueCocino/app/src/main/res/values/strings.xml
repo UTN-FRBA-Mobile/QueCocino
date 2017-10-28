@@ -44,4 +44,7 @@
     <string name="recipe_search_ingredients_search_recipe_button">Buscar Receta</string>
     <string name="recipe_search_ingredients_hint">Ingrese un ingrediente...</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

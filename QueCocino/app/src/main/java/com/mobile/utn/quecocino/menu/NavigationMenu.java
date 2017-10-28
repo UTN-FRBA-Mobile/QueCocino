@@ -2,12 +2,11 @@ package com.mobile.utn.quecocino.menu;
 
 import android.location.Geocoder;
 import android.location.Location;
-import com.google.android.gms.location.LocationListener;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -17,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationServices;
 import com.mobile.utn.quecocino.R;
 import com.mobile.utn.quecocino.detailrecipe.DetailRecipe;
@@ -25,7 +25,7 @@ import com.mobile.utn.quecocino.fragments.FragmentPopulars;
 import com.mobile.utn.quecocino.fragments.FragmentTimer;
 import com.mobile.utn.quecocino.locationManager.GoogleLocationClient;
 import com.mobile.utn.quecocino.locationManager.LatLonTranslator;
-import com.mobile.utn.quecocino.model.Recipe;
+import com.mobile.utn.quecocino.recipes.filter.Filter;
 import com.mobile.utn.quecocino.recipes.results.RecipesResultsFragment;
 import com.mobile.utn.quecocino.timer.AlarmUtils;
 import com.mobile.utn.quecocino.timer.TimerCountdownFragment;
@@ -43,6 +43,16 @@ public class NavigationMenu extends AppCompatActivity
 
     public NavigationView navigationView = null;
     public Toolbar toolbar = null;
+
+    private Filter filter;
+
+    public Filter getFilter() {
+        return filter;
+    }
+
+    public void setFilter(Filter filter) {
+        this.filter = filter;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
