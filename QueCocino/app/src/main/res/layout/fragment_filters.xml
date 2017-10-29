@@ -37,5 +37,26 @@
                 app:borderWidth="0dp"
                 android:src="@drawable/recipe_microwave"/>
         </LinearLayout>
+
+        <com.appyvet.materialrangebar.RangeBar
+            android:id="@+id/cookingTimeMinutesRangeBar"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            app:mrb_rangeBarPaddingBottom="12dp"
+            app:mrb_barWeight="0dp"
+            app:mrb_tickHeight="0dp"
+            app:mrb_pinMaxFont="20sp"
+            app:mrb_pinRadius="20sp"
+            app:mrb_pinColor="@color/colorAccent"
+            app:mrb_selectorBoundaryColor="@color/colorAccent"
+            app:mrb_selectorColor="@color/colorAccent"
+            app:mrb_selectorBoundarySize="2dp"
+            app:mrb_selectorSize="10dp"
+            app:mrb_connectingLineColor="@color/colorAccent"
+            app:mrb_connectingLineWeight="1dp"/>
+
     </LinearLayout>
 </FrameLayout>

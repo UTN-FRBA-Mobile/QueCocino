@@ -14,12 +14,22 @@ public class FilterBuilder {
     private OvenFilter ovenFilter;
     private MicrowaveFilter microwaveFilter;
 
+    //Cooking Time
+    private List<Filter> cookingTimeFilters;
+    private CookingTimeFilter cookingTimeFilter;
+
     public FilterBuilder(){
         this.applianceCookingFilters = new ArrayList<Filter>();
+        this.cookingTimeFilters = new ArrayList<Filter>();
     }
 
     public Filter buildFilter(){
 
+        // List with all section filters
+        List<Filter> groupsFilters = new ArrayList<Filter>();
+        Filter finalFilter = null;
+
+        //Appliance cooking
         Filter applianceFilter = null;
 
         for (Filter filter : applianceCookingFilters){
@@ -30,7 +40,32 @@ public class FilterBuilder {
             }
         }
 
-        return applianceFilter;
+        groupsFilters.add(applianceFilter);
+
+        //Cooking Time
+        Filter cookingTime = null;
+
+        for (Filter filter : cookingTimeFilters){
+            if (cookingTime == null){
+                cookingTime = filter;
+            }else{
+                cookingTime = new OrFilter(cookingTime, filter);
+            }
+        }
+
+        groupsFilters.add(cookingTime);
+
+        // Final filter
+
+        for (Filter filter : groupsFilters){
+            if (finalFilter == null){
+                finalFilter = filter;
+            }else{
+                finalFilter = new AndFilter(finalFilter, filter);
+            }
+        }
+
+        return finalFilter;
     }
 
     public void addOven(){
@@ -53,6 +88,12 @@ public class FilterBuilder {
 
     public void removeMicrowave(){
         if (microwaveFilter != null && applianceCookingFilters.contains(microwaveFilter)) applianceCookingFilters.remove(microwaveFilter);
+    }
+
+    public void addCookingTimeFilter(int min, int max){
+        if (cookingTimeFilter == null) cookingTimeFilter = new CookingTimeFilter();
+        cookingTimeFilter.setValues(min, max);
+        if (!cookingTimeFilters.contains(cookingTimeFilter)) cookingTimeFilters.add(cookingTimeFilter);
     }
 
 }

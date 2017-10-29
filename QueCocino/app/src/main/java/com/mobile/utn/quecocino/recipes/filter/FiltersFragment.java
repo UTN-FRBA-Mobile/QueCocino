@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.appyvet.materialrangebar.RangeBar;
 import com.mobile.utn.quecocino.R;
 import com.mobile.utn.quecocino.menu.NavigationMenu;
 
@@ -30,6 +31,9 @@ public class FiltersFragment extends Fragment {
     @BindView(R.id.ovenButton)
     public FloatingActionButton ovenButton;
     private boolean ovenPresed;
+
+    @BindView(R.id.cookingTimeMinutesRangeBar)
+    public RangeBar cookingTimeMinutesRangeBar;
 
     private Filter filter;
 
@@ -61,6 +65,9 @@ public class FiltersFragment extends Fragment {
 
         ovenButton.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
         microwaveButton.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
+        cookingTimeMinutesRangeBar.setTickInterval(1f);
+        cookingTimeMinutesRangeBar.setTickStart(0f);
+        cookingTimeMinutesRangeBar.setTickEnd(180f);
 
         ovenButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,6 +100,23 @@ public class FiltersFragment extends Fragment {
                     microwaveButton.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
                 }
             }
+        });
+
+        /*cookingTimeMinutesRangeBar.setFormatter(new IRangeBarFormatter() {
+            @Override
+            public String format(String s) {
+                //TODO usar strings.xml
+                return s + " min";
+            }
+        });*/
+
+        cookingTimeMinutesRangeBar.setOnRangeBarChangeListener(new RangeBar.OnRangeBarChangeListener() {
+            @Override
+            public void onRangeChangeListener(RangeBar rangeBar, int leftPinIndex, int rightPinIndex, String leftPinValue,
+                                              String rightPinValue) {
+                filterBuilder.addCookingTimeFilter(leftPinIndex < rightPinIndex ? leftPinIndex : rightPinIndex, leftPinIndex < rightPinIndex ? rightPinIndex : leftPinIndex );
+            }
+
         });
 
         return rootView;
