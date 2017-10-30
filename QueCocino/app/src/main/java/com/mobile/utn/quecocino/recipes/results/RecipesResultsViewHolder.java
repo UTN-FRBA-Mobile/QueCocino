@@ -1,17 +1,11 @@
 package com.mobile.utn.quecocino.recipes.results;
 
-import android.content.Context;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mobile.utn.quecocino.R;
-import com.mobile.utn.quecocino.detailrecipe.DetailRecipe;
-import com.mobile.utn.quecocino.fragments.FragmentFavorites;
-import com.mobile.utn.quecocino.fragments.FragmentTimer;
 
 /**
  * Created by Rama on 30/09/2017.
@@ -19,27 +13,27 @@ import com.mobile.utn.quecocino.fragments.FragmentTimer;
 
 public class RecipesResultsViewHolder extends RecyclerView.ViewHolder{
 
-        private TextView titleTextView;
-        private TextView authorTextView;
-        private TextView cookingTimeMinutesTextView;
-        private TextView applianceCookingTextView;
-        private ImageView mainImageView;
-        private ImageView applianceCookingImageView;
-        private ImageView cookingTimeMinutesImageView;
+    private TextView titleTextView;
+    private TextView authorTextView;
+    private TextView cookingTimeMinutesTextView;
+    private TextView applianceCookingTextView;
+    private ImageView mainImageView;
+    private ImageView applianceCookingImageView;
+    private ImageView cookingTimeMinutesImageView;
 
-        public RecipesResultsViewHolder(View itemView) {
-            super(itemView);
+    public RecipesResultsViewHolder(View itemView) {
+        super(itemView);
 
-            mainImageView = (ImageView) itemView.findViewById(R.id.recipeImage);
-            applianceCookingImageView = (ImageView) itemView.findViewById(R.id.applianceCookingImage);
-            cookingTimeMinutesImageView = (ImageView) itemView.findViewById(R.id.cookingTimeMinutesImage);
+        mainImageView = (ImageView) itemView.findViewById(R.id.recipeImage);
+        applianceCookingImageView = (ImageView) itemView.findViewById(R.id.applianceCookingImage);
+        cookingTimeMinutesImageView = (ImageView) itemView.findViewById(R.id.cookingTimeMinutesImage);
 
-            titleTextView = (TextView) itemView.findViewById(R.id.recipeTitle);
-            authorTextView = (TextView) itemView.findViewById(R.id.recipeAuthor);
-            cookingTimeMinutesTextView = (TextView) itemView.findViewById(R.id.recipeCookingTimeMinutes);
-            applianceCookingTextView = (TextView) itemView.findViewById(R.id.recipeApplianceCooking);
+        titleTextView = (TextView) itemView.findViewById(R.id.recipeTitle);
+        authorTextView = (TextView) itemView.findViewById(R.id.recipeAuthor);
+        cookingTimeMinutesTextView = (TextView) itemView.findViewById(R.id.recipeCookingTimeMinutes);
+        applianceCookingTextView = (TextView) itemView.findViewById(R.id.recipeApplianceCooking);
 
-        }
+    }
 
     public TextView getTitleTextView() {
         return titleTextView;

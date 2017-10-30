@@ -9,7 +9,7 @@ import java.util.List;
  * Created by Rama on 29/10/2017.
  */
 
-class CookingTimeFilter extends Filter{
+public class CookingTimeFilter extends Filter{
 
     private int minMinutes;
     private int maxMinutes;

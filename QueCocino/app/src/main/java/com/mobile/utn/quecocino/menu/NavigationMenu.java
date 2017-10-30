@@ -1,6 +1,5 @@
 package com.mobile.utn.quecocino.menu;
 
-import android.content.Intent;
 import android.location.Geocoder;
 import android.location.Location;
 import android.net.Uri;
@@ -23,7 +22,6 @@ import com.mobile.utn.quecocino.R;
 import com.mobile.utn.quecocino.detailrecipe.DetailRecipe;
 import com.mobile.utn.quecocino.fragments.FragmentFavorites;
 import com.mobile.utn.quecocino.fragments.FragmentPopulars;
-import com.mobile.utn.quecocino.fragments.FragmentTimer;
 import com.mobile.utn.quecocino.locationManager.GoogleLocationClient;
 import com.mobile.utn.quecocino.locationManager.LatLonTranslator;
 import com.mobile.utn.quecocino.recipes.filter.Filter;
@@ -130,7 +128,11 @@ public class NavigationMenu extends AppCompatActivity
         } else if (id == R.id.navigation_action_favoritos) {
             fragment = new FragmentFavorites();
         } else if (id == R.id.navigation_action_timers) {
-            fragment = new FragmentTimer();
+            if(AlarmUtils.hasAlarms(this)){
+                fragment = new TimerCountdownFragment();
+            } else {
+                fragment = new TimerEditFragment();
+            }
         }
 
         if(fragment != null){
