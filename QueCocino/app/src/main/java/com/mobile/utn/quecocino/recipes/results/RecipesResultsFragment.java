@@ -21,8 +21,11 @@ import com.mobile.utn.quecocino.R;
 import com.mobile.utn.quecocino.detailrecipe.DetailRecipe;
 import com.mobile.utn.quecocino.menu.NavigationMenu;
 import com.mobile.utn.quecocino.model.Recipe;
+import com.mobile.utn.quecocino.recipes.filter.AndFilter;
+import com.mobile.utn.quecocino.recipes.filter.FavoriteFilter;
 import com.mobile.utn.quecocino.recipes.filter.Filter;
 import com.mobile.utn.quecocino.recipes.filter.FiltersFragment;
+import com.mobile.utn.quecocino.recipes.filter.PopularFilter;
 import com.mobile.utn.quecocino.utils.RecyclerTouchListener;
 
 import java.util.ArrayList;
@@ -43,8 +46,6 @@ public class RecipesResultsFragment extends Fragment {
     private FirebaseDatabase database;
 
     List<Recipe> recipes;
-
-    public Filter filter;
 
     public RecipesResultsFragment() {
         // Required empty public constructor
@@ -100,11 +101,23 @@ public class RecipesResultsFragment extends Fragment {
 
                 NavigationMenu activity = (NavigationMenu) getActivity();
 
-                if (activity.getFilter() != null){
-                    recipes = activity.getFilter().meetCriteria(RecipesResultsFragment.this.recipes);
-                    adapter.setRecipes(recipes);
+                Bundle args = RecipesResultsFragment.this.getArguments();
+                if(args!=null) {
+                    String page = args.containsKey("page") ? args.getString("page") : "";
+                    switch (page){
+                        case "popular":
+                            activity.setFilter(new AndFilter(activity.getFilter(),new PopularFilter()));
+                            break;
+                        case "favorites":
+                            activity.setFilter(new AndFilter(activity.getFilter(),new FavoriteFilter(getContext())));
+                            break;
+                        default:
+                            break;
+                    }
                 }
 
+                recipes = activity.getFilter().meetCriteria(RecipesResultsFragment.this.recipes);
+                adapter.setRecipes(recipes);
                 adapter.notifyDataSetChanged();
             }
 
@@ -128,4 +141,5 @@ public class RecipesResultsFragment extends Fragment {
         return rootView;
 
     }
+
 }

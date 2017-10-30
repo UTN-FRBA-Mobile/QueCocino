@@ -13,6 +13,7 @@ public class Recipe implements Serializable{
     private int cookingTimeMinutes;
     private String mainImage;
     private String applianceCooking;
+    private boolean isPopular;
 
     public Recipe() {
     }
@@ -72,5 +73,13 @@ public class Recipe implements Serializable{
 
     public void setApplianceCooking(String applianceCooking) {
         this.applianceCooking = applianceCooking;
+    }
+
+    public boolean isPopular() {
+        return isPopular;
+    }
+
+    public void setPopular(boolean popular) {
+        isPopular = popular;
     }
 }
