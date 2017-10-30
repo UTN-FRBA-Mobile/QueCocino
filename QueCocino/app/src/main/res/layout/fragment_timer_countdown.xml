@@ -22,7 +22,7 @@
             android:background="?attr/selectableItemBackground"
             android:padding="15dp"
             android:text="@string/timer.stop"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/colorPrimary"
             android:textSize="25sp" />
 
         <Button
@@ -33,7 +33,7 @@
             android:background="?attr/selectableItemBackground"
             android:padding="15dp"
             android:text="@string/timer.add"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/colorPrimary"
             android:textSize="25sp" />
     </LinearLayout>
 
@@ -45,13 +45,24 @@
         android:padding="15dp"
         android:layout_above="@id/timerCountdownStopAdd"
         android:text="@string/timer.pause"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="25sp" />
+
 
     <com.mobile.utn.quecocino.timer.VerticalViewPager
         android:id="@+id/timerViewPager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/timerPause" />
+        android:layout_above="@id/timerPause"/>
+
+    <LinearLayout
+        android:id="@+id/timerViewPagerDots"
+        android:layout_width="40dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:layout_above="@id/timerPause"
+        android:layout_alignRight="@id/timerViewPager"
+        android:layout_alignEnd="@id/timerViewPager"/>
 
 </RelativeLayout>

@@ -1,11 +1,17 @@
 package com.mobile.utn.quecocino.timer;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +22,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mobile.utn.quecocino.R;
+import com.mobile.utn.quecocino.menu.NavigationMenu;
 
 import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static android.content.Context.NOTIFICATION_SERVICE;
 
 public class TimerEditFragment extends Fragment{
 
@@ -73,7 +82,13 @@ public class TimerEditFragment extends Fragment{
         View view = inflater.inflate(R.layout.fragment_timer_edit, container, false);
         ButterKnife.bind(this,view);
 
-        hhmmss = "000000";
+        hhmmss="000000";
+        Bundle args = getArguments();
+        if(args!=null){
+            hhmmss = (args.containsKey("hhmmss")) ? args.getString("hhmmss") : "000000";
+            tagEdit.setText((args.containsKey("tag")) ? args.getString("tag") : "");
+        }
+        updateTimerInput();
 
         deleteBtn.getDrawable().setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
 
@@ -101,14 +116,22 @@ public class TimerEditFragment extends Fragment{
 
         });
 
+        final Fragment that = this;
         startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setAlarm();
                 FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.navigation_container, new TimerCountdownFragment());
-                fragmentTransaction.commit();
+
+                Bundle args = that.getArguments();
+                Boolean isAddTimer = args!=null ? args.getBoolean("isAddTimer") : false;
+                if(isAddTimer){
+                    fragmentManager.popBackStackImmediate();
+                } else {
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.navigation_container, new TimerCountdownFragment());
+                    fragmentTransaction.commit();
+                }
             }
         });
 
@@ -116,12 +139,18 @@ public class TimerEditFragment extends Fragment{
     }
 
     private void setAlarm(){
-        Long millis = System.currentTimeMillis()+getTimeInMillis()+1000;
+        Long millis = System.currentTimeMillis()+getTimeInMillis();
+        String tag = tagEdit.getText().toString();
         Intent i = new Intent(this.getActivity(), TimerAlarmReceiver.class);
-        AlarmUtils.addAlarm(this.getActivity(), i, millis, tagEdit.getText().toString());
+        int alarmId = AlarmUtils.addAlarm(this.getActivity(), i, millis, tag);
     }
 
     private void updateTimerInput() {
+        if(hhmmss.equals("000000")){
+            startBtn.setVisibility(View.INVISIBLE);
+        } else {
+            startBtn.setVisibility(View.VISIBLE);
+        }
         timerInput.setText(hhmmss.replaceAll("(..)(..)(..)", "$1h $2m $3s"));
     }
 

@@ -45,6 +45,6 @@ public class TimerAlarm {
         } else {
             millis = time;
         }
-        return (int) Math.ceil(millis / 1000.0);
+        return (int) Math.ceil((millis+1000) / 1000.0);
     }
 }

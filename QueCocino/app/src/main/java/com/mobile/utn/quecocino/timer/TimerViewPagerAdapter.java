@@ -18,8 +18,6 @@ import java.util.List;
 
 public class TimerViewPagerAdapter extends PagerAdapter {
 
-    private Context context;
-    private int count;
     private List<View> pages;
 
     public TextView title;
@@ -31,35 +29,29 @@ public class TimerViewPagerAdapter extends PagerAdapter {
     private CountDownTimer cdt;
 
     public TimerViewPagerAdapter(Context context, int count) {
-        this.context = context;
-        this.count = count;
         this.pages = new ArrayList<>();
+        LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        for(int i=0; i<count; i++) {
+            View view = layoutInflater.inflate(R.layout.timer_viewpager_countdown,null);
+            pages.add(view);
+        }
     }
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = layoutInflater.inflate(R.layout.timer_viewpager_countdown,null);
-
-        pages.add(view);
-
+        View view = pages.get(position);
         ViewPager viewPager = (ViewPager) container;
-        viewPager.addView(view,0);
-
+        viewPager.addView(view);
         return view;
     }
 
     public int removePage(ViewGroup container, int position){
         ViewPager viewPager = (ViewPager) container;
-        //viewPager.setAdapter(null);
         viewPager.removeView(pages.get(position));
         pages.remove(position);
-        count--;
-        //viewPager.setAdapter(this);
         if (position == this.getCount()){
             position--;
         }
-        viewPager.setCurrentItem(position);
         notifyDataSetChanged();
         return position;
     }
@@ -82,6 +74,10 @@ public class TimerViewPagerAdapter extends PagerAdapter {
 
         String value = alarm.getTag();
         title.setText(value);
+    }
+
+    public View getView(int position) {
+        return pages.get(position);
     }
 
     private CountDownTimer createCDT() {
@@ -117,7 +113,7 @@ public class TimerViewPagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return count;
+        return pages.size();
     }
 
 

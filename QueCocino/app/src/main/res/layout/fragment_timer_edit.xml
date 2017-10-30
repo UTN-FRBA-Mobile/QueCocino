@@ -19,9 +19,9 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:hint="@string/timer.tag"
-            android:textSize="20sp"
+            android:textSize="30sp"
             android:layout_marginBottom="10dp"
-            android:textColor="@color/colorAccent"/>
+            android:textColor="@android:color/tab_indicator_text"/>
 
     </TableRow>
 
@@ -164,7 +164,8 @@
             android:textSize="25sp"
             android:padding="15dp"
             android:background="?attr/selectableItemBackground"
-            android:textColor="@color/colorAccent"/>
+            android:textColor="@color/colorPrimaryDark"
+            android:visibility="invisible"/>
 
     </TableRow>
 

@@ -1,5 +1,6 @@
 package com.mobile.utn.quecocino.menu;
 
+import android.content.Intent;
 import android.location.Geocoder;
 import android.location.Location;
 import com.google.android.gms.location.LocationListener;
@@ -30,6 +31,7 @@ import com.mobile.utn.quecocino.recipes.results.RecipesResultsFragment;
 import com.mobile.utn.quecocino.timer.AlarmUtils;
 import com.mobile.utn.quecocino.timer.TimerCountdownFragment;
 import com.mobile.utn.quecocino.timer.TimerEditFragment;
+import com.mobile.utn.quecocino.timer.TimerRingFragment;
 
 import java.util.Locale;
 
@@ -49,8 +51,28 @@ public class NavigationMenu extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
+
         //set the fragment initially
-        RecipesResultsFragment fragment = new RecipesResultsFragment();
+        String fragmentStr = "";
+        Bundle args = getIntent().getExtras();
+        if(args!=null) {
+            fragmentStr = (args.containsKey("fragment")) ? args.getString("fragment") : "";
+        }
+
+        Fragment fragment;
+        switch (fragmentStr) {
+            case "timerRing":
+                fragment = new TimerRingFragment();
+                break;
+            case "timerCountdown":
+                fragment = new TimerCountdownFragment();
+                break;
+            default:
+                fragment = new RecipesResultsFragment();
+                break;
+        }
+
+        fragment.setArguments(args);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.navigation_container, fragment);
         fragmentTransaction.commit();

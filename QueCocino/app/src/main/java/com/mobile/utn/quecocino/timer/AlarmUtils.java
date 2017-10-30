@@ -22,13 +22,16 @@ public class AlarmUtils {
 
     public static String sTagAlarms = ":alarms";
 
-    public static void addAlarm(Context context, Intent intent, Long time, String tag) {
-
+    public static int addAlarm(Context context, Intent intent, Long time, String tag) {
         TimerAlarm alarm = new TimerAlarm();
         alarm.setId((int) ((time / 1000L) % Integer.MAX_VALUE));
         alarm.setTime(time);
         alarm.setTag(tag);
         alarm.setTimerRunning(true);
+
+        intent.putExtra("fragment","timerRing");
+        intent.putExtra("alarmTag",alarm.getTag());
+        intent.putExtra("alarmId",alarm.getId());
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, alarm.getId(), intent, PendingIntent.FLAG_CANCEL_CURRENT);
@@ -42,6 +45,8 @@ public class AlarmUtils {
         }
 
         saveAlarm(context, alarm);
+
+        return alarm.getId();
     }
 
     public static void pauseAlarm(Context context, Intent intent, TimerAlarm alarm) {
@@ -87,13 +92,13 @@ public class AlarmUtils {
         alarm.setTimerRunning(true);
     }
 
-    public static void cancelAlarm(Context context, Intent intent, TimerAlarm alarm) {
+    public static void cancelAlarm(Context context, Intent intent, int alarmId) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, alarm.getId(), intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, alarmId, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         alarmManager.cancel(pendingIntent);
         pendingIntent.cancel();
 
-        removeAlarm(context, alarm);
+        removeAlarm(context, alarmId);
     }
 
     public static boolean hasAlarm(Context context, Intent intent, int alarmId) {
@@ -118,6 +123,7 @@ public class AlarmUtils {
             alarm.setTimerRunning(prefs.getBoolean(context.getPackageName() + ":running:" + alarmStrId, true));
             alarms.add(alarm);
         }
+
         return alarms;
     }
 
@@ -139,8 +145,8 @@ public class AlarmUtils {
         editor.apply();
     }
 
-    private static void removeAlarm(Context context, TimerAlarm alarm) {
-        String alarmStrId = Integer.toString(alarm.getId());
+    public static void removeAlarm(Context context, int alarmId) {
+        String alarmStrId = Integer.toString(alarmId);
 
         List<String> idsAlarms = getAlarmIds(context);
         for (int i = 0; i < idsAlarms.size(); i++) {
