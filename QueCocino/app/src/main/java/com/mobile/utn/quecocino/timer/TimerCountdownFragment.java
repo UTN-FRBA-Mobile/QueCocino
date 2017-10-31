@@ -297,6 +297,7 @@ public class TimerCountdownFragment extends Fragment {
                 .setColor(ContextCompat.getColor(thisContext,R.color.colorPrimaryDark))
                 .setContentIntent(contentPI)
                 .setAutoCancel(true);
+
         if(!tag.isEmpty()) {
             builder.setContentText(tag);
         }

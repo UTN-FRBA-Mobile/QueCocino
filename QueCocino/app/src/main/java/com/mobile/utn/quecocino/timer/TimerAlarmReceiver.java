@@ -19,7 +19,7 @@ public class TimerAlarmReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Bundle args = intent.getExtras();
         AlarmUtils.removeAlarm(context,args.getInt("alarmId"));
-        Intent newIntent = new Intent(context, TimerRingFragment.class);
+        Intent newIntent = new Intent(context, NavigationMenu.class);
         newIntent.putExtras(args);
         context.startActivity(newIntent);
     }
