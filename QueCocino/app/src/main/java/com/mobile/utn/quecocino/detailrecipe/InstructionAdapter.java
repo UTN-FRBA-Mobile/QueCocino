@@ -6,7 +6,9 @@ import com.mobile.utn.quecocino.R;
 import com.mobile.utn.quecocino.model.RecipeInstruction;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +37,7 @@ public class InstructionAdapter extends ArrayAdapter<RecipeInstruction> implemen
 
             convertView = layoutInflater.inflate(R.layout.detailrecipe_iteminstruction, null);
             holder.setTextViewDescription((TextView) convertView.findViewById(R.id.detailRecipe_itemInstructionDesc));
-            holder.setCheckBox((CheckBox) convertView.findViewById(R.id.detailRecipe_itemInstructionCk));
+            holder.setCardView((CardView) convertView.findViewById(R.id.detailRecipe_itemCardView));
             convertView.setTag(holder);
         }
         else
@@ -45,11 +47,10 @@ public class InstructionAdapter extends ArrayAdapter<RecipeInstruction> implemen
 
         RecipeInstruction instruction = getItem(position);
         holder.getTextViewDescription().setText(instruction.getDescription());
-        holder.getCheckBox().setTag(position);
-        holder.getCheckBox().setChecked(instruction.isChecked());
-        holder.getCheckBox().setOnClickListener(this);
+        holder.getCardView().setTag(position);
+        holder.getCardView().setOnClickListener(this);
 
-        changeBackground(getContext(), holder.getCheckBox());
+        changeBackground(holder.getCardView(), instruction);
 
         return convertView;
     }
@@ -57,29 +58,26 @@ public class InstructionAdapter extends ArrayAdapter<RecipeInstruction> implemen
     @Override
     public void onClick(View v) {
 
-        CheckBox checkBox = (CheckBox) v;
         int position = (Integer) v.getTag();
-        getItem(position).setChecked(checkBox.isChecked());
-        changeBackground(InstructionAdapter.this.getContext(), checkBox);
+        RecipeInstruction instruction = getItem(position);
+        instruction.setChecked(!instruction.isChecked());
+        changeBackground((CardView) v, instruction);
 
     }
 
     @SuppressWarnings("deprecation")
-    private void changeBackground(Context context, CheckBox checkBox) {
-        View instruction = (View) checkBox.getParent();
-        Drawable drawable = context.getResources().getDrawable(R.drawable.detailrecipe_checked);
-        if (checkBox.isChecked()) {
-            drawable = context.getResources().getDrawable(R.drawable.detailrecipe_checked);
+    private void changeBackground(CardView cardView, RecipeInstruction instruction) {
+        if (instruction.isChecked()) {
+            cardView.setCardBackgroundColor(getContext().getResources().getColor(R.color.colorSelected));
         } else {
-            drawable = context.getResources().getDrawable(R.drawable.detailrecipe_nochecked);
+            cardView.setCardBackgroundColor(Color.WHITE);
         }
-        instruction.setBackgroundDrawable(drawable);
     }
 
     static class Holder
     {
         TextView textViewDescription;
-        CheckBox checkBox;
+        CardView cardView;
 
         public TextView getTextViewDescription() {
             return textViewDescription;
@@ -89,12 +87,12 @@ public class InstructionAdapter extends ArrayAdapter<RecipeInstruction> implemen
             this.textViewDescription = textViewDescription;
         }
 
-        public CheckBox getCheckBox() {
-            return checkBox;
+        public CardView getCardView() {
+            return cardView;
         }
 
-        public void setCheckBox(CheckBox checkBox) {
-            this.checkBox = checkBox;
+        public void setCardView(CardView cardView) {
+            this.cardView = cardView;
         }
     }
 }

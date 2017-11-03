@@ -1,7 +1,9 @@
 package com.mobile.utn.quecocino.recipes.results;
 
 
+import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -25,6 +27,7 @@ import com.mobile.utn.quecocino.recipes.filter.Filter;
 import com.mobile.utn.quecocino.recipes.filter.FiltersFragment;
 import com.mobile.utn.quecocino.utils.RecyclerTouchListener;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +44,7 @@ public class RecipesResultsFragment extends Fragment {
 
     private RecipesResultsAdapter adapter;
     private FirebaseDatabase database;
+    private OnFragmentInteractionListener mListener;
 
     List<Recipe> recipes;
 
@@ -127,5 +131,26 @@ public class RecipesResultsFragment extends Fragment {
 
         return rootView;
 
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mListener.disableCollapse();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnCheeseCategoriesFragmentListener");
+        }
+    }
+
+    public interface OnFragmentInteractionListener {
+        void disableCollapse();
     }
 }

@@ -3,7 +3,6 @@
     <color name="colorPrimary">#8BC34A</color>
     <color name="colorPrimaryDark">#558B2F</color>
     <color name="colorAccent">#cce65f</color>
-    <drawable name="highlight_pressed">#C5E1A5</drawable>
-    <drawable name="highlight_focused">#C5E1A5</drawable>
+    <color name="colorSelected">#bfcce660</color>
     <drawable name="colorWhite">#ffffe9</drawable>
 </resources>

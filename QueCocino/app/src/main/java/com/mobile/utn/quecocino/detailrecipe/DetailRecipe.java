@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.mobile.utn.quecocino.R;
+import com.mobile.utn.quecocino.menu.NavigationMenu;
+import com.mobile.utn.quecocino.model.RecipeIngredient;
 import com.mobile.utn.quecocino.model.RecipeInstruction;
 import com.mobile.utn.quecocino.recipegallery.activities.RecipeGallery;
 import com.mobile.utn.quecocino.model.Recipe;
@@ -25,6 +28,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.mobile.utn.quecocino.model.FirebaseReferences.INGREDIENT_REFERENCE;
 import static com.mobile.utn.quecocino.model.FirebaseReferences.INSTRUCTION_RECIPE_REFERENCE;
 
 public class DetailRecipe extends Fragment {
@@ -34,15 +38,17 @@ public class DetailRecipe extends Fragment {
     private Recipe recipe;
     private OnFragmentInteractionListener mListener;
     private InstructionAdapter instructionAdapter;
+    private IngredientAdapter ingredientAdapter;
 
     public ImageView mainImageView;
-    public TextView recipeTitleTextView;
     public TextView recipeAuthorTextView;
     public TextView recipeCookingTimeTextView;
     public ImageView recipeApplianceImg;
     public TextView recipeApplianceTextView;
     public ListView recipeInstuctionListView;
+    public ListView recipeIngredientListView;
     private List<RecipeInstruction> recipeInstructions;
+    private List<RecipeIngredient> recipeIngredients;
     private FirebaseDatabase database;
 
     public DetailRecipe() {}
@@ -69,19 +75,19 @@ public class DetailRecipe extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_detail_recipe, container, false);
 
-        mainImageView = (ImageView) view.findViewById(R.id.detailRecipe_mainImage);
-        recipeTitleTextView = (TextView) view.findViewById(R.id.detailRecipe_titleRecipe);
-        recipeAuthorTextView = (TextView) view.findViewById(R.id.detailRecipe_authorRecipe);
+        mainImageView = (ImageView) getActivity().findViewById(R.id.navigation_mainImage);
+        recipeAuthorTextView = (TextView) getActivity().findViewById(R.id.navigation_authorRecipe);
         recipeCookingTimeTextView = (TextView) view.findViewById(R.id.detailRecipe_cookingTimeRecipe);
         recipeApplianceImg = (ImageView) view.findViewById(R.id.detailRecipe_applianceImg);
         recipeApplianceTextView = (TextView) view.findViewById(R.id.detailRecipe_applianceRecipe);
         recipeInstuctionListView = (ListView) view.findViewById(R.id.detailRecipe_instructionsList);
+        recipeIngredientListView = (ListView) view.findViewById(R.id.detailRecipe_ingredientsList);
 
         recipeInstructions = new ArrayList<>();
+        recipeIngredients = new ArrayList<>();
         instructionAdapter = new InstructionAdapter(getActivity(), recipeInstructions);
+        ingredientAdapter = new IngredientAdapter(getActivity(), recipeIngredients);
 
-        getActivity().setTitle(recipe.getTitle());
-        recipeTitleTextView.setText(recipe.getTitle());
         recipeAuthorTextView.setText(" por " + recipe.getAuthor());
         Picasso.with(getActivity().getApplicationContext()).load(recipe.getMainImage()).resize(1100, 600).into(mainImageView);
         recipeCookingTimeTextView.setText(recipe.getCookingTimeMinutes() + "Min.");
@@ -112,6 +118,7 @@ public class DetailRecipe extends Fragment {
                 for(DataSnapshot snapshot: dataSnapshot.getChildren()){
                     RecipeInstruction instruction = new RecipeInstruction();
                     instruction.setDescription(snapshot.getValue(RecipeInstruction.class).getDescription());
+                    instruction.setTime(snapshot.getValue(RecipeInstruction.class).getTime());
                     recipeInstructions.add(instruction);
                 }
                 instructionAdapter.notifyDataSetChanged();
@@ -122,10 +129,34 @@ public class DetailRecipe extends Fragment {
 
             }
         });
+        database.getReference(INGREDIENT_REFERENCE).child(recipe.getIdRecipe()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                recipeIngredients.removeAll(recipeIngredients);
+                for(DataSnapshot snapshot: dataSnapshot.getChildren()){
+                    RecipeIngredient ingredient = new RecipeIngredient();
+                    ingredient.setDescription(snapshot.getValue(RecipeIngredient.class).getDescription());
+                    recipeIngredients.add(ingredient);
+                }
+                ingredientAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         recipeInstuctionListView.setAdapter(instructionAdapter);
+        recipeIngredientListView.setAdapter(ingredientAdapter);
 
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mListener.enableCollapse();
     }
 
     public void onButtonPressed(Uri uri) {
@@ -153,6 +184,14 @@ public class DetailRecipe extends Fragment {
 
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
+        void enableCollapse();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(recipe != null)
+            ((NavigationMenu) getActivity()).getCollapsingToolbar().setTitle(recipe.getTitle());
     }
 
 }

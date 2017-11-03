@@ -5,6 +5,7 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -14,6 +15,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -34,15 +37,21 @@ import com.mobile.utn.quecocino.timer.TimerRingFragment;
 import java.util.Locale;
 
 public class NavigationMenu extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, DetailRecipe.OnFragmentInteractionListener, LocationListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+                    DetailRecipe.OnFragmentInteractionListener,
+                        RecipesResultsFragment.OnFragmentInteractionListener,
+                            LocationListener {
 
     //For getLocation
     private GoogleLocationClient mGoogleLocationClient;
     private LatLonTranslator mLatLonTranslator;
     private Geocoder geoCod;
 
-    public NavigationView navigationView = null;
-    public Toolbar toolbar = null;
+    public NavigationView navigationView;
+    public Toolbar toolbar;
+    private ImageView imageView;
+    private CollapsingToolbarLayout collapsingToolbar;
+    private View viewGradient;
 
     private Filter filter;
 
@@ -88,6 +97,11 @@ public class NavigationMenu extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.navigation_toolbar);
         setSupportActionBar(toolbar);
 
+        //for collapsing toolbar
+        collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.navigation_collapsing_toolbar);
+        imageView = (ImageView) findViewById(R.id.navigation_mainImage);
+        viewGradient = (View) findViewById(R.id.navigation_gradient);
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.navigation_drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -100,6 +114,19 @@ public class NavigationMenu extends AppCompatActivity
         createLocations();
     }
 
+    public CollapsingToolbarLayout getCollapsingToolbar() {
+        return collapsingToolbar;
+    }
+
+    private void syncFrags() {
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.navigation_container);
+        if (fragment instanceof RecipesResultsFragment) {
+            disableCollapse();
+        } else if (fragment instanceof DetailRecipe) {
+            enableCollapse();
+        }
+    }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.navigation_drawer_layout);
@@ -108,6 +135,7 @@ public class NavigationMenu extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+        syncFrags();
     }
 
     @Override
@@ -137,6 +165,7 @@ public class NavigationMenu extends AppCompatActivity
 
         if(fragment != null){
             fragmentTransaction.replace(R.id.navigation_container, fragment);
+            fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         }
 
@@ -181,6 +210,20 @@ public class NavigationMenu extends AppCompatActivity
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    @Override
+    public void disableCollapse() {
+        imageView.setVisibility(View.GONE);
+        viewGradient.setVisibility(View.GONE);
+        collapsingToolbar.setTitleEnabled(false);
+    }
+
+    @Override
+    public void enableCollapse() {
+        imageView.setVisibility(View.VISIBLE);
+        viewGradient.setVisibility(View.VISIBLE);
+        collapsingToolbar.setTitleEnabled(true);
     }
 
     private void createLocations() {
