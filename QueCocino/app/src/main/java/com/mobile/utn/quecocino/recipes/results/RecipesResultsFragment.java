@@ -29,6 +29,7 @@ import com.mobile.utn.quecocino.recipes.filter.FavoriteFilter;
 import com.mobile.utn.quecocino.recipes.filter.Filter;
 import com.mobile.utn.quecocino.recipes.filter.FiltersFragment;
 import com.mobile.utn.quecocino.recipes.filter.PopularFilter;
+import com.mobile.utn.quecocino.recipes.filter.TrivialFilter;
 import com.mobile.utn.quecocino.utils.RecyclerTouchListener;
 
 import java.util.ArrayList;
@@ -81,6 +82,7 @@ public class RecipesResultsFragment extends Fragment {
 
                 NavigationMenu activity = (NavigationMenu) getActivity();
                 activity.setCurrentRecipe(recipe);
+                activity.refreshFavoriteIcon();
 
                 FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
                 DetailRecipe newFragment = DetailRecipe.newInstance(recipe);
@@ -107,6 +109,7 @@ public class RecipesResultsFragment extends Fragment {
                 }
 
                 NavigationMenu activity = (NavigationMenu) getActivity();
+                activity.setFilter(new TrivialFilter());
 
                 Bundle args = RecipesResultsFragment.this.getArguments();
                 if(args!=null) {

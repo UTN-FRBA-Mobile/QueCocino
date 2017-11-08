@@ -30,6 +30,11 @@ public abstract class RecipeUtils {
         saveIdsInPreferences(context, favoriteIds);
     }
 
+    public static boolean isFavorite(Context context, String recipeId) {
+        List<String> favoriteIds = getFavoriteIds(context);
+        return favoriteIds.contains(recipeId);
+    }
+
     public static List<String> getFavoriteIds(Context context) {
         List<String> ids = new ArrayList<>();
         try {

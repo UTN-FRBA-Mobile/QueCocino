@@ -29,6 +29,7 @@ import com.mobile.utn.quecocino.fragments.OnFragmentInteractionCollapse;
 import com.mobile.utn.quecocino.locationManager.GoogleLocationClient;
 import com.mobile.utn.quecocino.locationManager.LatLonTranslator;
 import com.mobile.utn.quecocino.model.Recipe;
+import com.mobile.utn.quecocino.recipes.RecipeUtils;
 import com.mobile.utn.quecocino.recipes.filter.Filter;
 import com.mobile.utn.quecocino.recipes.filter.TrivialFilter;
 import com.mobile.utn.quecocino.recipes.results.RecipesResultsFragment;
@@ -140,6 +141,7 @@ public class NavigationMenu extends AppCompatActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.navigation_menu, menu);
         favoriteButton = (MenuItemImpl) menu.findItem(R.id.detailRecipe_buttonFavorite);
+        favoriteButton.setIcon(R.drawable.detailrecipe_favorite_unset);
         favoriteButton.setVisible(false);
         return true;
     }
@@ -165,6 +167,12 @@ public class NavigationMenu extends AppCompatActivity
             }
         } else if (id == R.id.detailRecipe_buttonFavorite) {
 
+            if(RecipeUtils.isFavorite(this, currentRecipe.getIdRecipe()))
+                RecipeUtils.removeFavorite(this, currentRecipe.getIdRecipe());
+            else
+                RecipeUtils.addFavorite(this, currentRecipe.getIdRecipe());
+
+            this.refreshFavoriteIcon();
         }
 
         if(fragment != null){
@@ -264,6 +272,13 @@ public class NavigationMenu extends AppCompatActivity
 
     }
 
+    public void refreshFavoriteIcon() {
+        if(RecipeUtils.isFavorite(this, currentRecipe.getIdRecipe()))
+            favoriteButton.setIcon(R.drawable.detailrecipe_favorite_set);
+        else
+            favoriteButton.setIcon(R.drawable.detailrecipe_favorite_unset);
+    }
+
     public Filter getFilter() {
         return filter;
     }
@@ -276,5 +291,4 @@ public class NavigationMenu extends AppCompatActivity
     public void setCurrentRecipe(Recipe currentRecipe) {
         this.currentRecipe = currentRecipe;
     }
-
 }
