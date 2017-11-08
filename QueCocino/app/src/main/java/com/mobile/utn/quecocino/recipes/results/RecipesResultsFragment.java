@@ -21,13 +21,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.mobile.utn.quecocino.R;
 import com.mobile.utn.quecocino.detailrecipe.DetailRecipe;
+import com.mobile.utn.quecocino.fragments.OnFragmentInteractionCollapse;
 import com.mobile.utn.quecocino.menu.NavigationMenu;
 import com.mobile.utn.quecocino.model.Recipe;
 import com.mobile.utn.quecocino.recipes.filter.Filter;
 import com.mobile.utn.quecocino.recipes.filter.FiltersFragment;
 import com.mobile.utn.quecocino.utils.RecyclerTouchListener;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +44,7 @@ public class RecipesResultsFragment extends Fragment {
 
     private RecipesResultsAdapter adapter;
     private FirebaseDatabase database;
-    private OnFragmentInteractionListener mListener;
+    private OnFragmentInteractionCollapse mListener;
 
     List<Recipe> recipes;
 
@@ -78,7 +78,10 @@ public class RecipesResultsFragment extends Fragment {
             public void onClick(View view, int position) {
                 Recipe recipe = recipes.get(position);
 
-                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                NavigationMenu activity = (NavigationMenu) getActivity();
+                activity.setCurrentRecipe(recipe);
+
+                FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
                 DetailRecipe newFragment = DetailRecipe.newInstance(recipe);
                 ft.replace(R.id.navigation_container, newFragment);
                 ft.addToBackStack(null);
@@ -142,15 +145,11 @@ public class RecipesResultsFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof OnFragmentInteractionCollapse) {
+            mListener = (OnFragmentInteractionCollapse) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnCheeseCategoriesFragmentListener");
+                    + " must implement OnFragmentInteractionCollapse");
         }
-    }
-
-    public interface OnFragmentInteractionListener {
-        void disableCollapse();
     }
 }

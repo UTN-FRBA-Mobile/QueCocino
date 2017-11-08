@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.mobile.utn.quecocino.R;
+import com.mobile.utn.quecocino.fragments.OnFragmentInteractionCollapse;
 import com.mobile.utn.quecocino.menu.NavigationMenu;
 import com.mobile.utn.quecocino.model.RecipeIngredient;
 import com.mobile.utn.quecocino.model.RecipeInstruction;
@@ -36,7 +37,7 @@ public class DetailRecipe extends Fragment {
     public static final String TAG = "DetailRecipeFragment";
 
     private Recipe recipe;
-    private OnFragmentInteractionListener mListener;
+    private OnFragmentInteractionCollapse mListener;
     private InstructionAdapter instructionAdapter;
     private IngredientAdapter ingredientAdapter;
 
@@ -119,6 +120,7 @@ public class DetailRecipe extends Fragment {
                     RecipeInstruction instruction = new RecipeInstruction();
                     instruction.setDescription(snapshot.getValue(RecipeInstruction.class).getDescription());
                     instruction.setTime(snapshot.getValue(RecipeInstruction.class).getTime());
+                    instruction.setTag(snapshot.getValue(RecipeInstruction.class).getTag());
                     recipeInstructions.add(instruction);
                 }
                 instructionAdapter.notifyDataSetChanged();
@@ -168,11 +170,11 @@ public class DetailRecipe extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof OnFragmentInteractionCollapse) {
+            mListener = (OnFragmentInteractionCollapse) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " must implement OnFragmentInteractionCollapse");
         }
     }
 
@@ -180,11 +182,6 @@ public class DetailRecipe extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }
-
-    public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(Uri uri);
-        void enableCollapse();
     }
 
     @Override

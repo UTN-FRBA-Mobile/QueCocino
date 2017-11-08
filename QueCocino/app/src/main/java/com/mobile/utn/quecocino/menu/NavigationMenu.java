@@ -12,10 +12,12 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.menu.MenuItemImpl;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -25,8 +27,10 @@ import com.mobile.utn.quecocino.R;
 import com.mobile.utn.quecocino.detailrecipe.DetailRecipe;
 import com.mobile.utn.quecocino.fragments.FragmentFavorites;
 import com.mobile.utn.quecocino.fragments.FragmentPopulars;
+import com.mobile.utn.quecocino.fragments.OnFragmentInteractionCollapse;
 import com.mobile.utn.quecocino.locationManager.GoogleLocationClient;
 import com.mobile.utn.quecocino.locationManager.LatLonTranslator;
+import com.mobile.utn.quecocino.model.Recipe;
 import com.mobile.utn.quecocino.recipes.filter.Filter;
 import com.mobile.utn.quecocino.recipes.results.RecipesResultsFragment;
 import com.mobile.utn.quecocino.timer.AlarmUtils;
@@ -38,8 +42,7 @@ import java.util.Locale;
 
 public class NavigationMenu extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-                    DetailRecipe.OnFragmentInteractionListener,
-                        RecipesResultsFragment.OnFragmentInteractionListener,
+                    OnFragmentInteractionCollapse,
                             LocationListener {
 
     //For getLocation
@@ -52,16 +55,10 @@ public class NavigationMenu extends AppCompatActivity
     private ImageView imageView;
     private CollapsingToolbarLayout collapsingToolbar;
     private View viewGradient;
+    private MenuItemImpl favoriteButton;
 
     private Filter filter;
-
-    public Filter getFilter() {
-        return filter;
-    }
-
-    public void setFilter(Filter filter) {
-        this.filter = filter;
-    }
+    private Recipe currentRecipe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,10 +117,10 @@ public class NavigationMenu extends AppCompatActivity
 
     private void syncFrags() {
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.navigation_container);
-        if (fragment instanceof RecipesResultsFragment) {
-            disableCollapse();
-        } else if (fragment instanceof DetailRecipe) {
+        if (fragment instanceof DetailRecipe) {
             enableCollapse();
+        }else{
+            disableCollapse();
         }
     }
 
@@ -142,6 +139,8 @@ public class NavigationMenu extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.navigation_menu, menu);
+        favoriteButton = (MenuItemImpl) menu.findItem(R.id.detailRecipe_buttonFavorite);
+        favoriteButton.setVisible(false);
         return true;
     }
 
@@ -161,6 +160,8 @@ public class NavigationMenu extends AppCompatActivity
             } else {
                 fragment = new TimerEditFragment();
             }
+        } else if (id == R.id.detailRecipe_buttonFavorite) {
+
         }
 
         if(fragment != null){
@@ -217,6 +218,9 @@ public class NavigationMenu extends AppCompatActivity
         imageView.setVisibility(View.GONE);
         viewGradient.setVisibility(View.GONE);
         collapsingToolbar.setTitleEnabled(false);
+
+        if(favoriteButton != null)
+            favoriteButton.setVisible(false);
     }
 
     @Override
@@ -224,6 +228,9 @@ public class NavigationMenu extends AppCompatActivity
         imageView.setVisibility(View.VISIBLE);
         viewGradient.setVisibility(View.VISIBLE);
         collapsingToolbar.setTitleEnabled(true);
+
+        if(favoriteButton != null)
+            favoriteButton.setVisible(true);
     }
 
     private void createLocations() {
@@ -247,4 +254,18 @@ public class NavigationMenu extends AppCompatActivity
     public void onLocationChanged(Location location) {
 
     }
+
+    public Filter getFilter() {
+        return filter;
+    }
+    public void setFilter(Filter filter) {
+        this.filter = filter;
+    }
+    public Recipe getCurrentRecipe() {
+        return currentRecipe;
+    }
+    public void setCurrentRecipe(Recipe currentRecipe) {
+        this.currentRecipe = currentRecipe;
+    }
+
 }

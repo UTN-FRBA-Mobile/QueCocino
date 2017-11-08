@@ -42,6 +42,7 @@
     <string name="navigation.action.buscarRecetas">Search Recipes</string>
     <string name="navigation.action.favoritos">Favorites</string>
     <string name="navigation.action.timers">Timers</string>
+    <string name="navigation.action.buttonFavorite">Favorite</string>
 
     <!-- Recipe Search -->
     <string name="recipe_search_ingredients_title">Ingredients</string>
