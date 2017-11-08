@@ -116,14 +116,13 @@ public class TimerEditFragment extends Fragment{
 
         });
 
-        final Fragment that = this;
         startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setAlarm();
                 FragmentManager fragmentManager = getFragmentManager();
 
-                Bundle args = that.getArguments();
+                Bundle args = TimerEditFragment.this.getArguments();
                 Boolean isAddTimer = args!=null ? args.getBoolean("isAddTimer") : false;
                 if(isAddTimer){
                     fragmentManager.popBackStackImmediate();

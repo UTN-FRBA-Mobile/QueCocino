@@ -25,13 +25,12 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationServices;
 import com.mobile.utn.quecocino.R;
 import com.mobile.utn.quecocino.detailrecipe.DetailRecipe;
-import com.mobile.utn.quecocino.fragments.FragmentFavorites;
-import com.mobile.utn.quecocino.fragments.FragmentPopulars;
 import com.mobile.utn.quecocino.fragments.OnFragmentInteractionCollapse;
 import com.mobile.utn.quecocino.locationManager.GoogleLocationClient;
 import com.mobile.utn.quecocino.locationManager.LatLonTranslator;
 import com.mobile.utn.quecocino.model.Recipe;
 import com.mobile.utn.quecocino.recipes.filter.Filter;
+import com.mobile.utn.quecocino.recipes.filter.TrivialFilter;
 import com.mobile.utn.quecocino.recipes.results.RecipesResultsFragment;
 import com.mobile.utn.quecocino.timer.AlarmUtils;
 import com.mobile.utn.quecocino.timer.TimerCountdownFragment;
@@ -65,6 +64,7 @@ public class NavigationMenu extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
+        filter = new TrivialFilter();
 
         //set the fragment initially
         String fragmentStr = "";
@@ -153,7 +153,10 @@ public class NavigationMenu extends AppCompatActivity
         if (id == R.id.navigation_action_buscarRecetas) {
             fragment = new RecipesResultsFragment();
         } else if (id == R.id.navigation_action_favoritos) {
-            fragment = new FragmentFavorites();
+            fragment = new RecipesResultsFragment();
+            Bundle args = new Bundle();
+            args.putString("page","favorites");
+            fragment.setArguments(args);
         } else if (id == R.id.navigation_action_timers) {
             if(AlarmUtils.hasAlarms(this)){
                 fragment = new TimerCountdownFragment();
@@ -186,15 +189,21 @@ public class NavigationMenu extends AppCompatActivity
         if (id == R.id.navigation_main) {
             fragment = new RecipesResultsFragment();
         } else if (id == R.id.navigation_favorites) {
-            fragment = new FragmentFavorites();
+            fragment = new RecipesResultsFragment();
+            Bundle args = new Bundle();
+            args.putString("page","favorites");
+            fragment.setArguments(args);
+        } else if(id == R.id.navigation_populars){
+            fragment = new RecipesResultsFragment();
+            Bundle args = new Bundle();
+            args.putString("page","popular");
+            fragment.setArguments(args);
         } else if (id == R.id.navigation_timers) {
             if(AlarmUtils.hasAlarms(this)){
                 fragment = new TimerCountdownFragment();
             } else {
                 fragment = new TimerEditFragment();
             }
-        }else if(id == R.id.navigation_populars){
-            fragment = new FragmentPopulars();
         }
 
         if(fragment != null){

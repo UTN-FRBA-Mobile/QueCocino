@@ -52,13 +52,12 @@ public class TimerRingFragment extends Fragment {
         final Vibrator vibrator = (Vibrator) context.getSystemService(VIBRATOR_SERVICE);
         vibrator.vibrate(2000);
 
-        final Fragment that = this;
         btnStop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mp.stop();
                 vibrator.cancel();
-                that.getActivity().finish();
+                TimerRingFragment.this.getActivity().finish();
             }
         });
 
