@@ -24,6 +24,7 @@ import com.mobile.utn.quecocino.model.RecipeIngredient;
 import com.mobile.utn.quecocino.model.RecipeInstruction;
 import com.mobile.utn.quecocino.recipegallery.activities.RecipeGallery;
 import com.mobile.utn.quecocino.model.Recipe;
+import com.mobile.utn.quecocino.recipes.RecipeUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -48,8 +49,8 @@ public class DetailRecipe extends Fragment {
     public TextView recipeApplianceTextView;
     public ListView recipeInstuctionListView;
     public ListView recipeIngredientListView;
-    private List<RecipeInstruction> recipeInstructions;
-    private List<RecipeIngredient> recipeIngredients;
+    public List<RecipeInstruction> recipeInstructions;
+    public List<RecipeIngredient> recipeIngredients;
     private FirebaseDatabase database;
 
     public DetailRecipe() {}
@@ -124,6 +125,7 @@ public class DetailRecipe extends Fragment {
                     recipeInstructions.add(instruction);
                 }
                 instructionAdapter.notifyDataSetChanged();
+                RecipeUtils.setListViewHeightBasedOnChildren(recipeInstuctionListView);
             }
 
             @Override
@@ -141,6 +143,7 @@ public class DetailRecipe extends Fragment {
                     recipeIngredients.add(ingredient);
                 }
                 ingredientAdapter.notifyDataSetChanged();
+                RecipeUtils.setListViewHeightBasedOnChildren(recipeIngredientListView);
             }
 
             @Override

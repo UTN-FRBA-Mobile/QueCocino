@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.mobile.utn.quecocino.R;
 import com.mobile.utn.quecocino.model.RecipeInstruction;
+import com.mobile.utn.quecocino.recipes.RecipeUtils;
 import com.mobile.utn.quecocino.timer.TimerEditFragment;
 
 import android.app.Activity;

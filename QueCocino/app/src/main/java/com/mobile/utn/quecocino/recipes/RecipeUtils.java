@@ -3,7 +3,12 @@ package com.mobile.utn.quecocino.recipes;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
+import com.mobile.utn.quecocino.detailrecipe.InstructionAdapter;
 import com.mobile.utn.quecocino.model.Recipe;
 
 import org.json.JSONArray;
@@ -59,6 +64,29 @@ public abstract class RecipeUtils {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString(context.getPackageName() + favoritesTag, jsonArray.toString());
         editor.apply();
+    }
+
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+
+        ArrayAdapter adapter = (ArrayAdapter) listView.getAdapter();
+
+        if (adapter == null) {
+            // pre-condition
+            return;
+        }
+
+        int totalHeight = 0;
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.AT_MOST);
+        for (int i = 0; i < adapter.getCount(); i++) {
+            View listItem = adapter.getView(i, null, listView);
+            listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (adapter.getCount() - 1));
+        listView.setLayoutParams(params);
+        listView.requestLayout();
     }
 
 
