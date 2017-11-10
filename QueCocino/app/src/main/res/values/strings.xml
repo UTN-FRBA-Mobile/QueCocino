@@ -5,7 +5,7 @@
     <string name="gallery.uploadButton">Upload picture</string>
     <string name="toast.uploadSuccess">Your picture has been uploaded!</string>
     <string name="progress.uploadImage">Uploading...</string>
-    <string name="alertDialog.camera">Take pictureo</string>
+    <string name="alertDialog.camera">Take picture</string>
     <string name="alertDialog.gallery">Pick from gallery</string>
     <string name="title_activity_detailrecipe">detailrecipe</string>
 

@@ -21,6 +21,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -50,11 +52,17 @@ import static com.mobile.utn.quecocino.model.FirebaseReferences.IMAGE_RECIPE_REF
 
 public class RecipeGallery extends AppCompatActivity {
 
-    @BindView(R.id.gallery_uploadButton)
-    public Button uploadButton;
-
     @BindView(R.id.gallery_rvImages)
     public RecyclerView rv;
+
+    @BindView(R.id.gallery_fabtakepicture)
+    public FloatingActionButton fabTakePicture;
+
+    @BindView(R.id.gallery_fabinsertphoto)
+    public FloatingActionButton fabInsertPhoto;
+
+    @BindView(R.id.gallery_fabmenu)
+    public FloatingActionMenu fabMenu;
 
     private String idReceta;
     private List<RecipeImage> images;
@@ -124,27 +132,23 @@ public class RecipeGallery extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         mStorage = FirebaseStorage.getInstance().getReference();
 
-        uploadButton.setOnClickListener(new View.OnClickListener(){
+        fabTakePicture.setOnClickListener(onButtonClick());
+        fabInsertPhoto.setOnClickListener(onButtonClick());
 
+    }
+
+    private View.OnClickListener onButtonClick() {
+        return new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                final CharSequence[] options = {getString(R.string.alertDialog_camera), getString(R.string.alertDialog_gallery)};
-                final AlertDialog.Builder builder =  new AlertDialog.Builder(RecipeGallery.this);
-                builder.setItems(options, new DialogInterface.OnClickListener(){
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int option) {
-                        if(option == 0){
-                            openCamera();
-                        }else{
-                            openGallery();
-                        }
-                    }
-                });
-                builder.show();
+            public void onClick(View view) {
+                if (view == fabTakePicture) {
+                    openCamera();
+                } else if (view == fabInsertPhoto) {
+                    openGallery();
+                }
+                fabMenu.close(true);
             }
-        });
-
+        };
     }
 
     private void openCamera() {
@@ -158,9 +162,13 @@ public class RecipeGallery extends AppCompatActivity {
                     MY_PERMISSIONS_REQUEST_CAMERA);
 
         }else{
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            startActivityForResult(intent, CAMERA_INTENT);
+            startCamera();
         }
+    }
+
+    private void startCamera() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, CAMERA_INTENT);
     }
 
     private void openGallery() {
@@ -174,13 +182,15 @@ public class RecipeGallery extends AppCompatActivity {
                         MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
 
         }else{
-
-            Intent intent = new Intent(Intent.ACTION_PICK);
-            intent.setType("image/*");
-            startActivityForResult(intent, GALLERY_INTENT);
-
+            startGallery();
         }
 
+    }
+
+    private void startGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent, GALLERY_INTENT);
     }
 
     @Override
@@ -250,20 +260,13 @@ public class RecipeGallery extends AppCompatActivity {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    Intent intent = new Intent(Intent.ACTION_PICK);
-                    intent.setType("image/*");
-                    startActivityForResult(intent, GALLERY_INTENT);
-
+                    startGallery();
                 }
                 return;
             }
             case MY_PERMISSIONS_REQUEST_CAMERA: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(intent, CAMERA_INTENT);
-
+                    startCamera();
                 }
                 return;
             }
