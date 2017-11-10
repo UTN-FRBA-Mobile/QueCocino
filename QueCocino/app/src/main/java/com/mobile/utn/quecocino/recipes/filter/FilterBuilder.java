@@ -18,9 +18,14 @@ public class FilterBuilder {
     private List<Filter> cookingTimeFilters;
     private CookingTimeFilter cookingTimeFilter;
 
+    //Others
+    private List<Filter> otherFilters;
+    private GPSFilter gpsFilter;
+
     public FilterBuilder(){
         this.applianceCookingFilters = new ArrayList<Filter>();
         this.cookingTimeFilters = new ArrayList<Filter>();
+        this.otherFilters = new ArrayList<Filter>();
     }
 
     public Filter buildFilter(){
@@ -28,6 +33,7 @@ public class FilterBuilder {
         // List with all section filters
         List<Filter> groupsFilters = new ArrayList<Filter>();
         Filter finalFilter = null;
+        groupsFilters.add(new TrivialFilter());
 
         //Appliance cooking
         Filter applianceFilter = null;
@@ -40,7 +46,7 @@ public class FilterBuilder {
             }
         }
 
-        groupsFilters.add(applianceFilter);
+        if (applianceFilter != null) groupsFilters.add(applianceFilter);
 
         //Cooking Time
         Filter cookingTime = null;
@@ -53,7 +59,20 @@ public class FilterBuilder {
             }
         }
 
-        groupsFilters.add(cookingTime);
+        if (cookingTime != null)  groupsFilters.add(cookingTime);
+
+        //Other filters
+        Filter otherFilter = null;
+
+        for (Filter filter : otherFilters){
+            if (otherFilter == null){
+                otherFilter = filter;
+            }else{
+                otherFilter = new AndFilter(cookingTime, filter);
+            }
+        }
+
+        if (otherFilter != null)  groupsFilters.add(otherFilter);
 
         // Final filter
 
@@ -96,4 +115,12 @@ public class FilterBuilder {
         if (!cookingTimeFilters.contains(cookingTimeFilter)) cookingTimeFilters.add(cookingTimeFilter);
     }
 
+    public void addGps(String location) {
+        if (gpsFilter == null) gpsFilter = new GPSFilter(location);
+        if (!otherFilters.contains(gpsFilter)) otherFilters.add(gpsFilter);
+    }
+
+    public void removeGps(){
+        if (gpsFilter != null && otherFilters.contains(gpsFilter)) otherFilters.remove(gpsFilter);
+    }
 }

@@ -5,7 +5,7 @@ import com.mobile.utn.quecocino.model.Recipe;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PopularFilter extends Filter {
+public class PopularFilter implements Filter {
     @Override
     public List<Recipe> meetCriteria(List<Recipe> recipes) {
         List<Recipe> popularRecipes = new ArrayList<>();
@@ -15,5 +15,14 @@ public class PopularFilter extends Filter {
             }
         }
         return popularRecipes;
+    }
+
+    @Override
+    public List<Filter> getFilterComposition() {
+
+        ArrayList<Filter> list = new ArrayList<Filter>();
+        list.add(this);
+
+        return list;
     }
 }
