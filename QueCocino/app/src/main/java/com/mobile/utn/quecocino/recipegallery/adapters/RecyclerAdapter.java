@@ -36,7 +36,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         String urlImagen = images.get(position).getUrl();
-        Picasso.with(context).load(urlImagen).resize(240, 240).into(holder.imageView);
+        Picasso.with(context).load(urlImagen).resize(200, 200).into(holder.imageView);
     }
 
     @Override

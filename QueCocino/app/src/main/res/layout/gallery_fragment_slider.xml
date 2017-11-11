@@ -9,6 +9,12 @@
         android:layout_height="match_parent"
         android:background="@android:color/black" />
 
+    <View
+        android:id="@+id/gallery.gradientAuthor"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/gallery_gradient" />
+
     <TextView
         android:id="@+id/gallery.lblCount"
         android:layout_width="wrap_content"

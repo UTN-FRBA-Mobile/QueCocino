@@ -26,7 +26,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
-                    android:layout_margin="5dp">
+                    android:layout_margin="8dp">
 
                     <ImageView
                         android:src="@drawable/recipe_cookingtime"
@@ -64,7 +64,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
-                    android:layout_margin="5dp">
+                    android:layout_margin="8dp">
 
                     <ImageView
                         android:id="@+id/detailRecipe.difficultyImg"
