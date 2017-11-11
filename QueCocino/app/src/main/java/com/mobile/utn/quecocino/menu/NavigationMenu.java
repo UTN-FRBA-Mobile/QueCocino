@@ -22,6 +22,7 @@ import android.widget.ImageView;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.mobile.utn.quecocino.R;
 import com.mobile.utn.quecocino.detailrecipe.DetailRecipe;
@@ -121,7 +122,6 @@ public class NavigationMenu extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //createLocations();
     }
 
     public CollapsingToolbarLayout getCollapsingToolbar() {
@@ -299,10 +299,9 @@ public class NavigationMenu extends AppCompatActivity
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
             case 99: {
-                // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    //this.createLocations(filterButton);
+                    mGoogleLocationClient.requestLocationUpdates();
                 } else {
                     filterFragment.gpsLoaded();
                 }

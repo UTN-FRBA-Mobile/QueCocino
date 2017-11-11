@@ -15,7 +15,8 @@
         android:textColor="@android:color/white"
         android:background="@drawable/button_pimary_ripple_shape"
         android:visibility="invisible"
-        android:id="@+id/ingredientsearch_button"/>
+        android:id="@+id/ingredientsearch_button"
+        android:textAllCaps="false"/>
 
     <android.support.v7.widget.RecyclerView
         android:scrollbars="vertical"
