@@ -14,17 +14,23 @@ public class Recipe implements Serializable{
     private String mainImage;
     private String applianceCooking;
     private boolean isPopular;
+    private String difficulty;
+    private int kcal;
 
     public Recipe() {
     }
 
-    public Recipe(String idRecipe, String title, String author, int cookingTimeMinutes, String mainImage, String applianceCooking) {
+    public Recipe(String idRecipe, String title, String author,
+                        int cookingTimeMinutes, String mainImage, String applianceCooking,
+                                String difficulty, int kcal) {
         this.idRecipe = idRecipe;
         this.title = title;
         this.author = author;
         this.cookingTimeMinutes = cookingTimeMinutes;
         this.mainImage = mainImage;
         this.applianceCooking = applianceCooking;
+        this.difficulty = difficulty;
+        this.kcal = kcal;
     }
 
     public String getIdRecipe() {
@@ -81,5 +87,21 @@ public class Recipe implements Serializable{
 
     public void setPopular(boolean popular) {
         isPopular = popular;
+    }
+
+    public String getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(String difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public int getKcal() {
+        return kcal;
+    }
+
+    public void setKcal(int kcal) {
+        this.kcal = kcal;
     }
 }
