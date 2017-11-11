@@ -24,7 +24,7 @@
         android:layout_height="match_parent"
         android:id="@+id/ingredientsearch_recyclerview"
         android:layout_above="@id/ingredientsearch_button"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="@dimen/ingredient_search_recycler_margin_top"
         android:clipToPadding="false"
         android:overScrollMode="never"/>
 

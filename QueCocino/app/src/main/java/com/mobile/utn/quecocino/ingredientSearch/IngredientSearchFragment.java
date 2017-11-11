@@ -2,6 +2,7 @@ package com.mobile.utn.quecocino.ingredientSearch;
 
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.support.annotation.Nullable;
@@ -14,6 +15,8 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -174,6 +177,8 @@ public class IngredientSearchFragment extends Fragment {
                 NavigationMenu activity = (NavigationMenu) getActivity();
                 activity.getCollapsingToolbar().setVisibility(View.GONE);
                 activity.getSupportActionBar().hide();
+                ingRecyclerView.bringToFront();
+                setRecyclerViewMarginBottom(getResources().getDimensionPixelSize(R.dimen.ingredient_search_recycler_margin_bottom));
             }
 
             @Override
@@ -185,6 +190,7 @@ public class IngredientSearchFragment extends Fragment {
                     animateToStartPosition();
                 }
                 ingSearchView.clearQuery();
+                setRecyclerViewMarginBottom(0);
             }
         });
 
@@ -214,12 +220,21 @@ public class IngredientSearchFragment extends Fragment {
     }
 
     private void animateToStartPosition(){
+        ingSearchView.bringToFront();
         float distanceSearchView = getResources().getDimensionPixelSize(R.dimen.ingredient_search_view_trastation);
         ingSearchView.animate().translationYBy(distanceSearchView).start();
         logoImaageView.animate().alpha(1).start();
         sloganTextView.animate().alpha(1).start();
         float distanceSearchButton = getResources().getDimensionPixelSize(R.dimen.ingredient_search_button_trastation);
         searchButton.animate().translationYBy(distanceSearchButton).start();
+    }
+
+    private void setRecyclerViewMarginBottom(int marginBottom) {
+        int marginTop = getResources().getDimensionPixelSize(R.dimen.ingredient_search_recycler_margin_top);
+        ViewGroup.MarginLayoutParams marginLayoutParams =
+                (ViewGroup.MarginLayoutParams) ingRecyclerView.getLayoutParams();
+        marginLayoutParams.setMargins(0,marginTop,0,marginBottom);
+        ingRecyclerView.setLayoutParams(marginLayoutParams);
     }
 
     protected void removeIngredientItem(int position){
