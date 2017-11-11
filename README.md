@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="https://raw.githubusercontent.com/UTN-FRBA-Mobile/dev/QueCocino/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" alt="QueCocino" width="200">
+  <img src="https://raw.githubusercontent.com/UTN-FRBA-Mobile/dev/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" alt="QueCocino" width="200">
   <br>
   QueCocino
   <br>
