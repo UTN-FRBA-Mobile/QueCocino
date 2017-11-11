@@ -28,6 +28,7 @@ import com.mobile.utn.quecocino.recipes.RecipeUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.mobile.utn.quecocino.model.FirebaseReferences.INGREDIENT_REFERENCE;
@@ -172,6 +173,11 @@ public class DetailRecipe extends Fragment {
 
             }
         });
+
+        NavigationMenu activity = (NavigationMenu) getActivity();
+        List<Integer> itemsId = Arrays.asList(R.id.detailRecipe_buttonFavorite,
+                                                R.id.detailRecipe_buttonGallery);
+        activity.showMenuItems(itemsId);
 
         recipeInstuctionListView.setAdapter(instructionAdapter);
         recipeIngredientListView.setAdapter(ingredientAdapter);

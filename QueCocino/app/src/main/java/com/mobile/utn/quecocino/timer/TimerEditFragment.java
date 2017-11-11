@@ -134,6 +134,12 @@ public class TimerEditFragment extends Fragment{
             }
         });
 
+        NavigationMenu activity = (NavigationMenu) getActivity();
+        List<Integer> itemsId = Arrays.asList(R.id.navigation_action_buscarRecetas,
+                                                R.id.navigation_action_favoritos,
+                                                    R.id.navigation_action_timers);
+        activity.showMenuItems(itemsId);
+
         return view;
     }
 

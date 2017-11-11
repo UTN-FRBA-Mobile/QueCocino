@@ -33,6 +33,7 @@ import com.mobile.utn.quecocino.recipes.filter.TrivialFilter;
 import com.mobile.utn.quecocino.utils.RecyclerTouchListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.mobile.utn.quecocino.model.FirebaseReferences.RECIPE_REFERENCE;
@@ -43,8 +44,6 @@ import static com.mobile.utn.quecocino.model.FirebaseReferences.RECIPE_REFERENCE
 public class RecipesResultsFragment extends Fragment {
 
     public RecyclerView recyclerView;
-
-    public Button filterButton;
 
     private RecipesResultsAdapter adapter;
     private FirebaseDatabase database;
@@ -64,8 +63,6 @@ public class RecipesResultsFragment extends Fragment {
         getActivity().setTitle("Que Cocino");
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recipesRecyclerView);
-
-        filterButton = (Button) rootView.findViewById(R.id.filterButton);
 
         recipes = new ArrayList<Recipe>();
         adapter = new RecipesResultsAdapter(getActivity().getApplicationContext(), recipes);
@@ -137,16 +134,12 @@ public class RecipesResultsFragment extends Fragment {
             }
         });
 
-        filterButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.navigation_container, FiltersFragment.newInstance());
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-            }
-        });
+        NavigationMenu activity = (NavigationMenu) getActivity();
+        List<Integer> itemsId = Arrays.asList(R.id.recipeResults_buttonFilters,
+                                                R.id.navigation_action_buscarRecetas,
+                                                    R.id.navigation_action_favoritos,
+                                                        R.id.navigation_action_timers);
+        activity.showMenuItems(itemsId);
 
         return rootView;
 

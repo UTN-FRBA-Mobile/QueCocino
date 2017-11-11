@@ -12,6 +12,8 @@
     <!-- Detail Recipe -->
     <string name="detailRecipe.instructionsTitle">Instructions</string>
     <string name="detailRecipe.ingredientsTitle">Ingredients</string>
+    <string name="detailRecipe.buttonFavorite">Add Favorite</string>
+    <string name="detailRecipe.buttonGallery">View Gallery</string>
 
     <!-- Recipe Results-->
     <string name="recipe.results.author">By\u0020</string>
@@ -28,6 +30,7 @@
     <string name="filter_layout_maxCookingTimeMinutes">Max:</string>
     <string name="apply">Filter</string>
     <string name="recipe_results_origin">\u0020</string>
+    <string name="recipeResults.buttonFilters">Filters</string>
 
     <!-- Timer -->
     <string name="timer.start">Start</string>

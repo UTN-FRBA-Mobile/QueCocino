@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -42,6 +43,8 @@ import com.mobile.utn.quecocino.timer.TimerCountdownFragment;
 import com.mobile.utn.quecocino.timer.TimerEditFragment;
 import com.mobile.utn.quecocino.timer.TimerRingFragment;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 
 public class NavigationMenu extends AppCompatActivity
@@ -59,11 +62,7 @@ public class NavigationMenu extends AppCompatActivity
     private ImageView imageView;
     private CollapsingToolbarLayout collapsingToolbar;
     private View viewGradient;
-    private MenuItemImpl favoriteButton;
-    private MenuItemImpl searchRecipesButton;
-    private MenuItemImpl favoritesButton;
-    private MenuItemImpl timersButton;
-    private MenuItemImpl galleryButton;
+    private Menu menu;
 
     private Filter filter;
     
@@ -153,14 +152,10 @@ public class NavigationMenu extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.navigation_menu, menu);
-        favoriteButton = (MenuItemImpl) menu.findItem(R.id.detailRecipe_buttonFavorite);
-        searchRecipesButton = (MenuItemImpl) menu.findItem(R.id.navigation_action_buscarRecetas);
-        favoritesButton = (MenuItemImpl) menu.findItem(R.id.navigation_action_favoritos);
-        timersButton = (MenuItemImpl) menu.findItem(R.id.navigation_action_timers);
-        galleryButton = (MenuItemImpl) menu.findItem(R.id.detailRecipe_buttonGallery);
-        galleryButton.setVisible(false);
-        favoriteButton.setIcon(R.drawable.detailrecipe_favorite_unset);
-        favoriteButton.setVisible(false);
+        this.menu = menu;
+        showMenuItems(Arrays.asList(R.id.navigation_action_buscarRecetas,
+                                        R.id.navigation_action_favoritos,
+                                            R.id.navigation_action_timers));
         return true;
     }
 
@@ -199,6 +194,8 @@ public class NavigationMenu extends AppCompatActivity
             intent.putExtra("titleReceta",currentRecipe.getTitle());
             startActivity(intent);
 
+        } else if(id == R.id.recipeResults_buttonFilters){
+            fragment = FiltersFragment.newInstance();
         }
 
         if(fragment != null){
@@ -261,15 +258,6 @@ public class NavigationMenu extends AppCompatActivity
         imageView.setVisibility(View.GONE);
         viewGradient.setVisibility(View.GONE);
         collapsingToolbar.setTitleEnabled(false);
-
-        if(favoriteButton != null){
-            favoriteButton.setVisible(false);
-            galleryButton.setVisible(false);
-            searchRecipesButton.setVisible(true);
-            favoritesButton.setVisible(true);
-            timersButton.setVisible(true);
-        }
-
     }
 
     @Override
@@ -277,14 +265,6 @@ public class NavigationMenu extends AppCompatActivity
         imageView.setVisibility(View.VISIBLE);
         viewGradient.setVisibility(View.VISIBLE);
         collapsingToolbar.setTitleEnabled(true);
-
-        if(favoriteButton != null){
-            favoriteButton.setVisible(true);
-            galleryButton.setVisible(true);
-            searchRecipesButton.setVisible(false);
-            favoritesButton.setVisible(false);
-            timersButton.setVisible(false);
-        }
     }
   
     public void createLocations(FiltersFragment fragment) {
@@ -333,6 +313,7 @@ public class NavigationMenu extends AppCompatActivity
     }
 
     public void refreshFavoriteIcon() {
+        MenuItem favoriteButton = this.getMenuItem(R.id.detailRecipe_buttonFavorite);
         if(RecipeUtils.isFavorite(this, currentRecipe.getIdRecipe()))
             favoriteButton.setIcon(R.drawable.detailrecipe_favorite_set);
         else
@@ -356,5 +337,25 @@ public class NavigationMenu extends AppCompatActivity
     }
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public void showMenuItems(List<Integer> itemsId) {
+        if(menu != null){
+            for(int i = 0; i < menu.size(); i++){
+
+                MenuItem item = menu.getItem(i);
+
+                if(itemsId.contains(item.getItemId())){
+                    item.setVisible(true);
+                }else{
+                    item.setVisible(false);
+                }
+
+            }
+        }
+    }
+
+    public MenuItem getMenuItem(int idItem){
+        return menu.findItem(idItem);
     }
 }

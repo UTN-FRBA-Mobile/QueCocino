@@ -31,6 +31,7 @@ import com.mobile.utn.quecocino.recipes.results.RecipesResultsFragment;
 import com.mobile.utn.quecocino.utils.RecyclerTouchListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -86,6 +87,12 @@ public class IngredientSearchFragment extends Fragment {
                 ft.commit();
             }
         });
+
+        NavigationMenu activity = (NavigationMenu) getActivity();
+        List<Integer> itemsId = Arrays.asList(R.id.navigation_action_buscarRecetas,
+                                                    R.id.navigation_action_favoritos,
+                                                        R.id.navigation_action_timers);
+        activity.showMenuItems(itemsId);
 
         return view;
     }

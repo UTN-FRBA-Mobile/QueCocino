@@ -25,6 +25,7 @@ import com.mobile.utn.quecocino.fragments.OnFragmentInteractionCollapse;
 import com.mobile.utn.quecocino.menu.NavigationMenu;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -113,6 +114,12 @@ public class TimerCountdownFragment extends Fragment {
                 fragmentTransaction.commit();
             }
         });
+
+        NavigationMenu activity = (NavigationMenu) getActivity();
+        List<Integer> itemsId = Arrays.asList(R.id.navigation_action_buscarRecetas,
+                                                R.id.navigation_action_favoritos,
+                                                    R.id.navigation_action_timers);
+        activity.showMenuItems(itemsId);
 
         return view;
     }

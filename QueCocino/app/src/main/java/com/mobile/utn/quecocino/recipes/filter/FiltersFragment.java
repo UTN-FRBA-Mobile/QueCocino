@@ -20,6 +20,9 @@ import com.appyvet.materialrangebar.RangeBar;
 import com.mobile.utn.quecocino.R;
 import com.mobile.utn.quecocino.menu.NavigationMenu;
 
+import java.util.Arrays;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -188,6 +191,11 @@ public class FiltersFragment extends Fragment {
                 getActivity().onBackPressed();
             }
         });
+
+        List<Integer> itemsId = Arrays.asList(R.id.navigation_action_buscarRecetas,
+                                                R.id.navigation_action_favoritos,
+                                                    R.id.navigation_action_timers);
+        activity.showMenuItems(itemsId);
 
         return rootView;
 

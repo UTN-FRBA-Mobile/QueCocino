@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/recipeResults.buttonFilters"
+        android:icon="@drawable/reciperesult_ic_filters"
+        android:title="@string/recipeResults.buttonFilters"
+        app:showAsAction="always"
+        android:visible="false"/>
 
     <item
         android:id="@+id/navigation.action.buttonSearch"
@@ -12,13 +20,13 @@
     <item
         android:id="@+id/detailRecipe.buttonFavorite"
         android:icon="@drawable/detailrecipe_favorite_unset"
-        android:title="@string/navigation.action.buttonFavorite"
+        android:title="@string/detailRecipe.buttonFavorite"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/detailRecipe.buttonGallery"
         android:icon="@drawable/gallery_ic_insertphoto"
-        android:title="@string/navigation.action.buttonFavorite"
+        android:title="@string/detailRecipe.buttonGallery"
         app:showAsAction="always" />
 
     <item

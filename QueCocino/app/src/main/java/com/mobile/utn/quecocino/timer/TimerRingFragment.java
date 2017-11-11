@@ -17,6 +17,11 @@ import android.widget.Toast;
 
 import com.mobile.utn.quecocino.R;
 import com.mobile.utn.quecocino.fragments.OnFragmentInteractionCollapse;
+import com.mobile.utn.quecocino.menu.NavigationMenu;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -60,6 +65,9 @@ public class TimerRingFragment extends Fragment {
                 TimerRingFragment.this.getActivity().finish();
             }
         });
+
+        NavigationMenu activity = (NavigationMenu) getActivity();
+        activity.showMenuItems(new ArrayList<Integer>());
 
         return view;
     }
