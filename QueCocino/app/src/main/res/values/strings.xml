@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RecipeHero</string>
+    <string name="app_name">QueCocino</string>
 
     <!-- Recipe Gallery -->
     <string name="gallery.uploadButton">Upload picture</string>
@@ -20,6 +20,14 @@
     <string name="recipe.results.applianceCooking">Requires:\u0020</string>-->
     <string name="recipe.results.cookingTimeMinutes">\u0020</string>
     <string name="recipe.results.applianceCooking">\u0020</string>
+    <string name="filter_applied">Filter applied!</string>
+    <string name="filter_layout_applianceCooking">Cooking Method</string>
+    <string name="filter_layout_cookingTimeMinutes">Preparation time(min.)</string>
+    <string name="filter_layout_origin">Local recipes</string>
+    <string name="filter_layout_minCookingTimeMinutes">Min:</string>
+    <string name="filter_layout_maxCookingTimeMinutes">Max:</string>
+    <string name="apply">Filter</string>
+    <string name="recipe_results_origin">\u0020</string>
 
     <!-- Timer -->
     <string name="timer.start">Start</string>

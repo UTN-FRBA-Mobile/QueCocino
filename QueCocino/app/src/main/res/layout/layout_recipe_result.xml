@@ -92,10 +92,10 @@
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical">
 
-                            <!-- <ImageView
+                            <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
-                                android:id="@+id/applianceCookingImage" /> -->
+                                android:id="@+id/applianceCookingImage" />
 
                             <TextView
                                 android:id="@+id/recipeApplianceCooking"

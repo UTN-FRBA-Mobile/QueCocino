@@ -14,6 +14,7 @@
 
     <!-- Detail Recipe -->
     <string name="detailRecipe.instructionsTitle">Instrucciones</string>
+    <string name="detailRecipe.ingredientsTitle">Ingredientes</string>
 
     <!-- Recipe Results-->
     <string name="recipe.results.author">Por\u0020</string>
@@ -31,6 +32,16 @@
     <string name="apply">Aplicar</string>
     <string name="recipe_results_origin">\u0020</string>
 
-    <!-- Other -->
+    <!-- Timer -->
+    <string name="timer.start">Comenzar</string>
+    <string name="timer.pause">Pausar</string>
+    <string name="timer.resume">Reanudar</string>
+    <string name="timer.stop">Parar</string>
+    <string name="timer.add">Agregar</string>
+    <string name="timer.tag">Tag</string>
+    <string name="timer.ok">OK</string>
+    <string name="timer.ringMessage">Timer terminado!</string>
+    <string name="timer.notification.title">Hay 1 timer en proceso</string>
+    <string name="timer.notification.title.plural">Hay # timers en proceso</string>
 
 </resources>
