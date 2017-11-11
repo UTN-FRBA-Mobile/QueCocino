@@ -23,7 +23,7 @@ android {
 repositories {
     jcenter()
     maven {
-        url  "https://dl.bintray.com/krazykira/maven"
+        url "https://dl.bintray.com/krazykira/maven"
     }
 }
 
@@ -32,6 +32,9 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    compile('com.appyvet:materialrangebar:1.4') {
+        exclude module: 'support-compat'
+    }
     compile 'com.github.bumptech.glide:glide:3.8.0'
     compile 'com.android.support:multidex:1.0.0'
     compile 'com.android.support:appcompat-v7:25.3.1'
@@ -46,12 +49,11 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.0'
     compile 'com.google.android.gms:play-services:10.2.6'
     compile 'com.android.support:support-v4:25.3.1'
-    compile ('com.appyvet:materialrangebar:1.4') {
-        exclude module: 'support-compat'
-    }
+    compile 'com.github.arimorty:floatingsearchview:2.1.1'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 }
+
 
 
 

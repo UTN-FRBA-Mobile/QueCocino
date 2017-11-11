@@ -22,4 +22,9 @@ public class RecipeIngredient {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    @Override
+    public boolean equals(Object o){
+        return description.equals(((RecipeIngredient) o).getDescription());
+    }
 }
