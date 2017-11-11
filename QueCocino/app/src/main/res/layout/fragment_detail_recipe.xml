@@ -26,13 +26,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
-                    android:gravity="center">
+                    android:layout_margin="5dp">
 
                     <ImageView
                         android:src="@drawable/recipe_cookingtime"
                         android:id="@+id/detailRecipe.cookingTimeImg"
                         android:layout_width="30dp"
-                        android:layout_height="30dp"/>
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="30dp"/>
 
                     <TextView
                         android:id="@+id/detailRecipe.cookingTimeRecipe"
@@ -40,13 +41,14 @@
                         android:layout_height="wrap_content"
                         android:textColor="#000000"
                         android:textSize="20dp"
-                        android:layout_margin="5dp"
-                        android:paddingRight="45dp"/>
+                        android:layout_marginLeft="5dp"
+                        android:paddingRight="60dp"/>
 
                     <ImageView
                         android:id="@+id/detailRecipe.applianceImg"
                         android:layout_width="35dp"
-                        android:layout_height="35dp"/>
+                        android:layout_height="35dp"
+                        android:layout_marginLeft="30dp"/>
 
                     <TextView
                         android:id="@+id/detailRecipe.applianceRecipe"
@@ -54,7 +56,45 @@
                         android:layout_height="wrap_content"
                         android:textColor="#000000"
                         android:textSize="20dp"
-                        android:layout_margin="5dp"/>
+                        android:layout_marginLeft="5dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_margin="5dp">
+
+                    <ImageView
+                        android:id="@+id/detailRecipe.difficultyImg"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="30dp"/>
+
+                    <TextView
+                        android:id="@+id/detailRecipe.difficultyRecipe"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000000"
+                        android:textSize="20dp"
+                        android:layout_marginLeft="5dp"
+                        android:paddingRight="75dp"/>
+
+                    <ImageView
+                        android:id="@+id/detailRecipe.kcalImg"
+                        android:src="@drawable/recipe_kcal"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="30dp"/>
+
+                    <TextView
+                        android:id="@+id/detailRecipe.kcalRecipe"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000000"
+                        android:textSize="20dp"
+                        android:layout_marginLeft="5dp"/>
 
                 </LinearLayout>
 

@@ -1,6 +1,7 @@
 package com.mobile.utn.quecocino.menu;
 
 import android.content.pm.PackageManager;
+import android.content.Intent;
 import android.location.Geocoder;
 import android.location.Location;
 import android.net.Uri;
@@ -18,7 +19,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -30,6 +30,7 @@ import com.mobile.utn.quecocino.fragments.OnFragmentInteractionCollapse;
 import com.mobile.utn.quecocino.locationManager.GoogleLocationClient;
 import com.mobile.utn.quecocino.locationManager.LatLonTranslator;
 import com.mobile.utn.quecocino.model.Recipe;
+import com.mobile.utn.quecocino.recipegallery.activities.RecipeGallery;
 import com.mobile.utn.quecocino.recipes.RecipeUtils;
 import com.mobile.utn.quecocino.recipes.filter.Filter;
 import com.mobile.utn.quecocino.recipes.filter.FiltersFragment;
@@ -58,6 +59,10 @@ public class NavigationMenu extends AppCompatActivity
     private CollapsingToolbarLayout collapsingToolbar;
     private View viewGradient;
     private MenuItemImpl favoriteButton;
+    private MenuItemImpl searchRecipesButton;
+    private MenuItemImpl favoritesButton;
+    private MenuItemImpl timersButton;
+    private MenuItemImpl galleryButton;
 
     private Filter filter;
     
@@ -66,22 +71,6 @@ public class NavigationMenu extends AppCompatActivity
     private String location;
 
     private FiltersFragment filterFragment;
-
-    public Filter getFilter() {
-        return filter;
-    }
-
-    public void setFilter(Filter filter) {
-        this.filter = filter;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,6 +153,11 @@ public class NavigationMenu extends AppCompatActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.navigation_menu, menu);
         favoriteButton = (MenuItemImpl) menu.findItem(R.id.detailRecipe_buttonFavorite);
+        searchRecipesButton = (MenuItemImpl) menu.findItem(R.id.navigation_action_buscarRecetas);
+        favoritesButton = (MenuItemImpl) menu.findItem(R.id.navigation_action_favoritos);
+        timersButton = (MenuItemImpl) menu.findItem(R.id.navigation_action_timers);
+        galleryButton = (MenuItemImpl) menu.findItem(R.id.detailRecipe_buttonGallery);
+        galleryButton.setVisible(false);
         favoriteButton.setIcon(R.drawable.detailrecipe_favorite_unset);
         favoriteButton.setVisible(false);
         return true;
@@ -196,6 +190,14 @@ public class NavigationMenu extends AppCompatActivity
                 RecipeUtils.addFavorite(this, currentRecipe.getIdRecipe());
 
             this.refreshFavoriteIcon();
+
+        } else if(id == R.id.detailRecipe_buttonGallery) {
+
+            Intent intent = new Intent(this, RecipeGallery.class);
+            intent.putExtra("idReceta", currentRecipe.getIdRecipe());
+            intent.putExtra("titleReceta",currentRecipe.getTitle());
+            startActivity(intent);
+
         }
 
         if(fragment != null){
@@ -259,8 +261,14 @@ public class NavigationMenu extends AppCompatActivity
         viewGradient.setVisibility(View.GONE);
         collapsingToolbar.setTitleEnabled(false);
 
-        if(favoriteButton != null)
+        if(favoriteButton != null){
             favoriteButton.setVisible(false);
+            galleryButton.setVisible(false);
+            searchRecipesButton.setVisible(true);
+            favoritesButton.setVisible(true);
+            timersButton.setVisible(true);
+        }
+
     }
 
     @Override
@@ -269,8 +277,13 @@ public class NavigationMenu extends AppCompatActivity
         viewGradient.setVisibility(View.VISIBLE);
         collapsingToolbar.setTitleEnabled(true);
 
-        if(favoriteButton != null)
+        if(favoriteButton != null){
             favoriteButton.setVisible(true);
+            galleryButton.setVisible(true);
+            searchRecipesButton.setVisible(false);
+            favoritesButton.setVisible(false);
+            timersButton.setVisible(false);
+        }
     }
   
     public void createLocations(FiltersFragment fragment) {
@@ -336,5 +349,11 @@ public class NavigationMenu extends AppCompatActivity
     }
     public void setCurrentRecipe(Recipe currentRecipe) {
         this.currentRecipe = currentRecipe;
+    }
+    public String getLocation() {
+        return location;
+    }
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

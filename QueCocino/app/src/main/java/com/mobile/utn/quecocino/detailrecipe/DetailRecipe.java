@@ -49,6 +49,10 @@ public class DetailRecipe extends Fragment {
     public TextView recipeApplianceTextView;
     public ListView recipeInstuctionListView;
     public ListView recipeIngredientListView;
+    public ImageView recipeDifficultyImg;
+    public TextView recipeDifficultyTextView;
+    public ImageView recipeKcalImg;
+    public TextView recipeKcalTextView;
     public List<RecipeInstruction> recipeInstructions;
     public List<RecipeIngredient> recipeIngredients;
     private FirebaseDatabase database;
@@ -84,6 +88,10 @@ public class DetailRecipe extends Fragment {
         recipeApplianceTextView = (TextView) view.findViewById(R.id.detailRecipe_applianceRecipe);
         recipeInstuctionListView = (ListView) view.findViewById(R.id.detailRecipe_instructionsList);
         recipeIngredientListView = (ListView) view.findViewById(R.id.detailRecipe_ingredientsList);
+        recipeDifficultyImg = (ImageView) view.findViewById(R.id.detailRecipe_difficultyImg);;
+        recipeDifficultyTextView = (TextView) view.findViewById(R.id.detailRecipe_difficultyRecipe);;
+        recipeKcalImg = (ImageView) view.findViewById(R.id.detailRecipe_kcalImg);;
+        recipeKcalTextView = (TextView) view.findViewById(R.id.detailRecipe_kcalRecipe);;
 
         recipeInstructions = new ArrayList<>();
         recipeIngredients = new ArrayList<>();
@@ -97,10 +105,23 @@ public class DetailRecipe extends Fragment {
         String appliance = recipe.getApplianceCooking();
         recipeApplianceTextView.setText(appliance);
 
-        if(appliance.equals("Oven"))
+        if(appliance.equals("Horno"))
             Picasso.with(getActivity().getApplicationContext()).load(R.drawable.recipe_oven).into(recipeApplianceImg);
         else
             Picasso.with(getActivity().getApplicationContext()).load(R.drawable.recipe_microwave).into(recipeApplianceImg);
+
+        String difficulty = recipe.getDifficulty();
+        recipeDifficultyTextView.setText(difficulty);
+
+        if (difficulty.equals("Baja")){
+            Picasso.with(getActivity().getApplicationContext()).load(R.drawable.recipe_difficultyeasy).into(recipeDifficultyImg);
+        }else if(difficulty.equals("Media")){
+            Picasso.with(getActivity().getApplicationContext()).load(R.drawable.recipe_difficultymedium).into(recipeDifficultyImg);
+        }else if(difficulty.equals("Alta")){
+            Picasso.with(getActivity().getApplicationContext()).load(R.drawable.recipe_difficultyhard).into(recipeDifficultyImg);
+        }
+
+        recipeKcalTextView.setText(recipe.getKcal() + "Kcal.");
 
         mainImageView.setOnClickListener(new View.OnClickListener() {
             @Override
