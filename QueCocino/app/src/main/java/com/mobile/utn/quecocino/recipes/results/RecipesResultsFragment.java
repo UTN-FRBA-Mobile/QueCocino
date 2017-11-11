@@ -69,12 +69,20 @@ public class RecipesResultsFragment extends Fragment {
             String page = args.containsKey("page") ? args.getString("page") : "";
             switch (page){
                 case "popular":
-                    activity.setFilter(new PopularFilter());
+                    if (!page.equalsIgnoreCase(activity.getLastPage())){
+                        activity.setFilter(new PopularFilter());
+                    }else{
+                        activity.setFilter(new AndFilter(activity.getFilter(), new PopularFilter()));
+                    }
                     activity.setLastPage(page);
                     activity.setTitle(R.string.navigation_item_populars);
                     break;
                 case "favorites":
-                    activity.setFilter(new FavoriteFilter(getContext()));
+                    if (!page.equalsIgnoreCase(activity.getLastPage())){
+                        activity.setFilter(new FavoriteFilter(getContext()));
+                    }else{
+                        activity.setFilter(new AndFilter(activity.getFilter(), new FavoriteFilter(getContext())));
+                    }
                     activity.setLastPage(page);
                     activity.setTitle(R.string.navigation_item_favorites);
                     break;
@@ -130,38 +138,6 @@ public class RecipesResultsFragment extends Fragment {
                     Recipe recipe = snapshot.getValue(Recipe.class);
                     recipe.setIdRecipe(snapshot.getKey());
                     recipes.add(recipe);
-                }
-
-                NavigationMenu activity = (NavigationMenu) getActivity();
-                //activity.setFilter(new TrivialFilter());
-
-                Bundle args = RecipesResultsFragment.this.getArguments();
-                if(args!=null) {
-                    String page = args.containsKey("page") ? args.getString("page") : "";
-                    switch (page){
-                        case "popular":
-                            if (!page.equalsIgnoreCase(activity.getLastPage())){
-                                activity.setFilter(new PopularFilter());
-                            }else{
-                                activity.setFilter(new AndFilter(activity.getFilter(), new PopularFilter()));
-                            }
-                            activity.setLastPage(page);
-                            break;
-                        case "favorites":
-                            if (!page.equalsIgnoreCase(activity.getLastPage())){
-                                activity.setFilter(new FavoriteFilter(getContext()));
-                            }else{
-                                activity.setFilter(new AndFilter(activity.getFilter(), new FavoriteFilter(getContext())));
-                            }
-                            activity.setLastPage(page);
-                            break;
-                        case "search":
-                            if (!page.equalsIgnoreCase(activity.getLastPage()))activity.setFilter(new TrivialFilter());
-                            activity.setLastPage(page);
-                            break;
-                        default:
-                            break;
-                    }
                 }
 
                 recipes = activity.getFilter().meetCriteria(RecipesResultsFragment.this.recipes);
