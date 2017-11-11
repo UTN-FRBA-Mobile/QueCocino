@@ -9,6 +9,12 @@
         app:showAsAction="always" />
 
     <item
+        android:id="@+id/detailRecipe.buttonGallery"
+        android:icon="@drawable/gallery_ic_insertphoto"
+        android:title="@string/navigation.action.buttonFavorite"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/navigation.action.buscarRecetas"
         android:orderInCategory="100"
         android:title="@string/navigation.action.buscarRecetas"
