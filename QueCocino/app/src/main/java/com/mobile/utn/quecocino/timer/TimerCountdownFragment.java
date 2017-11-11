@@ -3,6 +3,7 @@ package com.mobile.utn.quecocino.timer;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.content.Context;
@@ -20,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.mobile.utn.quecocino.R;
+import com.mobile.utn.quecocino.fragments.OnFragmentInteractionCollapse;
 import com.mobile.utn.quecocino.menu.NavigationMenu;
 
 import java.util.ArrayList;
@@ -53,6 +55,7 @@ public class TimerCountdownFragment extends Fragment {
     private TimerViewPagerAdapter timerViewPagerAdapter;
     private List<TimerAlarm> alarms;
     private int currentPosition;
+    private OnFragmentInteractionCollapse mListener;
 
     public TimerCountdownFragment() {
         // Required empty public constructor
@@ -312,6 +315,23 @@ public class TimerCountdownFragment extends Fragment {
         intent.putExtra("timerAction",action);
         intent.putExtra("alarmId",alarmId);
         return PendingIntent.getActivity(context, requestId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mListener.disableCollapse();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionCollapse) {
+            mListener = (OnFragmentInteractionCollapse) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionCollapse");
+        }
     }
 
 }

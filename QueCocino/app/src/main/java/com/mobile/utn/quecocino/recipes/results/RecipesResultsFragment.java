@@ -1,7 +1,9 @@
 package com.mobile.utn.quecocino.recipes.results;
 
 
+import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -19,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.mobile.utn.quecocino.R;
 import com.mobile.utn.quecocino.detailrecipe.DetailRecipe;
+import com.mobile.utn.quecocino.fragments.OnFragmentInteractionCollapse;
 import com.mobile.utn.quecocino.menu.NavigationMenu;
 import com.mobile.utn.quecocino.model.Recipe;
 import com.mobile.utn.quecocino.recipes.filter.AndFilter;
@@ -26,6 +29,7 @@ import com.mobile.utn.quecocino.recipes.filter.FavoriteFilter;
 import com.mobile.utn.quecocino.recipes.filter.Filter;
 import com.mobile.utn.quecocino.recipes.filter.FiltersFragment;
 import com.mobile.utn.quecocino.recipes.filter.PopularFilter;
+import com.mobile.utn.quecocino.recipes.filter.TrivialFilter;
 import com.mobile.utn.quecocino.utils.RecyclerTouchListener;
 
 import java.util.ArrayList;
@@ -44,6 +48,7 @@ public class RecipesResultsFragment extends Fragment {
 
     private RecipesResultsAdapter adapter;
     private FirebaseDatabase database;
+    private OnFragmentInteractionCollapse mListener;
 
     List<Recipe> recipes;
 
@@ -75,7 +80,11 @@ public class RecipesResultsFragment extends Fragment {
             public void onClick(View view, int position) {
                 Recipe recipe = recipes.get(position);
 
-                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                NavigationMenu activity = (NavigationMenu) getActivity();
+                activity.setCurrentRecipe(recipe);
+                activity.refreshFavoriteIcon();
+
+                FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
                 DetailRecipe newFragment = DetailRecipe.newInstance(recipe);
                 ft.replace(R.id.navigation_container, newFragment);
                 ft.addToBackStack(null);
@@ -100,6 +109,7 @@ public class RecipesResultsFragment extends Fragment {
                 }
 
                 NavigationMenu activity = (NavigationMenu) getActivity();
+                activity.setFilter(new TrivialFilter());
 
                 Bundle args = RecipesResultsFragment.this.getArguments();
                 if(args!=null) {
@@ -142,4 +152,20 @@ public class RecipesResultsFragment extends Fragment {
 
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mListener.disableCollapse();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionCollapse) {
+            mListener = (OnFragmentInteractionCollapse) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionCollapse");
+        }
+    }
 }

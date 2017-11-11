@@ -5,6 +5,7 @@ import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mobile.utn.quecocino.R;
+import com.mobile.utn.quecocino.fragments.OnFragmentInteractionCollapse;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,6 +29,8 @@ public class TimerRingFragment extends Fragment {
     public TextView txtTag;
     @BindView(R.id.timerRingStop)
     public Button btnStop;
+
+    private OnFragmentInteractionCollapse mListener;
 
     public TimerRingFragment() {
         // Required empty public constructor
@@ -58,6 +62,23 @@ public class TimerRingFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mListener.disableCollapse();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionCollapse) {
+            mListener = (OnFragmentInteractionCollapse) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionCollapse");
+        }
     }
 
 }

@@ -1,120 +1,122 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mobile.utn.quecocino.detailrecipe.DetailRecipe"
-    android:orientation="vertical">
-
-
-    <ImageView
-        android:id="@+id/detailRecipe.mainImage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/detailRecipe.mainImage"
-        android:background="#b816211c"
-        >
-
-        <TextView
-            android:id="@+id/detailRecipe.titleRecipe"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:textColor="#f2ffe6"
-            android:textSize="40dp"
-            />
-
-        <TextView
-            android:id="@+id/detailRecipe.authorRecipe"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#f2ffe6"
-            android:textSize="15dp"
-            android:layout_marginBottom="-5dp"
-            android:layout_alignRight="@+id/detailRecipe.titleRecipe"
-            android:layout_alignBottom="@+id/detailRecipe.titleRecipe"
-            />
-
-    </RelativeLayout>
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
-        android:id="@+id/detailRecipe.featuresRecipe"
-        android:paddingTop="250dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:descendantFocusability="blocksDescendants"
+        android:paddingTop="2dp">
 
-        <ImageView
-            android:src="@drawable/recipe_cookingtime"
-            android:id="@+id/detailRecipe.cookingTimeImg"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            />
-
-        <TextView
-            android:id="@+id/detailRecipe.cookingTimeRecipe"
-            android:layout_width="wrap_content"
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#000000"
-            android:textSize="20dp"
-            android:layout_margin="5dp"
-            android:paddingRight="45dp"
-            />
+            android:layout_margin="18dp">
 
-        <ImageView
-            android:id="@+id/detailRecipe.applianceImg"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            />
+            <LinearLayout
+                android:id="@+id/detailRecipe.featuresRecipe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/detailRecipe.applianceRecipe"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#000000"
-            android:textSize="20dp"
-            android:layout_margin="5dp"
-            />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:src="@drawable/recipe_cookingtime"
+                        android:id="@+id/detailRecipe.cookingTimeImg"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"/>
+
+                    <TextView
+                        android:id="@+id/detailRecipe.cookingTimeRecipe"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000000"
+                        android:textSize="20dp"
+                        android:layout_margin="5dp"
+                        android:paddingRight="45dp"/>
+
+                    <ImageView
+                        android:id="@+id/detailRecipe.applianceImg"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"/>
+
+                    <TextView
+                        android:id="@+id/detailRecipe.applianceRecipe"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000000"
+                        android:textSize="20dp"
+                        android:layout_margin="5dp"/>
+
+                </LinearLayout>
+
+                <!--To add another row-->
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:orientation="horizontal"></LinearLayout>-->
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/detailRecipe.ingredientsTitle"
+                android:text="@string/detailRecipe.ingredientsTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                android:textSize="30dp"
+                android:paddingLeft="18dp"/>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="18dp">
+
+                <ListView
+                    android:id="@+id/detailRecipe.ingredientsList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:cacheColorHint="@android:color/transparent"
+                    android:divider="@android:color/transparent"
+                    android:dividerHeight="8dp"/>
+
+            </android.support.v7.widget.CardView>
+
+            <TextView
+                android:id="@+id/detailRecipe.instructionsTitle"
+                android:text="@string/detailRecipe.instructionsTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                android:textSize="30dp"
+                android:paddingLeft="18dp"
+                />
+
+            <ListView
+                android:id="@+id/detailRecipe.instructionsList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:cacheColorHint="@android:color/transparent"
+                android:divider="@android:color/transparent"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/detailRecipe.instructions"
-        android:paddingTop="300dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-
-        <TextView
-            android:id="@+id/detailRecipe.instructionsTitle"
-            android:text="@string/detailRecipe.instructionsTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#000000"
-            android:textSize="30dp"
-            android:paddingLeft="18dp"
-            />
-
-
-        <ListView
-            android:id="@+id/detailRecipe.instructionsList"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:cacheColorHint="@android:color/transparent"
-            android:divider="@android:color/transparent"
-            android:dividerHeight="8dp"
-            android:scrollbarStyle="outsideOverlay"
-            android:paddingBottom="8dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:paddingTop="15dp">
-         
-        </ListView>
-
-    </LinearLayout>
-
-</RelativeLayout>
+</android.support.v4.widget.NestedScrollView>
