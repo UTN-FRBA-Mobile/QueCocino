@@ -38,7 +38,7 @@
             android:layout_weight="0.8"
             android:gravity="center"
             android:text="00h 00m 00s"
-            android:textSize="45sp" />
+            android:textSize="45dp" />
 
         <LinearLayout
             android:id="@+id/timerDeleteLayout"

@@ -42,13 +42,13 @@
                         android:textColor="#000000"
                         android:textSize="20dp"
                         android:layout_marginLeft="5dp"
-                        android:paddingRight="60dp"/>
+                        android:paddingRight="45dp"/>
 
                     <ImageView
                         android:id="@+id/detailRecipe.applianceImg"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:layout_marginLeft="30dp"/>
+                        android:layout_marginLeft="10dp"/>
 
                     <TextView
                         android:id="@+id/detailRecipe.applianceRecipe"
@@ -79,14 +79,14 @@
                         android:textColor="#000000"
                         android:textSize="20dp"
                         android:layout_marginLeft="5dp"
-                        android:paddingRight="75dp"/>
+                        android:paddingRight="60dp"/>
 
                     <ImageView
                         android:id="@+id/detailRecipe.kcalImg"
                         android:src="@drawable/recipe_kcal"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:layout_marginLeft="30dp"/>
+                        android:layout_marginLeft="10dp"/>
 
                     <TextView
                         android:id="@+id/detailRecipe.kcalRecipe"
