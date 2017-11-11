@@ -44,4 +44,8 @@
     <string name="timer.notification.title">Hay 1 timer en proceso</string>
     <string name="timer.notification.title.plural">Hay # timers en proceso</string>
 
+    <!-- Without Connection -->
+    <string name="withoutconnection_title">¡Parece que no hay conexión!</string>
+    <string name="withoutconnection_subtitle">Revisa tu conexión para continuar.</string>
+
 </resources>

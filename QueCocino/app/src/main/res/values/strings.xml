@@ -67,7 +67,8 @@
     <string name="recipe_search_ingredients_search_recipe_button">Search Recipe</string>
     <string name="recipe_search_ingredients_hint">Insert ingredient...</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Without Connection -->
+    <string name="withoutconnection_title">There is no internet connection!</string>
+    <string name="withoutconnection_subtitle">Checking the network to continue.</string>
 
 </resources>

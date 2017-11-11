@@ -1,9 +1,12 @@
 package com.mobile.utn.quecocino.menu;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Geocoder;
 import android.location.Location;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -22,7 +25,6 @@ import android.widget.ImageView;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.mobile.utn.quecocino.R;
 import com.mobile.utn.quecocino.detailrecipe.DetailRecipe;
@@ -41,6 +43,7 @@ import com.mobile.utn.quecocino.timer.AlarmUtils;
 import com.mobile.utn.quecocino.timer.TimerCountdownFragment;
 import com.mobile.utn.quecocino.timer.TimerEditFragment;
 import com.mobile.utn.quecocino.timer.TimerRingFragment;
+import com.mobile.utn.quecocino.utils.WithoutConnectionFragment;
 
 import java.util.Arrays;
 import java.util.List;
@@ -56,8 +59,7 @@ public class NavigationMenu extends AppCompatActivity
     private LatLonTranslator mLatLonTranslator;
     private Geocoder geoCod;
 
-    public NavigationView navigationView;
-    public Toolbar toolbar;
+    private DrawerLayout drawerLayout;
     private ImageView imageView;
     private CollapsingToolbarLayout collapsingToolbar;
     private View viewGradient;
@@ -100,6 +102,10 @@ public class NavigationMenu extends AppCompatActivity
                 break;
         }
 
+        if(!isDeviceConnected()){
+            fragment = new WithoutConnectionFragment();
+        }
+
         fragment.setArguments(args);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.navigation_container, fragment);
@@ -113,19 +119,15 @@ public class NavigationMenu extends AppCompatActivity
         imageView = (ImageView) findViewById(R.id.navigation_mainImage);
         viewGradient = (View) findViewById(R.id.navigation_gradient);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.navigation_drawer_layout);
+        drawerLayout = (DrawerLayout) findViewById(R.id.navigation_drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+                this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.setDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-    }
-
-    public CollapsingToolbarLayout getCollapsingToolbar() {
-        return collapsingToolbar;
     }
 
     private void syncFrags() {
@@ -319,23 +321,19 @@ public class NavigationMenu extends AppCompatActivity
             favoriteButton.setIcon(R.drawable.detailrecipe_favorite_unset);
     }
 
-    public Filter getFilter() {
-        return filter;
-    }
-    public void setFilter(Filter filter) {
-        this.filter = filter;
-    }
-    public Recipe getCurrentRecipe() {
-        return currentRecipe;
-    }
-    public void setCurrentRecipe(Recipe currentRecipe) {
-        this.currentRecipe = currentRecipe;
-    }
-    public String getLocation() {
-        return location;
-    }
-    public void setLocation(String location) {
-        this.location = location;
+    public boolean isDeviceConnected() {
+
+        boolean connected = false;
+        ConnectivityManager connec = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo[] networks = connec.getAllNetworkInfo();
+
+        for (int i = 0; i < networks.length; i++) {
+            if (networks[i].getState() == NetworkInfo.State.CONNECTED) {
+                connected = true;
+            }
+        }
+        return connected;
     }
 
     public void showMenuItems(List<Integer> itemsId) {
@@ -358,11 +356,34 @@ public class NavigationMenu extends AppCompatActivity
         return menu.findItem(idItem);
     }
 
+    public Filter getFilter() {
+        return filter;
+    }
+    public void setFilter(Filter filter) {
+        this.filter = filter;
+    }
+    public Recipe getCurrentRecipe() {
+        return currentRecipe;
+    }
+    public void setCurrentRecipe(Recipe currentRecipe) {
+        this.currentRecipe = currentRecipe;
+    }
+    public String getLocation() {
+        return location;
+    }
+    public void setLocation(String location) {
+        this.location = location;
+    }
+    public CollapsingToolbarLayout getCollapsingToolbar() {
+        return collapsingToolbar;
+    }
     public String getLastPage() {
         return lastPage;
     }
-
     public void setLastPage(String lastPage) {
         this.lastPage = lastPage;
+    }
+    public DrawerLayout getDrawerLayout() {
+        return drawerLayout;
     }
 }
