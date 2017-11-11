@@ -82,7 +82,11 @@ public class IngredientSearchFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.navigation_container, new RecipesResultsFragment());
+                RecipesResultsFragment fragment = new RecipesResultsFragment();
+                Bundle args = new Bundle();
+                args.putString("page","search");
+                fragment.setArguments(args);
+                ft.replace(R.id.navigation_container, fragment);
                 ft.addToBackStack(null);
                 ft.commit();
             }

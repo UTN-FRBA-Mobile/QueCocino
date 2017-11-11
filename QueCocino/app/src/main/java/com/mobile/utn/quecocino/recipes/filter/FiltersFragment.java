@@ -116,6 +116,8 @@ public class FiltersFragment extends Fragment {
             }
         }
 
+        udpateTextViews();
+
         ovenButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -211,7 +213,6 @@ public class FiltersFragment extends Fragment {
         cookingTimeMinPin = 0;
         cookingTimeMinutesRangeBar.setTickEnd(180f);
         cookingTimeMaxPin = 180;
-        udpateTextViews();
     }
 
     private void udpateTextViews() {

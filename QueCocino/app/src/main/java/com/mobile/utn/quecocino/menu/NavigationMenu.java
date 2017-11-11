@@ -1,21 +1,19 @@
 package com.mobile.utn.quecocino.menu;
 
-import android.content.pm.PackageManager;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Geocoder;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.menu.MenuItemImpl;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -69,6 +67,8 @@ public class NavigationMenu extends AppCompatActivity
     private Recipe currentRecipe;
 
     private String location;
+
+    private String lastPage = "search";
 
     private FiltersFragment filterFragment;
 
@@ -357,5 +357,13 @@ public class NavigationMenu extends AppCompatActivity
 
     public MenuItem getMenuItem(int idItem){
         return menu.findItem(idItem);
+    }
+
+    public String getLastPage() {
+        return lastPage;
+    }
+
+    public void setLastPage(String lastPage) {
+        this.lastPage = lastPage;
     }
 }
