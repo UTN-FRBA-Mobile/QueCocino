@@ -1,5 +1,6 @@
 package com.mobile.utn.quecocino.menu;
 
+import android.content.pm.PackageManager;
 import android.location.Geocoder;
 import android.location.Location;
 import android.net.Uri;
@@ -31,6 +32,7 @@ import com.mobile.utn.quecocino.locationManager.LatLonTranslator;
 import com.mobile.utn.quecocino.model.Recipe;
 import com.mobile.utn.quecocino.recipes.RecipeUtils;
 import com.mobile.utn.quecocino.recipes.filter.Filter;
+import com.mobile.utn.quecocino.recipes.filter.FiltersFragment;
 import com.mobile.utn.quecocino.recipes.filter.TrivialFilter;
 import com.mobile.utn.quecocino.recipes.results.RecipesResultsFragment;
 import com.mobile.utn.quecocino.timer.AlarmUtils;
@@ -58,7 +60,28 @@ public class NavigationMenu extends AppCompatActivity
     private MenuItemImpl favoriteButton;
 
     private Filter filter;
+    
     private Recipe currentRecipe;
+
+    private String location;
+
+    private FiltersFragment filterFragment;
+
+    public Filter getFilter() {
+        return filter;
+    }
+
+    public void setFilter(Filter filter) {
+        this.filter = filter;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,7 +132,7 @@ public class NavigationMenu extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        createLocations();
+        //createLocations();
     }
 
     public CollapsingToolbarLayout getCollapsingToolbar() {
@@ -249,9 +272,9 @@ public class NavigationMenu extends AppCompatActivity
         if(favoriteButton != null)
             favoriteButton.setVisible(true);
     }
-
-    private void createLocations() {
-
+  
+    public void createLocations(FiltersFragment fragment) {
+  
         mGoogleLocationClient = new GoogleLocationClient();
         mGoogleLocationClient.setApiClient(new GoogleApiClient.Builder(this)
                 .addApi(LocationServices.API)
@@ -265,11 +288,34 @@ public class NavigationMenu extends AppCompatActivity
         geoCod = new Geocoder(NavigationMenu.this, Locale.getDefault());
         mLatLonTranslator.setGeocoder(geoCod);
 
+        this.filterFragment = fragment;
+
     }
 
     @Override
     public void onLocationChanged(Location location) {
+        this.location = mLatLonTranslator.reverseGeocodeRegion(location.getLatitude(), location.getLongitude());
+        mGoogleLocationClient.apiDisconnect();
+        if (filterFragment != null){
+            filterFragment.gpsLoaded();
+        }
+    }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 99: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //this.createLocations(filterButton);
+                } else {
+                    filterFragment.gpsLoaded();
+                }
+                return;
+            }
+
+        }
     }
 
     public void refreshFavoriteIcon() {

@@ -8,7 +8,7 @@ import com.mobile.utn.quecocino.recipes.RecipeUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FavoriteFilter extends Filter {
+public class FavoriteFilter implements Filter {
 
     private Context context;
 
@@ -26,5 +26,14 @@ public class FavoriteFilter extends Filter {
             }
         }
         return favoriteRecipes;
+    }
+
+    @Override
+    public List<Filter> getFilterComposition() {
+
+        ArrayList<Filter> list = new ArrayList<Filter>();
+        list.add(this);
+
+        return list;
     }
 }

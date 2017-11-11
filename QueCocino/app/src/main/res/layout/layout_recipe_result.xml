@@ -7,7 +7,11 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
 
         <ImageView
             android:layout_width="110dp"
@@ -38,65 +42,91 @@
                 android:text="Author"
                 android:textSize="15sp" />
 
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:orientation="horizontal"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_height="wrap_content"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical" >
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                        android:orientation="horizontal"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical">
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical" >
 
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:id="@+id/cookingTimeMinutesImage" />
-
-                        <TextView
-                            android:id="@+id/recipeCookingTimeMinutes"
+                        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:orientation="horizontal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="recipeCookingTimeMinutes"
-                            android:textSize="20sp"/>
+                            android:gravity="center_vertical">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:id="@+id/cookingTimeMinutesImage" />
+
+                            <TextView
+                                android:id="@+id/recipeCookingTimeMinutes"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="recipeCookingTimeMinutes"
+                                android:textSize="20sp"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_height="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical" >
+
+                        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical">
+
+                            <!-- <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:id="@+id/applianceCookingImage" /> -->
+
+                            <TextView
+                                android:id="@+id/recipeApplianceCooking"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="recipeApplianceCooking"
+                                android:textSize="20sp"/>
+
+                        </LinearLayout>
 
                     </LinearLayout>
 
                 </LinearLayout>
 
-                <LinearLayout
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical" >
+                    android:gravity="center_vertical">
 
-                    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                        android:orientation="horizontal"
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:id="@+id/originImage" />
+
+                    <TextView
+                        android:id="@+id/recipeOrigin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical">
-
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:id="@+id/applianceCookingImage" />
-
-                        <TextView
-                            android:id="@+id/recipeApplianceCooking"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="recipeApplianceCooking"
-                            android:textSize="20sp"/>
-
-                    </LinearLayout>
-
+                        android:text="recipeOrigin"
+                        android:textSize="20sp"/>
                 </LinearLayout>
 
             </LinearLayout>

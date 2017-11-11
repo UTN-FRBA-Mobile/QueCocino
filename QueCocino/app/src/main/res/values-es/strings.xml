@@ -22,6 +22,14 @@
     <string name="recipe.results.applianceCooking">Requiere:\u0020</string>-->
     <string name="recipe.results.cookingTimeMinutes">\u0020</string>
     <string name="recipe.results.applianceCooking">\u0020</string>
+    <string name="filter_applied">¡Filtro aplicado!</string>
+    <string name="filter_layout_applianceCooking">Método de cocción</string>
+    <string name="filter_layout_cookingTimeMinutes">Tiempo de preparación (min.)</string>
+    <string name="filter_layout_origin">Recetas locales</string>
+    <string name="filter_layout_minCookingTimeMinutes">Min:</string>
+    <string name="filter_layout_maxCookingTimeMinutes">Máx:</string>
+    <string name="apply">Aplicar</string>
+    <string name="recipe_results_origin">\u0020</string>
 
     <!-- Other -->
 

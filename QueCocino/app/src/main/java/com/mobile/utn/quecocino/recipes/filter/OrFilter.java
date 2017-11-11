@@ -2,13 +2,14 @@ package com.mobile.utn.quecocino.recipes.filter;
 
 import com.mobile.utn.quecocino.model.Recipe;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Rama on 25/10/2017.
  */
 
-public class OrFilter extends Filter {
+public class OrFilter implements Filter {
 
     private Filter criteria;
     private Filter otherCriteria;
@@ -29,5 +30,16 @@ public class OrFilter extends Filter {
             }
         }
         return firstCriteriaItems;
+    }
+
+    @Override
+    public List<Filter> getFilterComposition() {
+
+        ArrayList<Filter> list = new ArrayList<Filter>();
+
+        list.addAll(criteria.getFilterComposition());
+        list.addAll(otherCriteria.getFilterComposition());
+
+        return list;
     }
 }

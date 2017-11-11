@@ -11,6 +11,10 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.appyvet.materialrangebar.RangeBar;
 import com.mobile.utn.quecocino.R;
@@ -35,9 +39,28 @@ public class FiltersFragment extends Fragment {
     @BindView(R.id.cookingTimeMinutesRangeBar)
     public RangeBar cookingTimeMinutesRangeBar;
 
-    private Filter filter;
+    @BindView(R.id.gpsButton)
+    public FloatingActionButton gpsButton;
+    private boolean gpsPresed;
+
+    @BindView(R.id.filterButton)
+    public Button filterButton;
+
+    @BindView(R.id.gpsProgress)
+    public ProgressBar gpsProgress;
+
+    @BindView(R.id.filter_layout_maxCookingTimeMinutes)
+    public TextView maxCookingTimeMinutesTextView;
+
+    @BindView(R.id.filter_layout_minCookingTimeMinutes)
+    public TextView minCookingTimeMinutesTextView;
 
     private FilterBuilder filterBuilder;
+
+    private int cookingTimeMinPin;
+    private int cookingTimeMaxPin;
+
+    private FiltersFragment self;
 
     public FiltersFragment() {
         // Required empty public constructor
@@ -63,11 +86,32 @@ public class FiltersFragment extends Fragment {
         getActivity().setTitle("QueCocino");
         ButterKnife.bind(this,rootView);
 
-        ovenButton.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
-        microwaveButton.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
-        cookingTimeMinutesRangeBar.setTickInterval(1f);
-        cookingTimeMinutesRangeBar.setTickStart(0f);
-        cookingTimeMinutesRangeBar.setTickEnd(180f);
+        self = this;
+
+        NavigationMenu activity = (NavigationMenu) getActivity();
+
+        initFields();
+
+        for (Filter filter : activity.getFilter().getFilterComposition()){
+            if (filter instanceof OvenFilter){
+                ovenButton.setBackgroundTintList(ColorStateList.valueOf(fetchAccentColor()));
+                ovenPresed = true;
+            }
+            if (filter instanceof MicrowaveFilter){
+                microwaveButton.setBackgroundTintList(ColorStateList.valueOf(fetchAccentColor()));
+                microwavePresed = true;
+            }
+            if (filter instanceof CookingTimeFilter){
+                CookingTimeFilter cookingTimeFilter = (CookingTimeFilter) filter;
+                cookingTimeMinutesRangeBar.setRangePinsByIndices(cookingTimeFilter.getMinMinutes(), cookingTimeFilter.getMaxMinutes());
+                cookingTimeMinPin = cookingTimeFilter.getMinMinutes();
+                cookingTimeMaxPin = cookingTimeFilter.getMaxMinutes();
+            }
+            if (filter instanceof GPSFilter){
+                gpsButton.setBackgroundTintList(ColorStateList.valueOf(fetchAccentColor()));
+                gpsPresed = true;
+            }
+        }
 
         ovenButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,11 +119,9 @@ public class FiltersFragment extends Fragment {
 
                 if (!ovenPresed){
                     ovenPresed = true;
-                    filterBuilder.addOven();
                     ovenButton.setBackgroundTintList(ColorStateList.valueOf(fetchAccentColor()));
                 }else{
                     ovenPresed = false;
-                    filterBuilder.removeOven();
                     ovenButton.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
                 }
 
@@ -92,42 +134,87 @@ public class FiltersFragment extends Fragment {
 
                 if (!microwavePresed){
                     microwavePresed = true;
-                    filterBuilder.addMicrowave();
                     microwaveButton.setBackgroundTintList(ColorStateList.valueOf(fetchAccentColor()));
                 }else{
                     microwavePresed = false;
-                    filterBuilder.removeMicrowave();
                     microwaveButton.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
                 }
             }
         });
 
-        /*cookingTimeMinutesRangeBar.setFormatter(new IRangeBarFormatter() {
-            @Override
-            public String format(String s) {
-                //TODO usar strings.xml
-                return s + " min";
-            }
-        });*/
-
         cookingTimeMinutesRangeBar.setOnRangeBarChangeListener(new RangeBar.OnRangeBarChangeListener() {
             @Override
             public void onRangeChangeListener(RangeBar rangeBar, int leftPinIndex, int rightPinIndex, String leftPinValue,
                                               String rightPinValue) {
-                filterBuilder.addCookingTimeFilter(leftPinIndex < rightPinIndex ? leftPinIndex : rightPinIndex, leftPinIndex < rightPinIndex ? rightPinIndex : leftPinIndex );
+                cookingTimeMinPin = (leftPinIndex < rightPinIndex ? leftPinIndex : rightPinIndex);
+                cookingTimeMaxPin = (leftPinIndex < rightPinIndex ? rightPinIndex : leftPinIndex);
+
+                udpateTextViews();
             }
 
+        });
+
+        gpsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (!gpsPresed){
+                    gpsPresed = true;
+                    gpsButton.setBackgroundTintList(ColorStateList.valueOf(fetchAccentColor()));
+                    NavigationMenu activity = (NavigationMenu) getActivity();
+                    if (activity.getLocation() == null ){
+                        gpsButton.setVisibility(View.INVISIBLE);
+                        gpsProgress.setVisibility(View.VISIBLE);
+                        filterButton.setEnabled(false);
+                        activity.createLocations(self);
+                    }
+                }else{
+                    gpsPresed = false;
+                    gpsButton.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
+                }
+            }
+        });
+
+        filterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavigationMenu activity = (NavigationMenu) getActivity();
+                if (microwavePresed) filterBuilder.addMicrowave();
+                if (ovenPresed) filterBuilder.addOven();
+                filterBuilder.addCookingTimeFilter(cookingTimeMinPin, cookingTimeMaxPin);
+                if (gpsPresed) filterBuilder.addGps(activity.getLocation());
+                activity.setFilter(filterBuilder.buildFilter());
+                Toast.makeText(getContext(), R.string.filter_applied, Toast.LENGTH_SHORT).show();
+                getActivity().onBackPressed();
+            }
         });
 
         return rootView;
 
     }
 
-    @Override
-    public void onDestroyView() {
-        NavigationMenu activity = (NavigationMenu) getActivity();
-        activity.setFilter(filterBuilder.buildFilter());
-        super.onDestroyView();
+    private void initFields() {
+        ovenButton.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
+        microwaveButton.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
+        gpsButton.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
+        cookingTimeMinutesRangeBar.setTickInterval(1f);
+        //TODO Desharcodear el 180 y el 0 ese feo, pasarlo a strings.xml
+        cookingTimeMinutesRangeBar.setTickStart(0f);
+        cookingTimeMinPin = 0;
+        cookingTimeMinutesRangeBar.setTickEnd(180f);
+        cookingTimeMaxPin = 180;
+        udpateTextViews();
+    }
+
+    private void udpateTextViews() {
+        minCookingTimeMinutesTextView.setText(getResources().getString(R.string.filter_layout_minCookingTimeMinutes) + " " + cookingTimeMinPin + " min.");
+        maxCookingTimeMinutesTextView.setText(getResources().getString(R.string.filter_layout_maxCookingTimeMinutes) + " " + cookingTimeMaxPin + " min.");
+    }
+
+    public void gpsLoaded(){
+        gpsProgress.setVisibility(View.INVISIBLE);
+        gpsButton.setVisibility(View.VISIBLE);
+        filterButton.setEnabled(true);
     }
 
     private int fetchAccentColor() {
