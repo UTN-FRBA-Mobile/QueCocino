@@ -51,6 +51,12 @@
     <string name="navigation.action.favoritos">Favorites</string>
     <string name="navigation.action.timers">Timers</string>
     <string name="navigation.action.buttonFavorite">Favorite</string>
+    <string name="navigation.action.buttonSearch">Search</string>
+
+    <!-- Ingredient Search -->
+    <string name="ingredient_search_hint">Search...</string>
+    <string name="ingredient_search_button">Search</string>
+
 
     <!-- Recipe Search -->
     <string name="recipe_search_ingredients_title">Ingredients</string>

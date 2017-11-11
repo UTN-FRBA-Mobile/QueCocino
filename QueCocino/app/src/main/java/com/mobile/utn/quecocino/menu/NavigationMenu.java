@@ -27,6 +27,7 @@ import com.google.android.gms.location.LocationServices;
 import com.mobile.utn.quecocino.R;
 import com.mobile.utn.quecocino.detailrecipe.DetailRecipe;
 import com.mobile.utn.quecocino.fragments.OnFragmentInteractionCollapse;
+import com.mobile.utn.quecocino.ingredientSearch.IngredientSearchFragment;
 import com.mobile.utn.quecocino.locationManager.GoogleLocationClient;
 import com.mobile.utn.quecocino.locationManager.LatLonTranslator;
 import com.mobile.utn.quecocino.model.Recipe;
@@ -95,7 +96,7 @@ public class NavigationMenu extends AppCompatActivity
                 fragment = new TimerCountdownFragment();
                 break;
             default:
-                fragment = new RecipesResultsFragment();
+                fragment = new IngredientSearchFragment();
                 break;
         }
 
@@ -170,7 +171,7 @@ public class NavigationMenu extends AppCompatActivity
         Fragment fragment = null;
 
         if (id == R.id.navigation_action_buscarRecetas) {
-            fragment = new RecipesResultsFragment();
+            fragment = new IngredientSearchFragment();
         } else if (id == R.id.navigation_action_favoritos) {
             fragment = new RecipesResultsFragment();
             Bundle args = new Bundle();
@@ -220,7 +221,7 @@ public class NavigationMenu extends AppCompatActivity
         Fragment fragment = null;
 
         if (id == R.id.navigation_main) {
-            fragment = new RecipesResultsFragment();
+            fragment = new IngredientSearchFragment();
         } else if (id == R.id.navigation_favorites) {
             fragment = new RecipesResultsFragment();
             Bundle args = new Bundle();
