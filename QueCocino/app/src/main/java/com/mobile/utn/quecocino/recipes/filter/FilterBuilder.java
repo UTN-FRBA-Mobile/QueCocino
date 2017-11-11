@@ -21,6 +21,7 @@ public class FilterBuilder {
     //Others
     private List<Filter> otherFilters;
     private GPSFilter gpsFilter;
+    private DifficultyFilter difficultyFilter;
 
     public FilterBuilder(){
         this.applianceCookingFilters = new ArrayList<Filter>();
@@ -122,5 +123,10 @@ public class FilterBuilder {
 
     public void removeGps(){
         if (gpsFilter != null && otherFilters.contains(gpsFilter)) otherFilters.remove(gpsFilter);
+    }
+
+    public void addDifficulty(ArrayList<String> list) {
+        if (difficultyFilter == null) difficultyFilter = new DifficultyFilter(list);
+        if (!otherFilters.contains(difficultyFilter)) otherFilters.add(difficultyFilter);
     }
 }

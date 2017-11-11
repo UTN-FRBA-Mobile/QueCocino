@@ -20,6 +20,7 @@ import com.appyvet.materialrangebar.RangeBar;
 import com.mobile.utn.quecocino.R;
 import com.mobile.utn.quecocino.menu.NavigationMenu;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -57,6 +58,18 @@ public class FiltersFragment extends Fragment {
 
     @BindView(R.id.filter_layout_minCookingTimeMinutes)
     public TextView minCookingTimeMinutesTextView;
+
+    @BindView(R.id.difficultyEasyButton)
+    public FloatingActionButton difficultyEasyButton;
+    private boolean difficultyEasyPressed;
+
+    @BindView(R.id.difficultyMediumButton)
+    public FloatingActionButton difficultyMediumButton;
+    private boolean difficultyMediumPressed;
+
+    @BindView(R.id.difficultyHardButton)
+    public FloatingActionButton difficultyHardButton;
+    private boolean difficultyHardPressed;
 
     private FilterBuilder filterBuilder;
 
@@ -109,6 +122,22 @@ public class FiltersFragment extends Fragment {
                 cookingTimeMinutesRangeBar.setRangePinsByIndices(cookingTimeFilter.getMinMinutes(), cookingTimeFilter.getMaxMinutes());
                 cookingTimeMinPin = cookingTimeFilter.getMinMinutes();
                 cookingTimeMaxPin = cookingTimeFilter.getMaxMinutes();
+            }
+            if (filter instanceof DifficultyFilter){
+                DifficultyFilter cookingTimeFilter = (DifficultyFilter) filter;
+                if (cookingTimeFilter.getDifficultiesList().contains("Baja")){
+                    difficultyEasyButton.setBackgroundTintList(ColorStateList.valueOf(fetchAccentColor()));
+                    difficultyEasyPressed = true;
+                }
+                if (cookingTimeFilter.getDifficultiesList().contains("Media")){
+                    difficultyMediumButton.setBackgroundTintList(ColorStateList.valueOf(fetchAccentColor()));
+                    difficultyMediumPressed = true;
+                }
+                if (cookingTimeFilter.getDifficultiesList().contains("Alta")){
+                    difficultyHardButton.setBackgroundTintList(ColorStateList.valueOf(fetchAccentColor()));
+                    difficultyHardPressed = true;
+                }
+
             }
             if (filter instanceof GPSFilter){
                 gpsButton.setBackgroundTintList(ColorStateList.valueOf(fetchAccentColor()));
@@ -180,6 +209,48 @@ public class FiltersFragment extends Fragment {
             }
         });
 
+        difficultyEasyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (!difficultyEasyPressed){
+                    difficultyEasyPressed = true;
+                    difficultyEasyButton.setBackgroundTintList(ColorStateList.valueOf(fetchAccentColor()));
+                }else{
+                    difficultyEasyPressed = false;
+                    difficultyEasyButton.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
+                }
+            }
+        });
+
+        difficultyMediumButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (!difficultyMediumPressed){
+                    difficultyMediumPressed = true;
+                    difficultyMediumButton.setBackgroundTintList(ColorStateList.valueOf(fetchAccentColor()));
+                }else{
+                    difficultyMediumPressed = false;
+                    difficultyMediumButton.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
+                }
+            }
+        });
+
+        difficultyHardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (!difficultyHardPressed){
+                    difficultyHardPressed = true;
+                    difficultyHardButton.setBackgroundTintList(ColorStateList.valueOf(fetchAccentColor()));
+                }else{
+                    difficultyHardPressed = false;
+                    difficultyHardButton.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
+                }
+            }
+        });
+
         filterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -188,6 +259,13 @@ public class FiltersFragment extends Fragment {
                 if (ovenPresed) filterBuilder.addOven();
                 filterBuilder.addCookingTimeFilter(cookingTimeMinPin, cookingTimeMaxPin);
                 if (gpsPresed) filterBuilder.addGps(activity.getLocation());
+                if (difficultyHardPressed || difficultyEasyPressed ||difficultyMediumPressed){
+                    ArrayList<String> list = new ArrayList<String>();
+                    if (difficultyEasyPressed) list.add("Baja");
+                    if (difficultyMediumPressed) list.add("Media");
+                    if (difficultyHardPressed) list.add("Alta");
+                    filterBuilder.addDifficulty(list);
+                }
                 activity.setFilter(filterBuilder.buildFilter());
                 Toast.makeText(getContext(), R.string.filter_applied, Toast.LENGTH_SHORT).show();
                 getActivity().onBackPressed();
@@ -207,6 +285,9 @@ public class FiltersFragment extends Fragment {
         ovenButton.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
         microwaveButton.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
         gpsButton.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
+        difficultyEasyButton.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
+        difficultyMediumButton.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
+        difficultyHardButton.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
         cookingTimeMinutesRangeBar.setTickInterval(1f);
         //TODO Desharcodear el 180 y el 0 ese feo, pasarlo a strings.xml
         cookingTimeMinutesRangeBar.setTickStart(0f);

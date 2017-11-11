@@ -33,7 +33,9 @@
                 android:layout_height="wrap_content"
                 android:text="Title"
                 android:textSize="24sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:ellipsize="end"
+                android:maxLines="1"/>
 
             <TextView
                 android:id="@+id/recipeAuthor"
@@ -54,8 +56,7 @@
 
                     <LinearLayout
                         android:layout_height="wrap_content"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
                         android:orientation="vertical" >
 
                         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -73,17 +74,20 @@
                                 android:id="@+id/recipeCookingTimeMinutes"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="recipeCookingTimeMinutes"
+                                android:text=" 180"
                                 android:textSize="20sp"/>
 
                         </LinearLayout>
 
                     </LinearLayout>
 
+                    <View
+                        android:layout_width="20dp"
+                        android:layout_height="match_parent" />
+
                     <LinearLayout
                         android:layout_height="wrap_content"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
                         android:orientation="vertical" >
 
                         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -101,7 +105,7 @@
                                 android:id="@+id/recipeApplianceCooking"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="recipeApplianceCooking"
+                                android:text=" Microondas"
                                 android:textSize="20sp"/>
 
                         </LinearLayout>
@@ -125,7 +129,7 @@
                         android:id="@+id/recipeOrigin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="recipeOrigin"
+                        android:text=" Buenos Aires, AR"
                         android:textSize="20sp"/>
                 </LinearLayout>
 
