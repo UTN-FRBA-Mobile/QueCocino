@@ -10,11 +10,13 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.arlib.floatingsearchview.FloatingSearchView;
@@ -50,6 +52,9 @@ public class IngredientSearchFragment extends Fragment {
     public RecyclerView ingRecyclerView;
     private IngredientsAdapter ingAdapter;
 
+    @BindView(R.id.ingredientsearch_slogan)
+    public TextView sloganTextView;
+
     @BindView(R.id.ingredientsearch_button)
     public Button searchButton;
 
@@ -65,7 +70,7 @@ public class IngredientSearchFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         allIngredients = new ArrayList<>();
-        ingAdapter = new IngredientsAdapter(getContext());
+        ingAdapter = new IngredientsAdapter(this);
     }
 
     @Override
@@ -80,10 +85,7 @@ public class IngredientSearchFragment extends Fragment {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.navigation_container, new RecipesResultsFragment());
-                ft.addToBackStack(null);
-                ft.commit();
+            goFindRecipes();
             }
         });
 
@@ -94,26 +96,16 @@ public class IngredientSearchFragment extends Fragment {
         ingRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         ingRecyclerView.setItemAnimator(new DefaultItemAnimator());
         ingRecyclerView.setAdapter(ingAdapter);
-        ingRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity().getApplicationContext(), ingRecyclerView, new RecyclerTouchListener.ClickListener() {
-            @Override
-            public void onClick(View view,final int position) {
-                ingAdapter.getIngredients().remove(position);
-                ingAdapter.notifyDataSetChanged();
-                if(ingAdapter.getItemCount()==0){
-                    searchButton.setVisibility(View.INVISIBLE);
-                    animateToStartPosition();
-                }
-            }
-
-            @Override
-            public void onLongClick(View view, int position) { }
-        }));
+        ingAdapter.getItemTouchHelper().attachToRecyclerView(ingRecyclerView);
     }
 
     private void setUpSearchView(){
+        // If it is already populated with ingredients
         if(!ingAdapter.getIngredients().isEmpty()){
             logoImaageView.setAlpha(0f);
+            sloganTextView.setAlpha(0f);
             ingSearchView.setTranslationY(0);
+            searchButton.setTranslationY(0);
         }
 
         ingSearchView.setOnQueryChangeListener(new FloatingSearchView.OnQueryChangeListener() {
@@ -127,7 +119,7 @@ public class IngredientSearchFragment extends Fragment {
                         //get suggestions based on newQuery
                         if(!newQuery.equals("")) {
                             RecipeIngredient ingredient;
-                            for (int i=0; i<allIngredients.size() && i<3; i++ ) {
+                            for (int i=0; i<allIngredients.size() && filteredSuggestions.size()<3; i++ ) {
                                 ingredient = allIngredients.get(i);
                                 if(!ingAdapter.getIngredients().contains(ingredient))
                                 if(allIngredients.get(i).getDescription().toLowerCase().startsWith(newQuery.toLowerCase())) {
@@ -169,6 +161,7 @@ public class IngredientSearchFragment extends Fragment {
             @Override
             public void onFocus() {
                 logoImaageView.animate().alpha(0).start();
+                sloganTextView.animate().alpha(0).start();
                 ingSearchView.animate().translationY(0).start();
                 NavigationMenu activity = (NavigationMenu) getActivity();
                 activity.getCollapsingToolbar().setVisibility(View.GONE);
@@ -195,12 +188,12 @@ public class IngredientSearchFragment extends Fragment {
                 ingAdapter.notifyItemInserted(0);
                 ingRecyclerView.smoothScrollToPosition(0);
                 ingSearchView.clearQuery();
-                searchButton.setVisibility(View.VISIBLE);
+                searchButton.animate().translationY(0).start();
             }
 
             @Override
             public void onSearchAction(String query) {
-                Toast.makeText(getContext(),"onSearchAction!",Toast.LENGTH_SHORT).show();
+                goFindRecipes();
             }
         });
 
@@ -213,9 +206,20 @@ public class IngredientSearchFragment extends Fragment {
     }
 
     private void animateToStartPosition(){
-        float distance = getResources().getDimensionPixelSize(R.dimen.ingredient_search_view_trastation);
-        ingSearchView.animate().translationYBy(distance).start();
+        float distanceSearchView = getResources().getDimensionPixelSize(R.dimen.ingredient_search_view_trastation);
+        ingSearchView.animate().translationYBy(distanceSearchView).start();
         logoImaageView.animate().alpha(1).start();
+        sloganTextView.animate().alpha(1).start();
+        float distanceSearchButton = getResources().getDimensionPixelSize(R.dimen.ingredient_search_button_trastation);
+        searchButton.animate().translationYBy(distanceSearchButton).start();
+    }
+
+    protected void removeIngredientItem(int position){
+        ingAdapter.getIngredients().remove(position);
+        ingAdapter.notifyItemRemoved(position);
+        if(ingAdapter.getItemCount()==0){
+            animateToStartPosition();
+        }
     }
 
     private void loadIngredients(final Runnable callback){
@@ -227,14 +231,21 @@ public class IngredientSearchFragment extends Fragment {
                 allIngredients.removeAll(allIngredients);
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     allIngredients.add(snapshot.getValue(RecipeIngredient.class));
-                    ingSearchView.hideProgress();
-                    callback.run();
                 }
+                ingSearchView.hideProgress();
+                callback.run();
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
+    }
+
+    private void goFindRecipes(){
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.navigation_container, new RecipesResultsFragment());
+        ft.addToBackStack(null);
+        ft.commit();
     }
 
     @Override

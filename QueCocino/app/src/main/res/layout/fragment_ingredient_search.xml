@@ -14,7 +14,7 @@
         android:textSize="20sp"
         android:textColor="@android:color/white"
         android:background="@drawable/button_pimary_ripple_shape"
-        android:visibility="invisible"
+        android:translationY="@dimen/ingredient_search_button_trastation"
         android:id="@+id/ingredientsearch_button"/>
 
     <android.support.v7.widget.RecyclerView
@@ -24,7 +24,8 @@
         android:id="@+id/ingredientsearch_recyclerview"
         android:layout_above="@id/ingredientsearch_button"
         android:layout_marginTop="70dp"
-        android:clipToPadding="false"/>
+        android:clipToPadding="false"
+        android:overScrollMode="never"/>
 
     <ImageView
         android:id="@+id/ingredientsearch_logo"
@@ -44,10 +45,19 @@
         app:floatingSearch_searchBarMarginRight="@dimen/ingredient_search_view_inset_side"
         app:floatingSearch_searchHint="@string/ingredient_search_hint"
         app:floatingSearch_suggestionsListAnimDuration="250"
-        app:floatingSearch_showSearchKey="false"
+        app:floatingSearch_showSearchKey="true"
         app:floatingSearch_leftActionMode="showSearch"
         app:floatingSearch_dimBackground="false"
         app:floatingSearch_close_search_on_keyboard_dismiss="true" />
 
+    <TextView
+        android:id="@+id/ingredientsearch_slogan"
+        android:layout_width="match_parent"
+        android:translationY="330dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:textSize="25sp"
+        android:gravity="center_horizontal"
+        android:text="@string/ingredient_search_slogan"/>
 
 </RelativeLayout>

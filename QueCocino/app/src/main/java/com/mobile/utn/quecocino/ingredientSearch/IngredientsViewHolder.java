@@ -7,14 +7,25 @@ import android.widget.TextView;
 
 import com.mobile.utn.quecocino.R;
 
-public class IngredientsViewHolder extends RecyclerView.ViewHolder{
+public class IngredientsViewHolder extends RecyclerView.ViewHolder {
+
+    private IngredientSearchFragment fragment;
 
     private TextView ingredientText;
+    private ImageView closeButton;
 
-    public IngredientsViewHolder(View itemView) {
+    public IngredientsViewHolder(View itemView, IngredientSearchFragment fragment) {
         super(itemView);
+        this.fragment = fragment;
 
         ingredientText = (TextView) itemView.findViewById(R.id.ingredientsearch_ingredientText);
+        closeButton = (ImageView) itemView.findViewById(R.id.ingredientsearch_closeButton);
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                IngredientsViewHolder.this.fragment.removeIngredientItem(getAdapterPosition());
+            }
+        });
 
     }
 
@@ -22,7 +33,4 @@ public class IngredientsViewHolder extends RecyclerView.ViewHolder{
         return ingredientText;
     }
 
-    public void setIngredientText(TextView ingredientText) {
-        this.ingredientText = ingredientText;
-    }
 }
