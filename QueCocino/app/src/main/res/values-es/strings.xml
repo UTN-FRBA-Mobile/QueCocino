@@ -28,6 +28,8 @@
     <string name="filter_layout_origin">Recetas locales</string>
     <string name="filter_layout_minCookingTimeMinutes">Min:</string>
     <string name="filter_layout_maxCookingTimeMinutes">Máx:</string>
+    <string name="apply">Aplicar</string>
+    <string name="recipe_results_origin">\u0020</string>
 
     <!-- Other -->
 

@@ -58,6 +58,7 @@ public class RecipesResultsAdapter extends RecyclerView.Adapter<RecipesResultsVi
             holder.getApplianceCookingImageView().setImageResource(R.drawable.recipe_microwave);
 
         holder.getCookingTimeMinutesImageView().setImageResource(R.drawable.recipe_cookingtime);
+        holder.getOriginImageView().setImageResource(R.drawable.recipe_location);
 
         //Textos
         Resources res = this.context.getResources();
@@ -65,6 +66,7 @@ public class RecipesResultsAdapter extends RecyclerView.Adapter<RecipesResultsVi
         holder.getTitleTextView().setText(res.getString(R.string.recipe_results_title) + recipe.getTitle());
         holder.getApplianceCookingTextView().setText(res.getString(R.string.recipe_results_applianceCooking) + recipe.getApplianceCooking());
         holder.getCookingTimeMinutesTextView().setText(res.getString(R.string.recipe_results_cookingTimeMinutes) + recipe.getCookingTimeMinutes());
+        holder.getOriginTextView().setText(res.getString(R.string.recipe_results_origin) + recipe.getOrigin());
     }
 
 
