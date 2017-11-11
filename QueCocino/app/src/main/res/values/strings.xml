@@ -59,6 +59,7 @@
     <!-- Ingredient Search -->
     <string name="ingredient_search_hint">Search...</string>
     <string name="ingredient_search_button">Search</string>
+    <string name="ingredient_search_slogan">You have the ingredients,\n we have the ideas.</string>
 
 
     <!-- Recipe Search -->
