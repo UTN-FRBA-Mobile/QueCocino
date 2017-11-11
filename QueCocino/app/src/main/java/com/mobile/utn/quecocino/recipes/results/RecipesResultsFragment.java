@@ -55,7 +55,6 @@ public class RecipesResultsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_recipes_results, container, false);
-        getActivity().setTitle("Que Cocino");
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recipesRecyclerView);
 
@@ -110,14 +109,17 @@ public class RecipesResultsFragment extends Fragment {
                         case "popular":
                             activity.setFilter(new PopularFilter());
                             activity.setLastPage(page);
+                            getActivity().setTitle(R.string.navigation_item_populars);
                             break;
                         case "favorites":
                             activity.setFilter(new FavoriteFilter(getContext()));
                             activity.setLastPage(page);
+                            getActivity().setTitle(R.string.navigation_item_favorites);
                             break;
                         case "search":
                             if (!page.equalsIgnoreCase(activity.getLastPage()))activity.setFilter(new TrivialFilter());
                             activity.setLastPage(page);
+                            getActivity().setTitle(R.string.navigation_item_findRecipes);
                             break;
                         default:
                             break;

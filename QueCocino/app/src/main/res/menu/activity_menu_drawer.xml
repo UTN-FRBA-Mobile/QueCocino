@@ -5,18 +5,18 @@
         <item
         android:id="@+id/navigation.main"
         android:icon="@drawable/menu_ic_main"
-        android:title="@string/navigation.item.buscarRecetas" />
+        android:title="@string/navigation.item.findRecipes" />
         <item
             android:id="@+id/navigation.favorites"
             android:icon="@drawable/menu_ic_favorites"
-            android:title="@string/navigation.item.favoritos" />
+            android:title="@string/navigation.item.favorites" />
         <item
             android:id="@+id/navigation.populars"
             android:icon="@drawable/menu_ic_popular"
-            android:title="Populares" />
+            android:title="@string/navigation.item.populars" />
     </group>
 
-    <item android:title="Timers">
+    <item android:title="@string/navigation.item.timers">
         <menu>
             <item
                 android:id="@+id/navigation.timers"

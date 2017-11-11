@@ -47,11 +47,12 @@
     <!-- Navigation Menu -->
     <string name="navigation.drawer.open">Open navigation drawer</string>
     <string name="navigation.drawer.close">Close navigation drawer</string>
-    <string name="navigation.item.buscarRecetas">Find Recipes</string>
-    <string name="navigation.item.favoritos">Favorites</string>
+    <string name="navigation.item.findRecipes">Find Recipes</string>
+    <string name="navigation.item.favorites">Favorites</string>
+    <string name="navigation.item.populars">Favorites</string>
     <string name="navigation.item.timers">Timers</string>
-    <string name="navigation.action.buscarRecetas">Search Recipes</string>
-    <string name="navigation.action.favoritos">Favorites</string>
+    <string name="navigation.action.findRecipes">Search Recipes</string>
+    <string name="navigation.action.favorites">Favorites</string>
     <string name="navigation.action.timers">Timers</string>
     <string name="navigation.action.buttonFavorite">Favorite</string>
     <string name="navigation.action.buttonSearch">Search</string>

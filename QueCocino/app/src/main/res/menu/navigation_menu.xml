@@ -32,12 +32,12 @@
     <item
         android:id="@+id/navigation.action.buscarRecetas"
         android:orderInCategory="100"
-        android:title="@string/navigation.action.buscarRecetas"
+        android:title="@string/navigation.action.findRecipes"
         app:showAsAction="never" />
     <item
         android:id="@+id/navigation.action.favoritos"
         android:orderInCategory="100"
-        android:title="@string/navigation.action.favoritos"
+        android:title="@string/navigation.action.favorites"
         app:showAsAction="never" />
     <item
         android:id="@+id/navigation.action.timers"
