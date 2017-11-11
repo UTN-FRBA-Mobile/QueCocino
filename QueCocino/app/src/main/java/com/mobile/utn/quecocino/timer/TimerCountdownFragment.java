@@ -71,6 +71,8 @@ public class TimerCountdownFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_timer_countdown, container, false);
         ButterKnife.bind(this,view);
 
+        getActivity().setTitle(R.string.navigation_item_timers);
+
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) { }

@@ -79,6 +79,8 @@ public class IngredientSearchFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_ingredient_search, container, false);
         ButterKnife.bind(this,view);
 
+        getActivity().setTitle(R.string.app_name);
+
         setUpRecyclerView();
         setUpSearchView();
 

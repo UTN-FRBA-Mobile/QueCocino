@@ -49,7 +49,7 @@
     <string name="navigation.drawer.close">Close navigation drawer</string>
     <string name="navigation.item.findRecipes">Find Recipes</string>
     <string name="navigation.item.favorites">Favorites</string>
-    <string name="navigation.item.populars">Favorites</string>
+    <string name="navigation.item.populars">Populars</string>
     <string name="navigation.item.timers">Timers</string>
     <string name="navigation.action.findRecipes">Search Recipes</string>
     <string name="navigation.action.favorites">Favorites</string>

@@ -48,6 +48,8 @@ public class TimerRingFragment extends Fragment {
         ButterKnife.bind(this,view);
         Context context = getContext();
 
+        getActivity().setTitle(R.string.navigation_item_timers);
+
         Bundle args = getArguments();
         String alarmTag = (args!=null) ? args.getString("alarmTag") : "";
         txtTag.setText(alarmTag);

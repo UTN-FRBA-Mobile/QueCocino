@@ -43,6 +43,7 @@ public class RecipesResultsFragment extends Fragment {
     private RecipesResultsAdapter adapter;
     private FirebaseDatabase database;
     private OnFragmentInteractionCollapse mListener;
+    private NavigationMenu activity;
 
     List<Recipe> recipes;
 
@@ -51,10 +52,41 @@ public class RecipesResultsFragment extends Fragment {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        activity = (NavigationMenu) getActivity();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_recipes_results, container, false);
+
+        Bundle args = RecipesResultsFragment.this.getArguments();
+        if(args!=null) {
+            String page = args.containsKey("page") ? args.getString("page") : "";
+            switch (page){
+                case "popular":
+                    activity.setFilter(new PopularFilter());
+                    activity.setLastPage(page);
+                    activity.setTitle(R.string.navigation_item_populars);
+                    break;
+                case "favorites":
+                    activity.setFilter(new FavoriteFilter(getContext()));
+                    activity.setLastPage(page);
+                    activity.setTitle(R.string.navigation_item_favorites);
+                    break;
+                case "search":
+                    if (!page.equalsIgnoreCase(activity.getLastPage()))activity.setFilter(new TrivialFilter());
+                    activity.setLastPage(page);
+                    activity.setTitle(R.string.navigation_item_findRecipes);
+                    break;
+                default:
+                    break;
+            }
+        }
+
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recipesRecyclerView);
 
@@ -97,33 +129,6 @@ public class RecipesResultsFragment extends Fragment {
                     Recipe recipe = snapshot.getValue(Recipe.class);
                     recipe.setIdRecipe(snapshot.getKey());
                     recipes.add(recipe);
-                }
-
-                NavigationMenu activity = (NavigationMenu) getActivity();
-                //activity.setFilter(new TrivialFilter());
-
-                Bundle args = RecipesResultsFragment.this.getArguments();
-                if(args!=null) {
-                    String page = args.containsKey("page") ? args.getString("page") : "";
-                    switch (page){
-                        case "popular":
-                            activity.setFilter(new PopularFilter());
-                            activity.setLastPage(page);
-                            getActivity().setTitle(R.string.navigation_item_populars);
-                            break;
-                        case "favorites":
-                            activity.setFilter(new FavoriteFilter(getContext()));
-                            activity.setLastPage(page);
-                            getActivity().setTitle(R.string.navigation_item_favorites);
-                            break;
-                        case "search":
-                            if (!page.equalsIgnoreCase(activity.getLastPage()))activity.setFilter(new TrivialFilter());
-                            activity.setLastPage(page);
-                            getActivity().setTitle(R.string.navigation_item_findRecipes);
-                            break;
-                        default:
-                            break;
-                    }
                 }
 
                 recipes = activity.getFilter().meetCriteria(RecipesResultsFragment.this.recipes);
