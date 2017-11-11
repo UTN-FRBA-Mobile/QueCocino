@@ -22,6 +22,7 @@ import com.mobile.utn.quecocino.detailrecipe.DetailRecipe;
 import com.mobile.utn.quecocino.fragments.OnFragmentInteractionCollapse;
 import com.mobile.utn.quecocino.menu.NavigationMenu;
 import com.mobile.utn.quecocino.model.Recipe;
+import com.mobile.utn.quecocino.recipes.filter.AndFilter;
 import com.mobile.utn.quecocino.recipes.filter.FavoriteFilter;
 import com.mobile.utn.quecocino.recipes.filter.PopularFilter;
 import com.mobile.utn.quecocino.recipes.filter.TrivialFilter;
@@ -129,6 +130,38 @@ public class RecipesResultsFragment extends Fragment {
                     Recipe recipe = snapshot.getValue(Recipe.class);
                     recipe.setIdRecipe(snapshot.getKey());
                     recipes.add(recipe);
+                }
+
+                NavigationMenu activity = (NavigationMenu) getActivity();
+                //activity.setFilter(new TrivialFilter());
+
+                Bundle args = RecipesResultsFragment.this.getArguments();
+                if(args!=null) {
+                    String page = args.containsKey("page") ? args.getString("page") : "";
+                    switch (page){
+                        case "popular":
+                            if (!page.equalsIgnoreCase(activity.getLastPage())){
+                                activity.setFilter(new PopularFilter());
+                            }else{
+                                activity.setFilter(new AndFilter(activity.getFilter(), new PopularFilter()));
+                            }
+                            activity.setLastPage(page);
+                            break;
+                        case "favorites":
+                            if (!page.equalsIgnoreCase(activity.getLastPage())){
+                                activity.setFilter(new FavoriteFilter(getContext()));
+                            }else{
+                                activity.setFilter(new AndFilter(activity.getFilter(), new FavoriteFilter(getContext())));
+                            }
+                            activity.setLastPage(page);
+                            break;
+                        case "search":
+                            if (!page.equalsIgnoreCase(activity.getLastPage()))activity.setFilter(new TrivialFilter());
+                            activity.setLastPage(page);
+                            break;
+                        default:
+                            break;
+                    }
                 }
 
                 recipes = activity.getFilter().meetCriteria(RecipesResultsFragment.this.recipes);
