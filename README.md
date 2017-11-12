@@ -17,7 +17,7 @@
 
 <p align="center">
   <br>
-  <img src="https://raw.githubusercontent.com/UTN-FRBA-Mobile/QueCocino/master/img/Demo.gif" alt="QueCocino" width="200">
+  <img src="https://raw.githubusercontent.com/UTN-FRBA-Mobile/QueCocino/master/img/Demo-v2.gif" alt="QueCocino" width="200">
   <br>
 </p>
 
