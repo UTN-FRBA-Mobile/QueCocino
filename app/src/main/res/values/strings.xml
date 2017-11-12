@@ -33,6 +33,7 @@
     <string name="apply">Filter</string>
     <string name="recipe_results_origin">\u0020</string>
     <string name="recipeResults_buttonFilters">Filters</string>
+    <string name="filters_buttonApply">Apply</string>
 
     <!-- Timer -->
     <string name="timer_start">Start</string>

@@ -272,9 +272,7 @@ public class FiltersFragment extends Fragment {
             }
         });
 
-        List<Integer> itemsId = Arrays.asList(R.id.navigation_action_buscarRecetas,
-                                                R.id.navigation_action_favoritos,
-                                                    R.id.navigation_action_timers);
+        List<Integer> itemsId = Arrays.asList(R.id.filters_buttonApply);
         activity.showMenuItems(itemsId);
 
         return rootView;

@@ -4,6 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/filters.buttonApply"
+        android:icon="@drawable/filters_ic_apply"
+        android:title="@string/filters_buttonApply"
+        app:showAsAction="always"
+        android:visible="false"/>
+
+    <item
         android:id="@+id/recipeResults.buttonFilters"
         android:icon="@drawable/reciperesult_ic_filters"
         android:title="@string/recipeResults_buttonFilters"

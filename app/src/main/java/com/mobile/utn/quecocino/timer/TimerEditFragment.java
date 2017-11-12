@@ -4,6 +4,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -22,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mobile.utn.quecocino.R;
+import com.mobile.utn.quecocino.fragments.OnFragmentInteractionCollapse;
 import com.mobile.utn.quecocino.menu.NavigationMenu;
 
 import java.util.Arrays;
@@ -70,6 +72,8 @@ public class TimerEditFragment extends Fragment{
     public Button startBtn;
 
     public String hhmmss;
+
+    private OnFragmentInteractionCollapse mListener;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -167,6 +171,23 @@ public class TimerEditFragment extends Fragment{
         int mm = Integer.parseInt(hhmmss.substring(2,4));
         int ss = Integer.parseInt(hhmmss.substring(4,6));
         return (ss + mm * 60 + hh * 3600) * 1000;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mListener.disableCollapse();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionCollapse) {
+            mListener = (OnFragmentInteractionCollapse) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionCollapse");
+        }
     }
 
 }
