@@ -69,7 +69,7 @@ public class FilterBuilder {
             if (otherFilter == null){
                 otherFilter = filter;
             }else{
-                otherFilter = new AndFilter(cookingTime, filter);
+                otherFilter = new AndFilter(otherFilter, filter);
             }
         }
 
