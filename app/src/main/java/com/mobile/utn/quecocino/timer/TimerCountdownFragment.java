@@ -236,45 +236,48 @@ public class TimerCountdownFragment extends Fragment {
     }
 
     public void stopTimer() {
-        AlarmUtils.cancelAlarm(thisContext,alarmIntent,alarms.get(currentPosition).getId());
-        alarms.remove(currentPosition);
-        View viewToDelete = timerViewPagerAdapter.getView(currentPosition);
-        viewToDelete.animate()
-                    .setDuration(500)
-                    .alpha(0)
-                    .scaleXBy(-0.5f)
-                    .scaleYBy(-0.5f);
-        if(timerViewPagerAdapter.getCount()<=1) {
+        if(alarms.size()>0) {
+            AlarmUtils.cancelAlarm(thisContext,alarmIntent,alarms.get(currentPosition).getId());
+            alarms.remove(currentPosition);
+            View viewToDelete = timerViewPagerAdapter.getView(currentPosition);
             viewToDelete.animate()
-                    .withEndAction(new Runnable() {
-                        @Override
-                        public void run() {
-                            finish();
-                        }
-                    })
-                    .start();
-        } else {
-            viewToDelete.animate()
+                        .setDuration(500)
+                        .alpha(0)
+                        .scaleXBy(-0.5f)
+                        .scaleYBy(-0.5f);
+            if(timerViewPagerAdapter.getCount()<=1) {
+                viewToDelete.animate()
                         .withEndAction(new Runnable() {
                             @Override
                             public void run() {
-                                View dot = dots.get(currentPosition);
-                                dotsPanel.removeView(dot);
-                                dots.remove(currentPosition);
-                                currentPosition = timerViewPagerAdapter.removePage(viewPager,currentPosition);
-                                updateViewPager();
-
+                                finish();
                             }
                         })
                         .start();
+            } else {
+                viewToDelete.animate()
+                            .withEndAction(new Runnable() {
+                                @Override
+                                public void run() {
+                                    View dot = dots.get(currentPosition);
+                                    dotsPanel.removeView(dot);
+                                    dots.remove(currentPosition);
+                                    currentPosition = timerViewPagerAdapter.removePage(viewPager,currentPosition);
+                                    updateViewPager();
+
+                                }
+                            })
+                            .start();
+            }
         }
     }
 
     private void finish() {
         FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.popBackStack();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.remove(this);
         fragmentTransaction.replace(R.id.navigation_container, new TimerEditFragment());
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 
@@ -342,5 +345,8 @@ public class TimerCountdownFragment extends Fragment {
                     + " must implement OnFragmentInteractionCollapse");
         }
     }
+
+
+
 
 }

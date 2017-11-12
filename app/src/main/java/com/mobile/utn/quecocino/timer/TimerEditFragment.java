@@ -126,11 +126,12 @@ public class TimerEditFragment extends Fragment{
 
                 Bundle args = TimerEditFragment.this.getArguments();
                 Boolean isAddTimer = args!=null ? args.getBoolean("isAddTimer") : false;
+                fragmentManager.popBackStack();
                 if(isAddTimer){
-                    fragmentManager.popBackStackImmediate();
                 } else {
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.replace(R.id.navigation_container, new TimerCountdownFragment());
+                    fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
                 }
             }
