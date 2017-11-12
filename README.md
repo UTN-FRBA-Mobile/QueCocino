@@ -24,6 +24,20 @@
 ## Key Features
 
 * Busqueda de recetas en base a los ingredientes disponibles.
+<p align="center">
+  <img src="https://github.com/UTN-FRBA-Mobile/QueCocino/blob/master/img/Demo-Ingredientes.png" alt="QueCocino" width="200">
+</p>
+
 * Filtro de resultados por tiempo de preparación, método de cocción, etc.
+<p align="center">
+  <img src="https://github.com/UTN-FRBA-Mobile/QueCocino/blob/master/img/Demo-Filtros.png" alt="QueCocino" width="200">
+</p>
+
 * Timers automáticos en función de los pasos de las recetas.
+<p align="center">
+  <img src="https://github.com/UTN-FRBA-Mobile/QueCocino/blob/master/img/Demo-Timer.gif" alt="QueCocino" width="200">
+</p>
 * Compartir fotos de los platos reales.
+<p align="center">
+  <img src="https://github.com/UTN-FRBA-Mobile/QueCocino/blob/master/img/Demo-Compartir.png" alt="QueCocino" width="200">
+</p>
