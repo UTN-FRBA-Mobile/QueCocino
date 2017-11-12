@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "547298331472",
+    "firebase_url": "https://utn-quecocino.firebaseio.com",
+    "project_id": "utn-quecocino",
+    "storage_bucket": "utn-quecocino.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:547298331472:android:466c647041cd42a1",
+        "android_client_info": {
+          "package_name": "com.mobile.utn.quecocino"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "547298331472-h551g6pf08iu8lbgo67ph5pa425r74gr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5C90vloCG6rriSgjYspjT8cbuDFj_Vwo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
