@@ -18,7 +18,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:hint="@string/timer.tag"
+            android:hint="@string/timer_tag"
             android:textSize="30sp"
             android:layout_marginBottom="10dp"
             android:textColor="@android:color/tab_indicator_text"/>
@@ -160,7 +160,7 @@
             android:layout_width="0dp"
             android:layout_weight="0.5"
             android:layout_height="wrap_content"
-            android:text="@string/timer.start"
+            android:text="@string/timer_start"
             android:textSize="25sp"
             android:padding="15dp"
             android:background="?attr/selectableItemBackground"

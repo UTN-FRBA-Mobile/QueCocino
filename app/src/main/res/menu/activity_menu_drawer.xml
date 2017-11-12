@@ -5,23 +5,23 @@
         <item
         android:id="@+id/navigation.main"
         android:icon="@drawable/menu_ic_main"
-        android:title="@string/navigation.item.findRecipes" />
+        android:title="@string/navigation_item_findRecipes" />
         <item
             android:id="@+id/navigation.favorites"
             android:icon="@drawable/menu_ic_favorites"
-            android:title="@string/navigation.item.favorites" />
+            android:title="@string/navigation_item_favorites" />
         <item
-            android:id="@+id/navigation.populars"
+            android:id="@+id/navigation_populars"
             android:icon="@drawable/menu_ic_popular"
-            android:title="@string/navigation.item.populars" />
+            android:title="@string/navigation_item_populars" />
     </group>
 
-    <item android:title="@string/navigation.item.timers">
+    <item android:title="@string/navigation_item_timers">
         <menu>
             <item
                 android:id="@+id/navigation.timers"
                 android:icon="@drawable/menu_ic_timers"
-                android:title="@string/navigation.item.timers" />
+                android:title="@string/navigation_item_timers" />
         </menu>
     </item>
 

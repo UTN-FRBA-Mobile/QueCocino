@@ -6,42 +6,42 @@
     <item
         android:id="@+id/recipeResults.buttonFilters"
         android:icon="@drawable/reciperesult_ic_filters"
-        android:title="@string/recipeResults.buttonFilters"
+        android:title="@string/recipeResults_buttonFilters"
         app:showAsAction="always"
         android:visible="false"/>
 
     <item
         android:id="@+id/navigation.action.buttonSearch"
         android:icon="@drawable/ic_search_white"
-        android:title="@string/navigation.action.buttonSearch"
+        android:title="@string/navigation_action_buttonSearch"
         app:showAsAction="always"
         android:visible="false"/>
 
     <item
         android:id="@+id/detailRecipe.buttonFavorite"
         android:icon="@drawable/detailrecipe_favorite_unset"
-        android:title="@string/detailRecipe.buttonFavorite"
+        android:title="@string/detailRecipe_buttonFavorite"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/detailRecipe.buttonGallery"
         android:icon="@drawable/gallery_ic_insertphoto"
-        android:title="@string/detailRecipe.buttonGallery"
+        android:title="@string/detailRecipe_buttonGallery"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/navigation.action.buscarRecetas"
         android:orderInCategory="100"
-        android:title="@string/navigation.action.findRecipes"
+        android:title="@string/navigation_action_findRecipes"
         app:showAsAction="never" />
     <item
         android:id="@+id/navigation.action.favoritos"
         android:orderInCategory="100"
-        android:title="@string/navigation.action.favorites"
+        android:title="@string/navigation_action_favorites"
         app:showAsAction="never" />
     <item
         android:id="@+id/navigation.action.timers"
         android:orderInCategory="100"
-        android:title="@string/navigation.action.timers"
+        android:title="@string/navigation_action_timers"
         app:showAsAction="never" />
 </menu>

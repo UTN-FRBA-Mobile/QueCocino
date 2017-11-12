@@ -1,77 +1,77 @@
 <resources>
-    <string name="app.name">QueCocino</string>
+    <string name="app_name">QueCocino</string>
 
-    <string name="drawer.opened">Abierto</string>
-    <string name="drawer.closed">Cerrado</string>
+    <string name="drawer_opened">Abierto</string>
+    <string name="drawer_closed">Cerrado</string>
 
     <!-- Recipe Gallery -->
-    <string name="gallery.uploadButton">Subir imagen</string>
-    <string name="toast.uploadSuccess">Tu foto se ha publicado!</string>
-    <string name="progress.uploadImage">Subiendo...</string>
-    <string name="alertDialog.camera">Tomar foto</string>
-    <string name="alertDialog.gallery">Elegir de galería</string>
-    <string name="title.activity.detailrecipe">detailrecipe</string>
+    <string name="gallery_uploadButton">Subir imagen</string>
+    <string name="toast_uploadSuccess">Tu foto se ha publicado!</string>
+    <string name="progress_uploadImage">Subiendo...</string>
+    <string name="alertDialog_camera">Tomar foto</string>
+    <string name="alertDialog_gallery">Elegir de galería</string>
+    <string name="title_activity_detailrecipe">detailrecipe</string>
 
     <!-- Detail Recipe -->
-    <string name="detailRecipe.instructionsTitle">Instrucciones</string>
-    <string name="detailRecipe.ingredientsTitle">Ingredientes</string>
-    <string name="detailRecipe.buttonFavorite">Agregar Favorito</string>
-    <string name="detailRecipe.buttonGallery">Ver Galería</string>
+    <string name="detailRecipe_instructionsTitle">Instrucciones</string>
+    <string name="detailRecipe_ingredientsTitle">Ingredientes</string>
+    <string name="detailRecipe_buttonFavorite">Agregar Favorito</string>
+    <string name="detailRecipe_buttonGallery">Ver Galería</string>
 
     <!-- Recipe Results-->
-    <string name="recipe.results.author">Por\u0020</string>
-    <string name="recipe.results.title"></string>
-    <string name="recipe.results.cookingTimeMinutes">\u0020</string>
-    <string name="recipe.results.applianceCooking">\u0020</string>
-    <string name="filter.applied">¡Filtro aplicado!</string>
-    <string name="filter.layout.applianceCooking">Método de cocción</string>
-    <string name="filter.layout.cookingTimeMinutes">Tiempo de preparación (min.)</string>
-    <string name="filter.layout.origin">Recetas locales</string>
-    <string name="filter.layout.minCookingTimeMinutes">Min:</string>
-    <string name="filter.layout.maxCookingTimeMinutes">Máx:</string>
-    <string name="filter.layout.difficulty">Dificultad</string>
+    <string name="recipe_results_author">Por\u0020</string>
+    <string name="recipe_results_title"></string>
+    <string name="recipe_results_cookingTimeMinutes">\u0020</string>
+    <string name="recipe_results_applianceCooking">\u0020</string>
+    <string name="filter_applied">¡Filtro aplicado!</string>
+    <string name="filter_layout_applianceCooking">Método de cocción</string>
+    <string name="filter_layout_cookingTimeMinutes">Tiempo de preparación (min.)</string>
+    <string name="filter_layout_origin">Recetas locales</string>
+    <string name="filter_layout_minCookingTimeMinutes">Min:</string>
+    <string name="filter_layout_maxCookingTimeMinutes">Máx:</string>
+    <string name="filter_layout_difficulty">Dificultad</string>
     <string name="apply">Aplicar</string>
-    <string name="recipe.results.origin">\u0020</string>
-    <string name="recipeResults.buttonFilters">Filtros</string>
+    <string name="recipe_results_origin">\u0020</string>
+    <string name="recipeResults_buttonFilters">Filtros</string>
 
     <!-- Timer -->
-    <string name="timer.start">Comenzar</string>
-    <string name="timer.pause">Pausar</string>
-    <string name="timer.resume">Reanudar</string>
-    <string name="timer.stop">Eliminar</string>
-    <string name="timer.add">Agregar</string>
-    <string name="timer.tag">Etiqueta</string>
-    <string name="timer.ok">OK</string>
-    <string name="timer.ringMessage">Timer Finalizado!</string>
-    <string name="timer.notification.title">Hay un timer en proceso</string>
-    <string name="timer.notification.title.plural">Hay # timers en proceso</string>
+    <string name="timer_start">Comenzar</string>
+    <string name="timer_pause">Pausar</string>
+    <string name="timer_resume">Reanudar</string>
+    <string name="timer_stop">Eliminar</string>
+    <string name="timer_add">Agregar</string>
+    <string name="timer_tag">Etiqueta</string>
+    <string name="timer_ok">OK</string>
+    <string name="timer_ringMessage">Timer Finalizado!</string>
+    <string name="timer_notification_title">Hay un timer en proceso</string>
+    <string name="timer_notification_title_plural">Hay # timers en proceso</string>
 
     <!-- Navigation Menu -->
-    <string name="navigation.drawer.open">Abrir menú</string>
-    <string name="navigation.drawer.close">Cerrar menú.</string>
-    <string name="navigation.item.findRecipes">Buscar Recetas</string>
-    <string name="navigation.item.favorites">Favoritos</string>
-    <string name="navigation.item.populars">Populares</string>
-    <string name="navigation.item.timers">Timers</string>
-    <string name="navigation.action.findRecipes">Buscar Recetas</string>
-    <string name="navigation.action.favorites">Favoritos</string>
-    <string name="navigation.action.timers">Timers</string>
-    <string name="navigation.action.buttonFavorite">Favorito</string>
-    <string name="navigation.action.buttonSearch">Buscar</string>
+    <string name="navigation_drawer_open">Abrir menú</string>
+    <string name="navigation_drawer_close">Cerrar menú.</string>
+    <string name="navigation_item_findRecipes">Buscar Recetas</string>
+    <string name="navigation_item_favorites">Favoritos</string>
+    <string name="navigation_item_populars">Populares</string>
+    <string name="navigation_item_timers">Timers</string>
+    <string name="navigation_action_findRecipes">Buscar Recetas</string>
+    <string name="navigation_action_favorites">Favoritos</string>
+    <string name="navigation_action_timers">Timers</string>
+    <string name="navigation_action_buttonFavorite">Favorito</string>
+    <string name="navigation_action_buttonSearch">Buscar</string>
 
     <!-- Ingredient Search -->
-    <string name="ingredient.search.hint">Buscar...</string>
-    <string name="ingredient.search.button">Buscar</string>
-    <string name="ingredient.search.slogan">Vos tenés los ingredientes,\n nosotros las ideas.</string>
+    <string name="ingredient_search_hint">Buscar...</string>
+    <string name="ingredient_search_button">Buscar</string>
+    <string name="ingredient_search_slogan">Vos tenés los ingredientes,\n nosotros las ideas.</string>
 
     <!-- Recipe Search -->
-    <string name="recipe.search.ingredients.title">Ingredientes</string>
-    <string name="recipe.search.ingredients.add.ingredient.to.search.button">Agregar Ingredientes</string>
-    <string name="recipe.search.ingredients.search.recipe.button">Buscar Recetas</string>
-    <string name="recipe.search.ingredients.hint">Insertar Ingredientes...</string>
+    <string name="recipe_search_ingredients_title">Ingredientes</string>
+    <string name="recipe_search_ingredients_add_ingredient_to_search_button">Agregar Ingredientes</string>
+    <string name="recipe_search_ingredients_search_recipe_button">Buscar Recetas</string>
+    <string name="recipe_search_ingredients_hint">Insertar Ingredientes...</string>
 
     <!-- Without Connection -->
-    <string name="withoutconnection.title">¡Parece que no hay conexión!</string>
-    <string name="withoutconnection.subtitle">Revisa tu conexión para continuar.</string>
+    <string name="withoutconnection_title">¡Parece que no hay conexión!</string>
+    <string name="withoutconnection_subtitle">Revisa tu conexión para continuar.</string>
 
 </resources>

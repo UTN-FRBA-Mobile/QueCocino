@@ -115,7 +115,7 @@
 
             <TextView
                 android:id="@+id/detailRecipe.ingredientsTitle"
-                android:text="@string/detailRecipe.ingredientsTitle"
+                android:text="@string/detailRecipe_ingredientsTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#000000"
@@ -140,7 +140,7 @@
 
             <TextView
                 android:id="@+id/detailRecipe.instructionsTitle"
-                android:text="@string/detailRecipe.instructionsTitle"
+                android:text="@string/detailRecipe_instructionsTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#000000"
