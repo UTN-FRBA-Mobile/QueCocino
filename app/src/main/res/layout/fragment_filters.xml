@@ -1,0 +1,255 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.mobile.utn.quecocino.recipes.filter.FiltersFragment"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/colorAccentLight">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/filter_layout_applianceCooking"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                android:weightSum="1">
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/ovenButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter"
+                    app:elevation="0dp"
+                    app:borderWidth="0dp"
+                    android:src="@drawable/recipe_oven"/>
+
+                <View
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent" />
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/microwaveButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter"
+                    app:elevation="0dp"
+                    app:borderWidth="0dp"
+                    android:src="@drawable/recipe_microwave"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/filter_layout_cookingTimeMinutes"
+                android:gravity="center_horizontal"/>
+
+            <com.appyvet.materialrangebar.RangeBar
+                android:id="@+id/cookingTimeMinutesRangeBar"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                app:mrb_rangeBarPaddingBottom="12dp"
+                app:mrb_barWeight="0dp"
+                app:mrb_tickHeight="0dp"
+                app:mrb_pinMaxFont="20sp"
+                app:mrb_pinRadius="20sp"
+                app:mrb_pinColor="@color/colorAccent"
+                app:mrb_selectorBoundaryColor="@color/colorAccent"
+                app:mrb_selectorColor="@color/colorAccent"
+                app:mrb_selectorBoundarySize="2dp"
+                app:mrb_selectorSize="10dp"
+                app:mrb_connectingLineColor="@color/colorAccent"
+                app:mrb_connectingLineWeight="1dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_horizontal"
+                    android:weightSum="1"
+                    android:layout_marginTop="16dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal">
+                        <TextView
+                            android:id="@+id/filter_layout_minCookingTimeMinutes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/filter_layout_minCookingTimeMinutes"
+                            android:gravity="center_horizontal"/>
+                        </LinearLayout>
+                    <View
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal">
+                        <TextView
+                            android:id="@+id/filter_layout_maxCookingTimeMinutes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/filter_layout_maxCookingTimeMinutes"
+                            android:gravity="center_horizontal"/>
+                    </LinearLayout>
+                    </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/filter_layout_origin"
+                android:gravity="center_horizontal"
+                android:layout_marginBottom="16dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:weightSum="1">
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/gpsButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter"
+                    app:elevation="0dp"
+                    app:borderWidth="0dp"
+                    android:src="@drawable/recipe_location"/>
+
+                <ProgressBar
+                    android:id="@+id/gpsProgress"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:visibility="invisible" />
+                </FrameLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/filter_layout_difficulty"
+                android:gravity="center_horizontal"
+                android:layout_marginBottom="16dp"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                android:weightSum="1">
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/difficultyEasyButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter"
+                    app:elevation="0dp"
+                    app:borderWidth="0dp"
+                    android:src="@drawable/recipe_difficultyeasy"/>
+
+                <View
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent" />
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/difficultyMediumButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter"
+                    app:elevation="0dp"
+                    app:borderWidth="0dp"
+                    android:src="@drawable/recipe_difficultymedium"/>
+
+                <View
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent" />
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/difficultyHardButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter"
+                    app:elevation="0dp"
+                    app:borderWidth="0dp"
+                    android:src="@drawable/recipe_difficultyhard"/>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="bottom"
+                android:paddingBottom="16dp"
+                android:paddingTop="16dp">
+
+                <Button
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/filterButton"
+                    android:text="@string/apply"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </FrameLayout>
+</ScrollView>

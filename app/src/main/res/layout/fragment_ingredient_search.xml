@@ -1,0 +1,64 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.mobile.utn.quecocino.ingredientSearch.IngredientSearchFragment">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="30dp"
+        android:text="@string/ingredient_search_button"
+        android:textSize="20sp"
+        android:textColor="@android:color/white"
+        android:background="@drawable/button_pimary_ripple_shape"
+        android:translationY="@dimen/ingredient_search_button_trastation"
+        android:id="@+id/ingredientsearch_button"
+        android:textAllCaps="false"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:scrollbars="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/ingredientsearch_recyclerview"
+        android:layout_above="@id/ingredientsearch_button"
+        android:layout_marginTop="@dimen/ingredient_search_recycler_margin_top"
+        android:clipToPadding="false"
+        android:overScrollMode="never"/>
+
+    <ImageView
+        android:id="@+id/ingredientsearch_logo"
+        android:layout_width="match_parent"
+        android:layout_height="210dp"
+        android:layout_margin="25dp"
+        android:src="@mipmap/ic_launcher"/>
+
+    <com.arlib.floatingsearchview.FloatingSearchView
+        android:id="@+id/ingredientsearch_floating_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:translationY="@dimen/ingredient_search_view_trastation"
+        app:floatingSearch_dismissOnOutsideTouch="true"
+        app:floatingSearch_searchBarMarginLeft="@dimen/ingredient_search_view_inset_side"
+        app:floatingSearch_searchBarMarginTop="@dimen/ingredient_search_view_inset_top"
+        app:floatingSearch_searchBarMarginRight="@dimen/ingredient_search_view_inset_side"
+        app:floatingSearch_searchHint="@string/ingredient_search_hint"
+        app:floatingSearch_suggestionsListAnimDuration="250"
+        app:floatingSearch_showSearchKey="true"
+        app:floatingSearch_leftActionMode="showSearch"
+        app:floatingSearch_dimBackground="false"
+        app:floatingSearch_close_search_on_keyboard_dismiss="true" />
+
+    <TextView
+        android:id="@+id/ingredientsearch_slogan"
+        android:layout_width="match_parent"
+        android:translationY="330dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:textSize="25sp"
+        android:gravity="center_horizontal"
+        android:text="@string/ingredient_search_slogan"/>
+
+</RelativeLayout>

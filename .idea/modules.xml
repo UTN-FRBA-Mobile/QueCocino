@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-<<<<<<< HEAD
-      <module fileurl="file://$PROJECT_DIR$/QueCocino/app/src/androidTest/androidTest.iml" filepath="$PROJECT_DIR$/QueCocino/app/src/androidTest/androidTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/QueCocino/app/src/main/main.iml" filepath="$PROJECT_DIR$/QueCocino/app/src/main/main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/QueCocino/app/src/test/test.iml" filepath="$PROJECT_DIR$/QueCocino/app/src/test/test.iml" />
-=======
-      <module fileurl="file://$PROJECT_DIR$/.idea/QueCocino.iml" filepath="$PROJECT_DIR$/.idea/QueCocino.iml" />
->>>>>>> e6df4b7c73e85fdc01844d2a5a68f8f340b2c178
+      <module fileurl="file://$PROJECT_DIR$/QueCocino.iml" filepath="$PROJECT_DIR$/QueCocino.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
 </project>

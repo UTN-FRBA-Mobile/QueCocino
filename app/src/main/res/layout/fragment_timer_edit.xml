@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.mobile.utn.quecocino.timer.TimerEditFragment"
+    android:padding="10dp"
+    android:gravity="center"
+    android:id="@+id/timerLayout">
+
+    <TableRow
+        android:weightSum="1"
+        android:gravity="center" >
+
+        <EditText
+            android:id="@+id/timerTagEdit"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:hint="@string/timer_tag"
+            android:textSize="30sp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@android:color/tab_indicator_text"/>
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/timerInput"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            android:gravity="center"
+            android:text="00h 00m 00s"
+            android:textSize="45dp" />
+
+        <LinearLayout
+            android:id="@+id/timerDeleteLayout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            android:gravity="start|bottom">
+
+            <ImageView
+                android:id="@+id/timerDeleteBtn"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/circle_ripple_shape"
+                android:clickable="true"
+                android:padding="10dp"
+                android:src="@android:drawable/ic_input_delete" />
+        </LinearLayout>
+
+    </TableRow>
+
+    <View
+        style="@style/Divider" />
+
+    <TableRow android:weightSum="3"
+        android:paddingTop="0dp">
+
+        <LinearLayout style="@style/NumberContainer">
+            <Button
+                android:id="@+id/timerBtn1"
+                style="@style/NumberButton"
+                android:text="1" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/NumberContainer">
+            <Button
+                android:id="@+id/timerBtn2"
+                style="@style/NumberButton"
+                android:text="2" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/NumberContainer">
+            <Button
+                android:id="@+id/timerBtn3"
+                style="@style/NumberButton"
+                android:text="3" />
+        </LinearLayout>
+
+    </TableRow>
+
+    <TableRow android:weightSum="3">
+
+        <LinearLayout style="@style/NumberContainer">
+            <Button
+                android:id="@+id/timerBtn4"
+                style="@style/NumberButton"
+                android:text="4" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/NumberContainer">
+            <Button
+                android:id="@+id/timerBtn5"
+                style="@style/NumberButton"
+                android:text="5" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/NumberContainer">
+            <Button
+                android:id="@+id/timerBtn6"
+                style="@style/NumberButton"
+                android:text="6" />
+        </LinearLayout>
+
+    </TableRow>
+
+    <TableRow android:weightSum="3">
+
+        <LinearLayout style="@style/NumberContainer">
+            <Button
+                android:id="@+id/timerBtn7"
+                style="@style/NumberButton"
+                android:text="7" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/NumberContainer">
+            <Button
+                android:id="@+id/timerBtn8"
+                style="@style/NumberButton"
+                android:text="8" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/NumberContainer">
+            <Button
+                android:id="@+id/timerBtn9"
+                style="@style/NumberButton"
+                android:text="9" />
+        </LinearLayout>
+
+    </TableRow>
+
+    <TableRow
+        android:weightSum="3"
+        android:gravity="center" >
+
+        <LinearLayout style="@style/NumberContainer">
+            <Button
+                android:id="@+id/timerBtn0"
+                style="@style/NumberButton"
+                android:text="0" />
+        </LinearLayout>
+
+    </TableRow>
+
+    <TableRow
+        android:weightSum="1"
+        android:gravity="center" >
+
+        <Button
+            android:id="@+id/timerStart"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="wrap_content"
+            android:text="@string/timer_start"
+            android:textSize="25sp"
+            android:padding="15dp"
+            android:background="?attr/selectableItemBackground"
+            android:textColor="@color/colorPrimaryDark"
+            android:visibility="invisible"/>
+
+    </TableRow>
+
+</TableLayout>

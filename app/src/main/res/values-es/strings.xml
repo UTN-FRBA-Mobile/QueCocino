@@ -1,0 +1,79 @@
+<resources>
+    <string name="app_name">QueCocino</string>
+
+    <string name="drawer_opened">Abierto</string>
+    <string name="drawer_closed">Cerrado</string>
+
+    <!-- Recipe Gallery -->
+    <string name="gallery_uploadButton">Subir imagen</string>
+    <string name="toast_uploadSuccess">Tu foto se ha publicado!</string>
+    <string name="progress_uploadImage">Subiendo...</string>
+    <string name="title_activity_detailrecipe">detailrecipe</string>
+    <string name="gallery_takepicturefab">Tomar foto</string>
+    <string name="gallery_insertphotofab">Elegir de galería</string>
+
+    <!-- Detail Recipe -->
+    <string name="detailRecipe_instructionsTitle">Instrucciones</string>
+    <string name="detailRecipe_ingredientsTitle">Ingredientes</string>
+    <string name="detailRecipe_buttonFavorite">Agregar Favorito</string>
+    <string name="detailRecipe_buttonGallery">Ver Galería</string>
+    <string name="detailRecipe_itemSchedule">Programar</string>
+
+    <!-- Recipe Results-->
+    <string name="recipe_results_author">Por\u0020</string>
+    <string name="recipe_results_title"></string>
+    <string name="recipe_results_cookingTimeMinutes">\u0020</string>
+    <string name="recipe_results_applianceCooking">\u0020</string>
+    <string name="filter_applied">¡Filtro aplicado!</string>
+    <string name="filter_layout_applianceCooking">Método de cocción</string>
+    <string name="filter_layout_cookingTimeMinutes">Tiempo de preparación (min.)</string>
+    <string name="filter_layout_origin">Recetas locales</string>
+    <string name="filter_layout_minCookingTimeMinutes">Min:</string>
+    <string name="filter_layout_maxCookingTimeMinutes">Máx:</string>
+    <string name="filter_layout_difficulty">Dificultad</string>
+    <string name="apply">Aplicar</string>
+    <string name="recipe_results_origin">\u0020</string>
+    <string name="recipeResults_buttonFilters">Filtros</string>
+    <string name="filters_buttonApply">Aplicar</string>
+
+    <!-- Timer -->
+    <string name="timer_start">Comenzar</string>
+    <string name="timer_pause">Pausar</string>
+    <string name="timer_resume">Reanudar</string>
+    <string name="timer_stop">Eliminar</string>
+    <string name="timer_add">Agregar</string>
+    <string name="timer_tag">Etiqueta</string>
+    <string name="timer_ok">OK</string>
+    <string name="timer_ringMessage">Timer Finalizado!</string>
+    <string name="timer_notification_title">Hay un timer en proceso</string>
+    <string name="timer_notification_title_plural">Hay # timers en proceso</string>
+
+    <!-- Navigation Menu -->
+    <string name="navigation_drawer_open">Abrir menú</string>
+    <string name="navigation_drawer_close">Cerrar menú.</string>
+    <string name="navigation_item_findRecipes">Buscar Recetas</string>
+    <string name="navigation_item_favorites">Favoritos</string>
+    <string name="navigation_item_populars">Populares</string>
+    <string name="navigation_item_timers">Timers</string>
+    <string name="navigation_action_findRecipes">Buscar Recetas</string>
+    <string name="navigation_action_favorites">Favoritos</string>
+    <string name="navigation_action_timers">Timers</string>
+    <string name="navigation_action_buttonFavorite">Favorito</string>
+    <string name="navigation_action_buttonSearch">Buscar</string>
+
+    <!-- Ingredient Search -->
+    <string name="ingredient_search_hint">Buscar...</string>
+    <string name="ingredient_search_button">Buscar</string>
+    <string name="ingredient_search_slogan">Vos tenés los ingredientes,\n nosotros las ideas.</string>
+
+    <!-- Recipe Search -->
+    <string name="recipe_search_ingredients_title">Ingredientes</string>
+    <string name="recipe_search_ingredients_add_ingredient_to_search_button">Agregar Ingredientes</string>
+    <string name="recipe_search_ingredients_search_recipe_button">Buscar Recetas</string>
+    <string name="recipe_search_ingredients_hint">Insertar Ingredientes...</string>
+
+    <!-- Without Connection -->
+    <string name="withoutconnection_title">¡Parece que no hay conexión!</string>
+    <string name="withoutconnection_subtitle">Revisa tu conexión para continuar.</string>
+
+</resources>
