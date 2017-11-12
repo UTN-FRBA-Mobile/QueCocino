@@ -53,7 +53,7 @@
             android:src="@drawable/gallery_ic_camera"
             app:fab_colorNormal="@color/colorPrimary"
             app:fab_colorPressed="@color/colorAccent"
-            app:fab_label="Tomar foto"
+            app:fab_label="@string/gallery_takepicturefab"
             app:fab_size="mini"/>
 
         <com.github.clans.fab.FloatingActionButton
@@ -63,7 +63,7 @@
             android:src="@drawable/gallery_ic_insertphoto"
             app:fab_colorNormal="@color/colorPrimary"
             app:fab_colorPressed="@color/colorAccent"
-            app:fab_label="Elegir de galería"
+            app:fab_label="@string/gallery_insertphotofab"
             app:fab_size="mini" />
 
     </com.github.clans.fab.FloatingActionMenu>

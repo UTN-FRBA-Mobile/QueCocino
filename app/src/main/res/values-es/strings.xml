@@ -8,15 +8,16 @@
     <string name="gallery_uploadButton">Subir imagen</string>
     <string name="toast_uploadSuccess">Tu foto se ha publicado!</string>
     <string name="progress_uploadImage">Subiendo...</string>
-    <string name="alertDialog_camera">Tomar foto</string>
-    <string name="alertDialog_gallery">Elegir de galería</string>
     <string name="title_activity_detailrecipe">detailrecipe</string>
+    <string name="gallery_takepicturefab">Tomar foto</string>
+    <string name="gallery_insertphotofab">Elegir de galería</string>
 
     <!-- Detail Recipe -->
     <string name="detailRecipe_instructionsTitle">Instrucciones</string>
     <string name="detailRecipe_ingredientsTitle">Ingredientes</string>
     <string name="detailRecipe_buttonFavorite">Agregar Favorito</string>
     <string name="detailRecipe_buttonGallery">Ver Galería</string>
+    <string name="detailRecipe_itemSchedule">Programar</string>
 
     <!-- Recipe Results-->
     <string name="recipe_results_author">Por\u0020</string>

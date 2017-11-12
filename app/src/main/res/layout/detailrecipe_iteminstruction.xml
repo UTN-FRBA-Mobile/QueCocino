@@ -44,7 +44,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_gravity="center_vertical"
-                    android:text="Programar"
+                    android:text="@string/detailRecipe_itemSchedule"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="@android:color/black"
                     android:textSize="15dp"/>
