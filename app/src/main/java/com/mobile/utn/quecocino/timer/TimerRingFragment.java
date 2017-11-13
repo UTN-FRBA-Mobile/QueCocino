@@ -1,6 +1,7 @@
 package com.mobile.utn.quecocino.timer;
 
 
+import android.app.NotificationManager;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static android.content.Context.NOTIFICATION_SERVICE;
 import static android.content.Context.VIBRATOR_SERVICE;
 
 public class TimerRingFragment extends Fragment {
@@ -71,6 +73,9 @@ public class TimerRingFragment extends Fragment {
         NavigationMenu activity = (NavigationMenu) getActivity();
         activity.showMenuItems(new ArrayList<Integer>());
 
+        NotificationManager notificationmanager = (NotificationManager) getContext().getSystemService(NOTIFICATION_SERVICE);
+        notificationmanager.cancel(0);
+
         return view;
     }
 
@@ -91,4 +96,17 @@ public class TimerRingFragment extends Fragment {
         }
     }
 
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Context thisContext = getContext();
+        List<TimerAlarm> alarms = AlarmUtils.getAlarms(thisContext);
+        int count = alarms.size();
+        if(count==1){
+            AlarmUtils.notifyTimer(thisContext,alarms.get(0));
+        } else if (count>1) {
+            AlarmUtils.notifyTimers(thisContext,count);
+        }
+    }
 }

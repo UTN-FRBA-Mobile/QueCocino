@@ -153,8 +153,8 @@ public class TimerEditFragment extends Fragment{
     private void setAlarm(){
         Long millis = System.currentTimeMillis()+getTimeInMillis();
         String tag = tagEdit.getText().toString();
-        Intent i = new Intent(this.getActivity(), TimerAlarmReceiver.class);
-        int alarmId = AlarmUtils.addAlarm(this.getActivity(), i, millis, tag);
+
+        Intent i = new Intent(this.getActivity(), TimerAlarmReceiver.class);int alarmId = AlarmUtils.addAlarm(this.getActivity(), i, millis, tag);
     }
 
     private void updateTimerInput() {

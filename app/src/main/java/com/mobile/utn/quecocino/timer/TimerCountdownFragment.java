@@ -201,9 +201,9 @@ public class TimerCountdownFragment extends Fragment {
             }
         }
         if(count==1){
-            notifyTimer(runningAlarm);
+            AlarmUtils.notifyTimer(thisContext,runningAlarm);
         } else if (count>1) {
-            notifyTimers(count);
+            AlarmUtils.notifyTimers(thisContext,count);
         }
     }
 
@@ -236,40 +236,46 @@ public class TimerCountdownFragment extends Fragment {
     }
 
     public void stopTimer() {
-        if(alarms.size()>0) {
-            AlarmUtils.cancelAlarm(thisContext,alarmIntent,alarms.get(currentPosition).getId());
-            alarms.remove(currentPosition);
-            View viewToDelete = timerViewPagerAdapter.getView(currentPosition);
+        buttonsEnabled(false);
+        AlarmUtils.cancelAlarm(thisContext,alarmIntent,alarms.get(currentPosition).getId());
+        alarms.remove(currentPosition);
+        View viewToDelete = timerViewPagerAdapter.getView(currentPosition);
+        viewToDelete.animate()
+                    .setDuration(500)
+                    .alpha(0)
+                    .scaleXBy(-0.5f)
+                    .scaleYBy(-0.5f);
+        if(timerViewPagerAdapter.getCount()<=1) {
             viewToDelete.animate()
-                        .setDuration(500)
-                        .alpha(0)
-                        .scaleXBy(-0.5f)
-                        .scaleYBy(-0.5f);
-            if(timerViewPagerAdapter.getCount()<=1) {
-                viewToDelete.animate()
+                    .withEndAction(new Runnable() {
+                        @Override
+                        public void run() {
+                            buttonsEnabled(true);
+                            finish();
+                        }
+                    })
+                    .start();
+        } else {
+            viewToDelete.animate()
                         .withEndAction(new Runnable() {
                             @Override
                             public void run() {
-                                finish();
+                                View dot = dots.get(currentPosition);
+                                dotsPanel.removeView(dot);
+                                dots.remove(currentPosition);
+                                currentPosition = timerViewPagerAdapter.removePage(viewPager,currentPosition);
+                                updateViewPager();
+                                buttonsEnabled(true);
                             }
                         })
                         .start();
-            } else {
-                viewToDelete.animate()
-                            .withEndAction(new Runnable() {
-                                @Override
-                                public void run() {
-                                    View dot = dots.get(currentPosition);
-                                    dotsPanel.removeView(dot);
-                                    dots.remove(currentPosition);
-                                    currentPosition = timerViewPagerAdapter.removePage(viewPager,currentPosition);
-                                    updateViewPager();
-
-                                }
-                            })
-                            .start();
-            }
         }
+    }
+
+    private void buttonsEnabled(boolean enabled) {
+        pauseBtn.setClickable(enabled);
+        addBtn.setClickable(enabled);
+        stopBtn.setClickable(enabled);
     }
 
     private void finish() {
@@ -279,56 +285,6 @@ public class TimerCountdownFragment extends Fragment {
         fragmentTransaction.replace(R.id.navigation_container, new TimerEditFragment());
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-    }
-
-    private void notifyTimers(int count) {
-        Intent intent = new Intent(thisContext, NavigationMenu.class);
-        intent.putExtra("fragment", "timerCountdown");
-        PendingIntent contentPI = PendingIntent.getActivity(thisContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(thisContext)
-                .setSmallIcon(R.drawable.recipe_cookingtime)
-                .setTicker("Timer Running")
-                .setContentTitle(getString(R.string.timer_notification_title_plural).replace("#",String.valueOf(count)))
-                .setColor(ContextCompat.getColor(thisContext,R.color.colorPrimaryDark))
-                .setContentIntent(contentPI)
-                .setAutoCancel(true);
-
-        NotificationManager notificationmanager = (NotificationManager) thisContext.getSystemService(NOTIFICATION_SERVICE);
-        notificationmanager.notify(0, builder.build());
-    }
-
-    private void notifyTimer(TimerAlarm alarm) {
-        int alarmId = alarm.getId();
-        PendingIntent contentPI = buildPendingIntent(thisContext, alarmId, alarmId, "");
-        PendingIntent pausePI = buildPendingIntent(thisContext,alarmId+1, alarmId, "pause");
-        PendingIntent stopPI = buildPendingIntent(thisContext,alarmId+2, alarmId,"stop");
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(thisContext)
-                .setSmallIcon(R.drawable.recipe_cookingtime)
-                .setTicker("Timer Running")
-                .setContentTitle(getString(R.string.timer_notification_title))
-                .addAction(R.drawable.ic_pause_white, getString(R.string.timer_pause), pausePI)
-                .addAction(R.drawable.ic_stop_white, getString(R.string.timer_stop), stopPI)
-                .setColor(ContextCompat.getColor(thisContext,R.color.colorPrimaryDark))
-                .setContentIntent(contentPI)
-                .setWhen(alarm.getTime())
-                .setAutoCancel(true);
-
-        if(!alarm.getTag().isEmpty()) {
-            builder.setContentText(alarm.getTag());
-        }
-
-        NotificationManager notificationmanager = (NotificationManager) thisContext.getSystemService(NOTIFICATION_SERVICE);
-        notificationmanager.notify(0, builder.build());
-    }
-
-    private PendingIntent buildPendingIntent(Context context, int requestId, int alarmId, String action){
-        Intent intent = new Intent(context, NavigationMenu.class);
-        intent.putExtra("fragment", "timerCountdown");
-        intent.putExtra("timerAction",action);
-        intent.putExtra("alarmId",alarmId);
-        return PendingIntent.getActivity(context, requestId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
     @Override

@@ -1,13 +1,19 @@
 package com.mobile.utn.quecocino.timer;
 
 import android.app.AlarmManager;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.preference.PreferenceManager;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.util.LongSparseArray;
+
+import com.mobile.utn.quecocino.R;
+import com.mobile.utn.quecocino.menu.NavigationMenu;
 
 import org.json.JSONArray;
 
@@ -17,6 +23,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static android.content.Context.NOTIFICATION_SERVICE;
 
 public abstract class AlarmUtils {
 
@@ -192,4 +200,55 @@ public abstract class AlarmUtils {
 
         editor.apply();
     }
+
+    public static void notifyTimers(Context context, int count) {
+        Intent intent = new Intent(context, NavigationMenu.class);
+        intent.putExtra("fragment", "timerCountdown");
+        PendingIntent contentPI = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
+                .setSmallIcon(R.drawable.recipe_cookingtime)
+                .setTicker("Timer Running")
+                .setContentTitle(context.getString(R.string.timer_notification_title_plural).replace("#",String.valueOf(count)))
+                .setColor(ContextCompat.getColor(context,R.color.colorPrimaryDark))
+                .setContentIntent(contentPI)
+                .setAutoCancel(true);
+
+        NotificationManager notificationmanager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
+        notificationmanager.notify(0, builder.build());
+    }
+
+    public static void notifyTimer(Context context, TimerAlarm alarm) {
+        int alarmId = alarm.getId();
+        PendingIntent contentPI = buildPendingIntent(context, alarmId, alarmId, "");
+        PendingIntent pausePI = buildPendingIntent(context,alarmId+1, alarmId, "pause");
+        PendingIntent stopPI = buildPendingIntent(context,alarmId+2, alarmId,"stop");
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
+                .setSmallIcon(R.drawable.recipe_cookingtime)
+                .setTicker("Timer Running")
+                .setContentTitle(context.getString(R.string.timer_notification_title))
+                .addAction(R.drawable.ic_pause_white, context.getString(R.string.timer_pause), pausePI)
+                .addAction(R.drawable.ic_stop_white, context.getString(R.string.timer_stop), stopPI)
+                .setColor(ContextCompat.getColor(context,R.color.colorPrimaryDark))
+                .setContentIntent(contentPI)
+                .setWhen(alarm.getTime())
+                .setAutoCancel(true);
+
+        if(!alarm.getTag().isEmpty()) {
+            builder.setContentText(alarm.getTag());
+        }
+
+        NotificationManager notificationmanager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
+        notificationmanager.notify(0, builder.build());
+    }
+
+    private static PendingIntent buildPendingIntent(Context context, int requestId, int alarmId, String action){
+        Intent intent = new Intent(context, NavigationMenu.class);
+        intent.putExtra("fragment", "timerCountdown");
+        intent.putExtra("timerAction",action);
+        intent.putExtra("alarmId",alarmId);
+        return PendingIntent.getActivity(context, requestId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+    }
+
 }
