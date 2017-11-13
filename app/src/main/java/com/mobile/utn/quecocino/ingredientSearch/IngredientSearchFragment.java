@@ -207,7 +207,11 @@ public class IngredientSearchFragment extends Fragment {
 
             @Override
             public void onSearchAction(String query) {
-                goFindRecipes();
+                if (ingAdapter.getItemCount()>0) {
+                    goFindRecipes();
+                } else {
+                    Toast.makeText(getContext(),R.string.ingredient_search_alert,Toast.LENGTH_LONG).show();
+                }
             }
         });
 

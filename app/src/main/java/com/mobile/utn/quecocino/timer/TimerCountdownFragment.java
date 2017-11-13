@@ -201,7 +201,7 @@ public class TimerCountdownFragment extends Fragment {
             }
         }
         if(count==1){
-            notifyTimer(runningAlarm.getId(),runningAlarm.getTag());
+            notifyTimer(runningAlarm);
         } else if (count>1) {
             notifyTimers(count);
         }
@@ -298,8 +298,9 @@ public class TimerCountdownFragment extends Fragment {
         notificationmanager.notify(0, builder.build());
     }
 
-    private void notifyTimer(int alarmId, String tag) {
-        PendingIntent contentPI = buildPendingIntent(thisContext,alarmId, alarmId, "");
+    private void notifyTimer(TimerAlarm alarm) {
+        int alarmId = alarm.getId();
+        PendingIntent contentPI = buildPendingIntent(thisContext, alarmId, alarmId, "");
         PendingIntent pausePI = buildPendingIntent(thisContext,alarmId+1, alarmId, "pause");
         PendingIntent stopPI = buildPendingIntent(thisContext,alarmId+2, alarmId,"stop");
 
@@ -311,10 +312,11 @@ public class TimerCountdownFragment extends Fragment {
                 .addAction(R.drawable.ic_stop_white, getString(R.string.timer_stop), stopPI)
                 .setColor(ContextCompat.getColor(thisContext,R.color.colorPrimaryDark))
                 .setContentIntent(contentPI)
+                .setWhen(alarm.getTime())
                 .setAutoCancel(true);
 
-        if(!tag.isEmpty()) {
-            builder.setContentText(tag);
+        if(!alarm.getTag().isEmpty()) {
+            builder.setContentText(alarm.getTag());
         }
 
         NotificationManager notificationmanager = (NotificationManager) thisContext.getSystemService(NOTIFICATION_SERVICE);

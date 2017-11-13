@@ -62,9 +62,10 @@
     <string name="navigation_action_buttonSearch">Buscar</string>
 
     <!-- Ingredient Search -->
-    <string name="ingredient_search_hint">Buscar...</string>
+    <string name="ingredient_search_hint">Agregar ingredientes...</string>
     <string name="ingredient_search_button">Buscar</string>
     <string name="ingredient_search_slogan">Vos tenés los ingredientes,\n nosotros las ideas.</string>
+    <string name="ingredient_search_alert">Debe agregar al menos un ingrediente.</string>
 
     <!-- Recipe Search -->
     <string name="recipe_search_ingredients_title">Ingredientes</string>
