@@ -115,8 +115,8 @@ public class IngredientSearchFragment extends Fragment {
         if(!ingAdapter.getIngredients().isEmpty()){
             logoImaageView.setAlpha(0f);
             sloganTextView.setAlpha(0f);
-            ingSearchView.setTranslationY(0);
             searchButton.setTranslationY(0);
+            ingSearchView.setTranslationY(0);
         }
 
         ingSearchView.setOnQueryChangeListener(new FloatingSearchView.OnQueryChangeListener() {
