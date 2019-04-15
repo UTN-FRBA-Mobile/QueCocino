@@ -2,7 +2,6 @@ package com.mobile.utn.quecocino.ingredientSearch;
 
 
 import android.content.Context;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.support.annotation.Nullable;
@@ -11,12 +10,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,16 +20,16 @@ import android.widget.Toast;
 
 import com.arlib.floatingsearchview.FloatingSearchView;
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.mobile.utn.quecocino.R;
 import com.mobile.utn.quecocino.fragments.OnFragmentInteractionCollapse;
 import com.mobile.utn.quecocino.menu.NavigationMenu;
 import com.mobile.utn.quecocino.model.RecipeIngredient;
 import com.mobile.utn.quecocino.recipes.results.RecipesResultsFragment;
-import com.mobile.utn.quecocino.utils.RecyclerTouchListener;
+import com.mobile.utn.quecocino.utils.ApiRestClient;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,8 +37,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static com.mobile.utn.quecocino.model.FirebaseReferences.INGREDIENTS_REFERENCE;
+import cz.msebera.android.httpclient.Header;
 
 public class IngredientSearchFragment extends Fragment {
 
@@ -251,21 +246,61 @@ public class IngredientSearchFragment extends Fragment {
 
     private void loadIngredients(final Runnable callback){
         ingSearchView.showProgress();
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        database.getReference(INGREDIENTS_REFERENCE).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                allIngredients.removeAll(allIngredients);
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    allIngredients.add(snapshot.getValue(RecipeIngredient.class));
-                }
-                ingSearchView.hideProgress();
-                callback.run();
-            }
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//        database.getReference(INGREDIENTS_REFERENCE).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                allIngredients.removeAll(allIngredients);
+//                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+//                    allIngredients.add(snapshot.getValue(RecipeIngredient.class));
+//                }
+//                ingSearchView.hideProgress();<
+//                callback.run();
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {}
+//        })
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {}
-        });
+            System.out.println("Paso por aca");
+            ApiRestClient.get("ingredients", null, new JsonHttpResponseHandler() {
+
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    // If the response is JSONObject instead of expected JSONArray
+                    System.out.println("asa");
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                    System.out.println("SUPER EXCEPTION");
+//                    AsyncHttpClient.log.w(LOG_TAG, "onFailure(int, Header[], String, Throwable) was not overriden, but callback was received", throwable);
+                }
+
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONArray ingredientsArray) {
+                    // Pull out the first event on the public timeline
+                    System.out.println("ALL GUT MATE");
+                    try {
+
+                        for (int i = 0 ; i < ingredientsArray.length() ; i++){
+
+                            JSONObject object = (JSONObject) ingredientsArray.get(i);
+                            RecipeIngredient ingredient = new RecipeIngredient();
+                            ingredient.setDescription(object.getString("name"));
+                            allIngredients.add(ingredient);
+                        }
+                        ingSearchView.hideProgress();
+                        callback.run();
+                    }
+                    catch (Exception e){
+                        System.out.println("asa EXCEPTION");
+                    }
+
+                }
+
+            });
+
     }
 
     private void goFindRecipes(){
